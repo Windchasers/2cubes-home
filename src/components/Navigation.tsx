@@ -56,7 +56,7 @@ export default function Navigation() {
           <div className="container mx-auto p-6">
             <div className="flex justify-between items-center mb-10">
               <div className="head-text entitle">
-                <Link href="/" onClick={() => setIsOpen(false)}>another</Link>
+                <Link href="/" onClick={() => setIsOpen(false)}>2cubes_</Link>
                 <span>design</span>
               </div>
               <div className="cursor-pointer" onClick={toggleMenu}>

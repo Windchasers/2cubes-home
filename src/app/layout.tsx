@@ -17,13 +17,13 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div className="min-h-screen flex flex-col">
-          <header className="p-6">
+          <header className="p-8">
             <div className="flex justify-between items-center">
-              <div className="logo-nav">
-                <div className="logo-text">
-                  <a href="/" className="hover:opacity-80 transition-opacity">another</a>
-                  <span id="random" className="ml-2">design</span>
-                </div>
+              <div className="logo-nav p-2">
+                <a href="/" className="hover:opacity-80 transition-opacity">
+                  <img src="/images/logo-main.png" alt="Another Design Logo" className="h-14" />
+                </a>
+                {/* <span id="random" className="ml-2 text-4xl font-bold">design</span> */}
               </div>
 
               <Navigation />
