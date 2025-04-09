@@ -11,14 +11,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  // Generate params for project IDs 1 through 20
-  return Array.from({ length: 20 }, (_, i) => ({
+  // Generate params for project IDs 1 through 6 (based on available project folders)
+  return Array.from({ length: 6 }, (_, i) => ({
     id: String(i + 1),
   }));
 }
 
 export default function ProjectDetailPage({ params }: Props) {
   const { id } = params;
+
+  // 使用占位图URL，避免在静态生成时尝试加载不存在的图片
+  const mainImageUrl = `https://placehold.co/800x600/e2e2e2/white?text=Project+${id}+Main+Image`;
+  const detail1ImageUrl = `https://placehold.co/800x600/e2e2e2/white?text=Project+${id}+Detail+1`;
+  const detail2ImageUrl = `https://placehold.co/800x600/e2e2e2/white?text=Project+${id}+Detail+2`;
 
   return (
     <div className="container mx-auto p-6 pt-16">
@@ -30,31 +35,19 @@ export default function ProjectDetailPage({ params }: Props) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="project-images space-y-4">
           <img
-            src={`/images/projects/${id}/main.jpg`}
+            src={mainImageUrl}
             alt={`Project ${id} Main Image`}
             className="w-full"
-            onError={(e) => {
-              // 如果图片加载失败，使用占位图
-              e.currentTarget.src = `https://placehold.co/800x600/e2e2e2/white?text=Project+${id}+Main+Image`;
-            }}
           />
           <img
-            src={`/images/projects/${id}/detail-1.jpg`}
+            src={detail1ImageUrl}
             alt={`Project ${id} Detail 1`}
             className="w-full"
-            onError={(e) => {
-              // 如果图片加载失败，使用占位图
-              e.currentTarget.src = `https://placehold.co/800x600/e2e2e2/white?text=Project+${id}+Detail+1`;
-            }}
           />
           <img
-            src={`/images/projects/${id}/detail-2.jpg`}
+            src={detail2ImageUrl}
             alt={`Project ${id} Detail 2`}
             className="w-full"
-            onError={(e) => {
-              // 如果图片加载失败，使用占位图
-              e.currentTarget.src = `https://placehold.co/800x600/e2e2e2/white?text=Project+${id}+Detail+2`;
-            }}
           />
         </div>
 
