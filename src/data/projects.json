@@ -1,0 +1,142 @@
+{
+  "categories": [
+    { "id": "all", "name": "全部" },
+    { "id": "branding", "name": "品牌设计" },
+    { "id": "web", "name": "网站设计" },
+    { "id": "installation", "name": "装置艺术" },
+    { "id": "curation", "name": "策展" },
+    { "id": "digital", "name": "数字媒体" },
+    { "id": "exhibition", "name": "展览设计" },
+    { "id": "books", "name": "书籍设计" },
+    { "id": "environment", "name": "环境设计" },
+    { "id": "animation", "name": "动画" }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "品牌重塑项目",
+      "subtitle": "为客户打造全新品牌形象",
+      "category": "branding",
+      "year": "2024",
+      "client": "某科技公司",
+      "services": ["品牌设计", "视觉识别系统", "营销物料"],
+      "description": "这是一个全面的品牌重塑项目，我们为客户创建了新的品牌标识、视觉语言和应用系统。通过深入了解客户的业务和目标受众，我们设计了一套既现代又具有前瞻性的品牌形象，帮助客户在竞争激烈的市场中脱颖而出。",
+      "content": [
+        "项目背景：客户是一家成立十年的科技公司，随着业务的发展和市场的变化，原有的品牌形象已经无法准确传达公司的价值观和愿景。",
+        "设计挑战：如何在保留品牌原有认知的基础上，注入新的活力和现代感，同时确保新的品牌形象能够适应各种应用场景。",
+        "解决方案：我们采用了简洁而有力的设计语言，结合动态元素和灵活的色彩系统，创造出一个既有连续性又充满创新的品牌形象。"
+      ],
+      "images": [
+        "/images/projects/1/main.jpg",
+        "/images/projects/1/detail1.jpg",
+        "/images/projects/1/detail2.jpg"
+      ],
+      "thumbnail": "/images/projects/1/thumbnail.jpg"
+    },
+    {
+      "id": 2,
+      "title": "响应式网站设计",
+      "subtitle": "现代化的用户体验设计",
+      "category": "web",
+      "year": "2023",
+      "client": "某设计工作室",
+      "services": ["网站设计", "用户体验", "前端开发"],
+      "description": "为客户设计并开发了一个现代化的响应式网站，展示其作品集并提升品牌形象。网站采用了最新的设计趋势和技术，确保在各种设备上都能提供出色的用户体验。",
+      "content": [
+        "项目目标：创建一个能够充分展示客户作品的网站，同时提供流畅的用户体验和清晰的导航结构。",
+        "设计理念：采用极简主义设计，让内容成为焦点，同时通过微妙的动画和交互效果增强用户体验。",
+        "技术实现：使用最新的前端技术栈，确保网站加载速度快、性能优异，并在各种设备上都能完美展示。"
+      ],
+      "images": [
+        "/images/projects/2/main.jpg",
+        "/images/projects/2/detail1.jpg",
+        "/images/projects/2/detail2.jpg"
+      ],
+      "thumbnail": "/images/projects/2/thumbnail.jpg"
+    },
+    {
+      "id": 3,
+      "title": "互动装置艺术",
+      "subtitle": "融合技术与艺术的沉浸式体验",
+      "category": "installation",
+      "year": "2023",
+      "client": "某艺术展览",
+      "services": ["装置设计", "交互设计", "技术实现"],
+      "description": "为艺术展览创作了一个互动装置，通过传感器和投影技术，让观众成为作品的一部分。这个装置探索了人与技术、个体与集体之间的关系。",
+      "content": [
+        "创作理念：探索数字时代中人与技术的关系，以及个体行为如何影响集体体验。",
+        "技术实现：结合动作捕捉传感器、实时图像处理和多通道投影，创造出响应观众行为的动态视觉效果。",
+        "观众反馈：装置获得了广泛好评，许多观众表示这种互动体验让他们重新思考了自己与技术和他人的关系。"
+      ],
+      "images": [
+        "/images/projects/3/main.jpg",
+        "/images/projects/3/detail1.jpg",
+        "/images/projects/3/detail2.jpg"
+      ],
+      "thumbnail": "/images/projects/3/thumbnail.jpg"
+    },
+    {
+      "id": 4,
+      "title": "艺术展览策划",
+      "subtitle": "当代艺术主题展",
+      "category": "curation",
+      "year": "2022",
+      "client": "某艺术中心",
+      "services": ["展览策划", "艺术家协调", "展览设计"],
+      "description": "策划了一场探索当代社会议题的艺术展览，汇集了多位艺术家的作品。从概念发展到空间规划，我们负责了展览的各个方面，创造了一个引人入胜的叙事体验。",
+      "content": [
+        "策展理念：通过不同艺术家的视角和媒介，探讨全球化背景下的身份认同和文化交流。",
+        "空间设计：精心设计的展览路线引导观众经历一段渐进式的叙事旅程，每个空间都与展出的作品形成对话。",
+        "公共项目：除了展览本身，还组织了一系列讲座、工作坊和表演，扩展了展览的主题并增强了公众参与度。"
+      ],
+      "images": [
+        "/images/projects/4/main.jpg",
+        "/images/projects/4/detail1.jpg",
+        "/images/projects/4/detail2.jpg"
+      ],
+      "thumbnail": "/images/projects/4/thumbnail.jpg"
+    },
+    {
+      "id": 5,
+      "title": "数字媒体艺术",
+      "subtitle": "探索数字与现实的边界",
+      "category": "digital",
+      "year": "2022",
+      "client": "独立项目",
+      "services": ["数字艺术", "编程", "视觉设计"],
+      "description": "这是一个探索数字媒体可能性的实验性项目，结合了生成艺术、数据可视化和互动元素，创造出一个既视觉震撼又富有思考性的数字体验。",
+      "content": [
+        "创作背景：这个项目源于对数字技术如何塑造我们感知和体验世界方式的思考。",
+        "技术探索：使用自定义算法和实时数据，创造出不断演变的视觉形态，每次体验都是独特的。",
+        "展示形式：作品以网络艺术和实体展览两种形式呈现，探索了数字与物理空间的关系。"
+      ],
+      "images": [
+        "/images/projects/5/main.jpg",
+        "/images/projects/5/detail1.jpg",
+        "/images/projects/5/detail2.jpg"
+      ],
+      "thumbnail": "/images/projects/5/thumbnail.jpg"
+    },
+    {
+      "id": 6,
+      "title": "书籍设计系列",
+      "subtitle": "当代文学作品集",
+      "category": "books",
+      "year": "2021",
+      "client": "某出版社",
+      "services": ["书籍设计", "排版", "封面设计"],
+      "description": "为一系列当代文学作品设计了书籍装帧和排版。每本书的设计都反映了作品的内容和风格，同时作为一个系列保持了视觉上的一致性。",
+      "content": [
+        "设计理念：通过精心的排版和材质选择，增强读者与文本之间的联系，让物理书籍在数字时代仍然保持其独特的价值。",
+        "视觉系统：为整个系列创建了一套连贯但又灵活的视觉语言，每本书都有其独特性，同时又能被识别为系列的一部分。",
+        "工艺细节：特别关注印刷工艺和装订细节，选择了环保材料和特殊的印刷技术，提升了书籍作为物理对象的质感。"
+      ],
+      "images": [
+        "/images/projects/6/main.jpg",
+        "/images/projects/6/detail1.jpg",
+        "/images/projects/6/detail2.jpg"
+      ],
+      "thumbnail": "/images/projects/6/thumbnail.jpg"
+    }
+  ]
+}
