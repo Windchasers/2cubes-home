@@ -1,0 +1,38 @@
+{
+  "navigation": {
+    "design": "设计",
+    "about": "关于",
+    "contact": "联系"
+  },
+  "projectType": "项目类型",
+  "categories": {
+    "all": "全部",
+    "branding": "品牌设计",
+    "web": "网站设计",
+    "installation": "装置艺术",
+    "curation": "策展",
+    "digital": "数字媒体",
+    "exhibition": "展览设计",
+    "books": "书籍设计",
+    "environment": "环境设计",
+    "animation": "动画"
+  },
+  "footer": {
+    "contactUs": "联系我们",
+    "tel": "电话"
+  },
+  "about": {
+    "designTitle": "设计",
+    "teamTitle": "团队",
+    "coFounder": "联合创始人 & 创意总监",
+    "artDirector": "艺术总监",
+    "projectManager": "项目经理",
+    "designer": "设计师",
+    "intern": "实习生",
+    "award": "奖项"
+  },
+  "language": {
+    "zh": "中文",
+    "en": "英文"
+  }
+}

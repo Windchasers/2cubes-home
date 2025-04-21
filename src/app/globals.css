@@ -151,12 +151,4 @@ body {
   z-index: -1;
 }
 
-/* Fixed footer */
-.fixed-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 1rem;
-  background-color: transparent;
-}
+/* 移除fixed-footer类，使用LayoutContent.tsx中的常规footer */

@@ -2,30 +2,32 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 // Mock project categories
-const categories = [
-  { id: 'all', name: 'all' },
-  { id: 'branding', name: 'branding' },
-  { id: 'web', name: 'web' },
-  { id: 'installation', name: 'installation' },
-  { id: 'curation', name: 'curation' },
-  { id: 'digital', name: 'digital' },
-  { id: 'exhibition', name: 'exhibition' },
-  { id: 'books', name: 'books' },
-  { id: 'environment', name: 'environment' },
-  { id: 'animation', name: 'animation' },
+const categoryIds = [
+  'all',
+  'branding',
+  'web',
+  'installation',
+  'curation',
+  'digital',
+  'exhibition',
+  'books',
+  'environment',
+  'animation',
 ];
 
 // Mock projects
 const projects = Array.from({ length: 20 }, (_, i) => ({
   id: i + 1,
   title: `Project ${i + 1}`,
-  category: categories[Math.floor(Math.random() * categories.length)].id,
+  category: categoryIds[Math.floor(Math.random() * categoryIds.length)],
   image: `https://placehold.co/600x400/e2e2e2/white?text=Project+${i + 1}`,
 }));
 
 export default function ProjectsPage() {
+  const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('all');
 
   const filteredProjects = activeCategory === 'all'
@@ -35,17 +37,17 @@ export default function ProjectsPage() {
   return (
     <div className="container mx-auto p-6 pt-16">
       <div className="mb-8">
-        <div className="text-sm text-gray-500 mb-2">project type</div>
+        <div className="text-sm text-gray-500 mb-2">{t('projectType')}</div>
         <div className="flex flex-wrap gap-4">
-          {categories.map((category) => (
+          {categoryIds.map((categoryId) => (
             <button
-              key={category.id}
+              key={categoryId}
               className={`text-sm ${
-                activeCategory === category.id ? 'font-bold' : 'text-gray-600'
+                activeCategory === categoryId ? 'font-bold' : 'text-gray-600'
               }`}
-              onClick={() => setActiveCategory(category.id)}
+              onClick={() => setActiveCategory(categoryId)}
             >
-              {category.name}
+              {t(`categories.${categoryId}`)}
             </button>
           ))}
         </div>

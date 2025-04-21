@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   // Close menu when route changes
   useEffect(() => {
@@ -37,8 +39,54 @@ export default function Navigation() {
     });
   };
 
+  // 切换语言函数
+  const toggleLanguage = () => {
+    setLanguage(language === 'zh' ? 'en' : 'zh');
+  };
+
+  // 添加媒体查询样式到组件
+  useEffect(() => {
+    // 创建样式元素
+    const styleEl = document.createElement('style');
+    styleEl.innerHTML = `
+      @media (max-width: 640px) {
+        .language-switcher {
+          top: 4rem !important;
+          right: 6px !important;
+        }
+      }
+    `;
+    // 添加到文档头部
+    document.head.appendChild(styleEl);
+
+    // 清理函数
+    return () => {
+      document.head.removeChild(styleEl);
+    };
+  }, []);
+
   return (
     <>
+      {/* 语言切换按钮 */}
+      <div 
+        className="cursor-pointer fixed top-6 right-20 z-50 bg-transparent p-2 flex space-x-1 language-switcher" 
+        style={{ width: '60px', height: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+      >
+        <span 
+          className={`text-sm font-medium ${language === 'zh' ? 'text-black' : 'text-gray-400 hover:text-blue-500'} transition-colors duration-200`}
+          onClick={() => setLanguage('zh')}
+        >
+          ZH
+        </span>
+        <span className="text-sm">/</span>
+        <span 
+          className={`text-sm font-medium ${language === 'en' ? 'text-black' : 'text-gray-400 hover:text-blue-500'} transition-colors duration-200`}
+          onClick={() => setLanguage('en')}
+        >
+          EN
+        </span>
+      </div>
+
       <div 
         className="cursor-pointer fixed top-6 right-6 z-50 bg-transparent p-2" 
         onClick={toggleMenu}
@@ -72,7 +120,7 @@ export default function Navigation() {
                     onClick={() => setIsOpen(false)}
                     className="text-2xl hover:opacity-70 transition-opacity block"
                   >
-                    design
+                    {t('navigation.design')}
                   </Link>
                 </li>
                 <li>
@@ -81,7 +129,7 @@ export default function Navigation() {
                     onClick={() => setIsOpen(false)}
                     className="text-2xl hover:opacity-70 transition-opacity block"
                   >
-                    about
+                    {t('navigation.about')}
                   </Link>
                 </li>
                 <li>
@@ -90,8 +138,30 @@ export default function Navigation() {
                     onClick={() => setIsOpen(false)}
                     className="text-2xl hover:opacity-70 transition-opacity block"
                   >
-                    contact
+                    {t('navigation.contact')}
                   </Link>
+                </li>
+                <li className="mt-6">
+                  <div className="flex gap-4">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLanguage('zh');
+                      }}
+                      className={`text-lg ${language === 'zh' ? 'font-bold' : 'text-gray-500'}`}
+                    >
+                      {t('language.zh')}
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLanguage('en');
+                      }}
+                      className={`text-lg ${language === 'en' ? 'font-bold' : 'text-gray-500'}`}
+                    >
+                      {t('language.en')}
+                    </button>
+                  </div>
                 </li>
               </ul>
             </div>

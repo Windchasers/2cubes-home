@@ -23,9 +23,9 @@ export default function ContactPage() {
           <h2 className="contact-title">contact</h2>
           <div className="content">
             <p className="mb-2">商务合作 Business Contact</p>
-            <p className="mb-2">business@another-lab.com</p>
+            <p className="mb-2">business@2cubes.cn.com</p>
             <p className="mb-4">出版及应聘Publication & Job</p>
-            <p className="mb-2">info@another-lab.com</p>
+            <p className="mb-2">info@2cubes.cn.com</p>
             <p className="mb-2">tel: 020-89636400</p>
           </div>
         </div>

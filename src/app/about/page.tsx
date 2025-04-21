@@ -1,27 +1,40 @@
+'use client';
+
+import { useLanguage } from '@/contexts/LanguageContext';
+
 export default function AboutPage() {
+  const { language, t } = useLanguage();
+  
   return (
     <div className="container mx-auto p-6 pt-16">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="about-section">
-          <h2 className="about-title">design</h2>
-          <p className="mb-4">
-            another design is a transmedia visual design team. The multidisciplinary integration encourages it to challenge the traditional way of thinking, expand the boundary of design language, and explore the diversity of design in different fields.
-          </p>
-          <p className="mb-4">
-            Specializing in design strategies crossing culture and business, the team devotes to provide professional services and innovative strategies for its clients by seeking the balance between cultural and commercial programs.
-          </p>
-          <p className="mb-4 text-gray-500">
-            another design 是一个跨媒介视觉设计团队，多元学科的交融让它挑战传统思维模式,拓展设计语言的边界，探索不同领域中设计的多样性。
-          </p>
-          <p className="mb-4 text-gray-500">
-            专注于跨越文化与商业的设计策略，通过寻求文化性与商业性项目之间的平衡，为客户提供专业的服务与创新的策略。
-          </p>
+          <h2 className="about-title">{t('about.designTitle')}</h2>
+          {language === 'en' ? (
+            <>
+              <p className="mb-4">
+                another design is a transmedia visual design team. The multidisciplinary integration encourages it to challenge the traditional way of thinking, expand the boundary of design language, and explore the diversity of design in different fields.
+              </p>
+              <p className="mb-4">
+                Specializing in design strategies crossing culture and business, the team devotes to provide professional services and innovative strategies for its clients by seeking the balance between cultural and commercial programs.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="mb-4">
+                another design 是一个跨媒介视觉设计团队，多元学科的交融让它挑战传统思维模式,拓展设计语言的边界，探索不同领域中设计的多样性。
+              </p>
+              <p className="mb-4">
+                专注于跨越文化与商业的设计策略，通过寻求文化性与商业性项目之间的平衡，为客户提供专业的服务与创新的策略。
+              </p>
+            </>
+          )}
         </div>
 
         <div className="about-section mt-12 md:mt-0">
-          <h2 className="about-title">team</h2>
+          <h2 className="about-title">{t('about.teamTitle')}</h2>
           <div className="mb-8">
-            <h3 className="text-lg font-bold mb-2">Co-founder & Creative Director</h3>
+            <h3 className="text-lg font-bold mb-2">{t('about.coFounder')}</h3>
             <p>LIU Zhao</p>
             <p className="text-sm text-gray-600 mt-2">AGI / Alliance Graphique Internationale (AGI) member</p>
             <p className="text-sm text-gray-600">Chairman/Academic Committee of Shenzhen Graphic Design Association</p>
@@ -41,39 +54,39 @@ export default function AboutPage() {
           </div>
 
           <div className="mb-8">
-            <h3 className="text-lg font-bold mb-2">Co-founder & Creative Director</h3>
+            <h3 className="text-lg font-bold mb-2">{t('about.coFounder')}</h3>
             <p>ZHAN Huode</p>
             <p className="text-sm text-gray-600 mt-2">AGI member</p>
             <p className="text-sm text-gray-600">Member of Shenzhen Graphic Design Association</p>
           </div>
 
           <div className="mb-8">
-            <h3 className="text-lg font-bold mb-2">Art Director</h3>
+            <h3 className="text-lg font-bold mb-2">{t('about.artDirector')}</h3>
             <p>DU Xiaojun</p>
             <p>LI Lexuan</p>
           </div>
 
           <div className="mb-8">
-            <h3 className="text-lg font-bold mb-2">Project Manager</h3>
+            <h3 className="text-lg font-bold mb-2">{t('about.projectManager')}</h3>
             <p>FU Difan</p>
             <p>Cabbie</p>
           </div>
 
           <div className="mb-8">
-            <h3 className="text-lg font-bold mb-2">Designer</h3>
+            <h3 className="text-lg font-bold mb-2">{t('about.designer')}</h3>
             <p>CHEN Kai</p>
             <p>Deng Di</p>
           </div>
 
           <div className="mb-8">
-            <h3 className="text-lg font-bold mb-2">Intern</h3>
+            <h3 className="text-lg font-bold mb-2">{t('about.intern')}</h3>
             <p>Huang Miaoyan</p>
           </div>
         </div>
       </div>
 
       <div className="about-section mt-16">
-        <h2 className="about-title">award</h2>
+        <h2 className="about-title">{t('about.award')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <h3 className="text-lg font-bold mb-4">2023</h3>

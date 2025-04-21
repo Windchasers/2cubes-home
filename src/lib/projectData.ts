@@ -1,6 +1,7 @@
 import { ProjectsData, Project, Category, ProjectDetailedInfo } from '../types/project';
 import projectsData from '../data/projects.json';
 import projectDetailsData from '../data/projectDetails.json';
+import { processProjectImages, processProjectsImages } from './imageUtils';
 
 /**
  * 获取所有项目类别
@@ -15,7 +16,7 @@ export function getCategories(): Category[] {
  * @returns 项目数组
  */
 export function getAllProjects(): Project[] {
-  return projectsData.projects;
+  return processProjectsImages(projectsData.projects);
 }
 
 /**
@@ -25,7 +26,8 @@ export function getAllProjects(): Project[] {
  */
 export function getProjectById(id: number | string): Project | undefined {
   const numericId = typeof id === 'string' ? parseInt(id, 10) : id;
-  return projectsData.projects.find(project => project.id === numericId);
+  const project = projectsData.projects.find(project => project.id === numericId);
+  return project ? processProjectImages(project) : undefined;
 }
 
 /**
@@ -35,9 +37,10 @@ export function getProjectById(id: number | string): Project | undefined {
  */
 export function getProjectsByCategory(categoryId: string): Project[] {
   if (categoryId === 'all') {
-    return projectsData.projects;
+    return processProjectsImages(projectsData.projects);
   }
-  return projectsData.projects.filter(project => project.category === categoryId);
+  const filteredProjects = projectsData.projects.filter(project => project.category === categoryId);
+  return processProjectsImages(filteredProjects);
 }
 
 /**

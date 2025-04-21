@@ -1,0 +1,38 @@
+{
+  "navigation": {
+    "design": "Design",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "projectType": "Project Type",
+  "categories": {
+    "all": "All",
+    "branding": "Branding",
+    "web": "Web Design",
+    "installation": "Installation Art",
+    "curation": "Curation",
+    "digital": "Digital Media",
+    "exhibition": "Exhibition Design",
+    "books": "Book Design",
+    "environment": "Environmental Design",
+    "animation": "Animation"
+  },
+  "footer": {
+    "contactUs": "Contact Us",
+    "tel": "Tel"
+  },
+  "about": {
+    "designTitle": "Design",
+    "teamTitle": "Team",
+    "coFounder": "Co-founder & Creative Director",
+    "artDirector": "Art Director",
+    "projectManager": "Project Manager",
+    "designer": "Designer",
+    "intern": "Intern",
+    "award": "Award"
+  },
+  "language": {
+    "zh": "Chinese",
+    "en": "English"
+  }
+}

@@ -2,35 +2,39 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-// Mock project categories
-const categories = [
-  { id: 'all', name: 'all' },
-  { id: 'branding', name: 'branding' },
-  { id: 'web', name: 'web' },
-  { id: 'installation', name: 'installation' },
-  { id: 'curation', name: 'curation' },
-  { id: 'digital', name: 'digital' },
-  { id: 'exhibition', name: 'exhibition' },
-  { id: 'books', name: 'books' },
-  { id: 'environment', name: 'environment' },
-  { id: 'animation', name: 'animation' },
+// Project categories
+const categoryIds = [
+  'all',
+  'branding',
+  'web',
+  'installation',
+  'curation',
+  'digital',
+  'exhibition',
+  'books',
+  'environment',
+  'animation',
 ];
 
 // Mock projects
 const projects = Array.from({ length: 20 }, (_, i) => ({
   id: i + 1,
   title: `Project ${i + 1}`,
-  category: categories[Math.floor(Math.random() * categories.length)].id,
+  category: categoryIds[Math.floor(Math.random() * categoryIds.length)],
   // 使用新的图片引用规范 - 缩略图路径
   image: `/images/projects/${i + 1}/thumbnail.jpg`,
   // 如果图片不存在，使用占位图
   imageFallback: `https://placehold.co/600x400/e2e2e2/white?text=Project+${i + 1}`,
 }));
 
+
 export default function HomePage() {
+  const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('all');
   const [randomWord, setRandomWord] = useState('design');
+  
 
   // This effect simulates the random word change on the original site
   useEffect(() => {
@@ -59,17 +63,17 @@ export default function HomePage() {
     <div className="relative min-h-screen">
       <div className="container mx-auto p-6 pt-16">
         <div className="mb-8">
-          <div className="text-sm text-gray-500 mb-2">project type</div>
+          <div className="text-sm text-gray-500 mb-2">{t('projectType')}</div>
           <div className="flex flex-wrap gap-4">
-            {categories.map((category) => (
+            {categoryIds.map((categoryId) => (
               <button
-                key={category.id}
+                key={categoryId}
                 className={`text-sm ${
-                  activeCategory === category.id ? 'font-bold' : 'text-gray-600'
+                  activeCategory === categoryId ? 'font-bold' : 'text-gray-600'
                 }`}
-                onClick={() => setActiveCategory(category.id)}
+                onClick={() => setActiveCategory(categoryId)}
               >
-                {category.name}
+                {t(`categories.${categoryId}`)}
               </button>
             ))}
           </div>
@@ -94,13 +98,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className="fixed-footer">
-        <div className="container mx-auto px-6">
-          <div className="footerinfo">
-            <p className="text-sm">contact us: info@another-lab.com&nbsp;&nbsp;tel: 020-89636400</p>
-          </div>
-        </div>
-      </div>
+      {/* 移除固定在底部的footer，因为已经在LayoutContent.tsx中有了footer元素 */}
     </div>
   );
 }
