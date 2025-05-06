@@ -3,26 +3,49 @@
     {
       "id": 1,
       "title": "品牌重塑项目",
+      "titleEn": "Brand Redesign Project",
       "subtitle": "为客户打造全新品牌形象",
+      "subtitleEn": "Creating a new brand identity for clients",
       "category": "branding",
       "year": "2024",
       "client": "某科技公司",
+      "clientEn": "Tech Company",
       "services": ["品牌设计", "视觉识别系统", "营销物料"],
+      "servicesEn": ["Brand Design", "Visual Identity System", "Marketing Materials"],
       "description": "这是一个全面的品牌重塑项目，我们为客户创建了新的品牌标识、视觉语言和应用系统。通过深入了解客户的业务和目标受众，我们设计了一套既现代又具有前瞻性的品牌形象，帮助客户在竞争激烈的市场中脱颖而出。",
+      "descriptionEn": "This is a comprehensive brand redesign project where we created a new brand identity, visual language, and application system for the client. By deeply understanding the client's business and target audience, we designed a modern and forward-looking brand image that helps the client stand out in a competitive market.",
       "content": [
         "项目背景：客户是一家成立十年的科技公司，随着业务的发展和市场的变化，原有的品牌形象已经无法准确传达公司的价值观和愿景。",
         "设计挑战：如何在保留品牌原有认知的基础上，注入新的活力和现代感，同时确保新的品牌形象能够适应各种应用场景。",
         "解决方案：我们采用了简洁而有力的设计语言，结合动态元素和灵活的色彩系统，创造出一个既有连续性又充满创新的品牌形象。"
       ],
-      "images": [
-        "/images/projects/1/main.jpg",
-        "/images/projects/1/detail1.jpg",
-        "/images/projects/1/detail2.jpg"
+      "contentEn": [
+        "Project Background: The client is a tech company established ten years ago. With the development of business and changes in the market, the original brand image could no longer accurately convey the company's values and vision.",
+        "Design Challenge: How to inject new vitality and modernity while retaining the brand's original recognition, and ensuring the new brand image can adapt to various application scenarios.",
+        "Solution: We adopted a concise and powerful design language, combined with dynamic elements and a flexible color system, creating a brand image that is both continuous and innovative."
       ],
-      "thumbnail": "/images/projects/1/thumbnail.jpg",
+      "images": [
+        "/images/projects/1/mixtape海报 2.jpg",
+        "/images/projects/1/mixtape效果图折页.jpg",
+        "/images/projects/1/mixtape4.12效果图堆叠.jpg",
+        "/images/projects/1/mixtape4.12效果图斜视横.jpg",
+        "/images/projects/1/mixtape4.12效果图2.jpg",
+        "/images/projects/1/mixtape4.12效果图22.jpg",
+        "/images/projects/1/mixtape1.3增加.jpg",
+        "/images/projects/1/mixtape4.12补充-1-2.jpg",
+        "/images/projects/1/mixtape4.12补充-2.jpg",
+        "/images/projects/1/mixtape4.12补充-3.jpg",
+        "/images/projects/1/mixtape效果图折页-2.jpg"
+      ],
+      "thumbnail": "/images/projects/1/mixtape海报 2.jpg",
+      "videos": [
+        "/videos/projects/1/完整动态.MP4"
+      ],
       "detailedInfo": {
         "challenge": "客户面临的主要挑战是如何在保持品牌认知的同时，更新其视觉形象以反映公司的发展和现代价值观。原有的品牌标识已有十年历史，显得过时且缺乏灵活性。",
+        "challengeEn": "The main challenge faced by the client was how to update their visual image to reflect the company's development and modern values while maintaining brand recognition. The original brand identity was ten years old, outdated, and lacked flexibility.",
         "solution": "我们通过深入研究和多轮设计迭代，创造了一个既尊重品牌历史又面向未来的新形象。新的品牌系统包括更新的标志、定制字体、动态图形元素和全面的应用指南。",
+        "solutionEn": "Through in-depth research and multiple design iterations, we created a new image that both respects the brand's history and faces the future. The new brand system includes updated logos, custom fonts, dynamic graphic elements, and comprehensive application guidelines.",
         "process": [
           "研究与发现：深入了解客户业务、目标受众和市场环境",
           "概念开发：探索多种设计方向和视觉语言",
@@ -30,29 +53,49 @@
           "系统构建：开发完整的品牌应用系统和指南",
           "实施与培训：协助客户团队正确应用新品牌"
         ],
+        "processEn": [
+          "Research & Discovery: In-depth understanding of client business, target audience, and market environment",
+          "Concept Development: Exploring multiple design directions and visual languages",
+          "Design Refinement: Adjusting and perfecting the selected design direction based on client feedback",
+          "System Building: Developing a complete brand application system and guidelines",
+          "Implementation & Training: Assisting the client team in correctly applying the new brand"
+        ],
         "results": "新品牌形象获得了客户团队和市场的积极反响。品牌重塑后的六个月内，客户报告品牌认知度提升了35%，客户满意度提高了28%。新的品牌形象成功地传达了公司的创新精神和专业能力。",
+        "resultsEn": "The new brand image received positive feedback from the client team and the market. Within six months after the brand redesign, the client reported a 35% increase in brand awareness and a 28% improvement in customer satisfaction. The new brand image successfully conveyed the company's innovative spirit and professional capabilities.",
         "testimonial": {
           "quote": "这次品牌重塑不仅给了我们一个全新的视觉形象，更重要的是帮助我们重新思考了品牌价值和市场定位。新的品牌形象完美地体现了我们的愿景，并为我们的市场传播提供了强有力的支持。",
+          "quoteEn": "This brand redesign not only gave us a new visual image but, more importantly, helped us rethink our brand value and market positioning. The new brand image perfectly embodies our vision and provides strong support for our market communication.",
           "author": "张总监",
-          "position": "市场部负责人"
+          "authorEn": "Director Zhang",
+          "position": "市场部负责人",
+          "positionEn": "Marketing Director"
         },
         "teamMembers": [
           {
             "name": "李设计师",
-            "role": "创意总监"
+            "nameEn": "Designer Li",
+            "role": "创意总监",
+            "roleEn": "Creative Director"
           },
           {
             "name": "王设计师",
-            "role": "品牌设计师"
+            "nameEn": "Designer Wang",
+            "role": "品牌设计师",
+            "roleEn": "Brand Designer"
           },
           {
             "name": "赵设计师",
-            "role": "视觉设计师"
+            "nameEn": "Designer Zhao",
+            "role": "视觉设计师",
+            "roleEn": "Visual Designer"
           }
         ],
         "technologies": ["Adobe Illustrator", "Adobe Photoshop", "Adobe InDesign", "Figma"],
+        "technologiesEn": ["Adobe Illustrator", "Adobe Photoshop", "Adobe InDesign", "Figma"],
         "duration": "3个月",
-        "location": "上海"
+        "durationEn": "3 months",
+        "location": "上海",
+        "locationEn": "Shanghai"
       }
     },
     {

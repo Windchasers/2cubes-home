@@ -7,18 +7,57 @@ import { useLanguage } from '@/contexts/LanguageContext';
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  
+  // 全局强制启用滚动功能
+  useEffect(() => {
+    // 确保在组件挂载后启用滚动
+    document.body.style.overflow = 'auto';
+    
+    // 添加路由变化监听器，确保在每次路由变化后启用滚动
+    const enableScroll = () => {
+      setTimeout(() => {
+        document.body.style.overflow = 'auto';
+        console.log('Global scroll enabled by route change');
+      }, 500);
+    };
+    
+    // 监听路由变化事件
+    window.addEventListener('popstate', enableScroll);
+    
+    return () => {
+      window.removeEventListener('popstate', enableScroll);
+    };
+  }, []);
 
-  // Close menu when route changes
+  // Close menu when route changes and ensure body scroll is restored
   useEffect(() => {
     const handleRouteChange = () => {
       setIsOpen(false);
+      // Ensure body scroll is restored when navigating between pages
+      document.body.style.overflow = 'auto';
     };
 
     window.addEventListener('popstate', handleRouteChange);
+    
+    // Also handle Next.js client-side navigation
+    const handleClick = () => {
+      // 强制设置body滚动为可用，无论菜单状态如何
+      // 增加延迟时间以确保导航完成后再启用滚动
+      setTimeout(() => {
+        document.body.style.overflow = 'auto';
+        console.log('Navigation complete: scroll enabled');
+      }, 300);
+    };
+    
+    // Add click event listeners to all internal links
+    const links = document.querySelectorAll('a[href^="/"]');
+    links.forEach(link => link.addEventListener('click', handleClick));
+    
     return () => {
       window.removeEventListener('popstate', handleRouteChange);
+      links.forEach(link => link.removeEventListener('click', handleClick));
     };
-  }, []);
+  }, [isOpen]);
 
   const toggleMenu = () => {
     console.log('toggleMenu called, current isOpen:', isOpen);
@@ -117,7 +156,16 @@ export default function Navigation() {
                 <li>
                   <Link
                     href="/"
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => {
+                      setIsOpen(false);
+                      // 确保在导航到主页时恢复滚动
+                      document.body.style.overflow = 'auto';
+                      // 增加延迟以确保导航完成后再次设置滚动状态
+                      setTimeout(() => {
+                        document.body.style.overflow = 'auto';
+                        console.log('Home page navigation: scroll enabled');
+                      }, 300);
+                    }}
                     className="text-2xl hover:opacity-70 transition-opacity block"
                   >
                     {t('navigation.design')}
@@ -126,7 +174,16 @@ export default function Navigation() {
                 <li>
                   <Link
                     href="/about"
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => {
+                      setIsOpen(false);
+                      // 确保在导航到about页面时恢复滚动
+                      document.body.style.overflow = 'auto';
+                      // 增加延迟以确保导航完成后再次设置滚动状态
+                      setTimeout(() => {
+                        document.body.style.overflow = 'auto';
+                        console.log('About page navigation: scroll enabled');
+                      }, 300);
+                    }}
                     className="text-2xl hover:opacity-70 transition-opacity block"
                   >
                     {t('navigation.about')}
@@ -135,7 +192,16 @@ export default function Navigation() {
                 <li>
                   <Link
                     href="/contact"
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => {
+                      setIsOpen(false);
+                      // 确保在导航到联系页面时恢复滚动
+                      document.body.style.overflow = 'auto';
+                      // 增加延迟以确保导航完成后再次设置滚动状态
+                      setTimeout(() => {
+                        document.body.style.overflow = 'auto';
+                        console.log('Contact page navigation: scroll enabled');
+                      }, 300);
+                    }}
                     className="text-2xl hover:opacity-70 transition-opacity block"
                   >
                     {t('navigation.contact')}

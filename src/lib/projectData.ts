@@ -72,6 +72,73 @@ export function getProjectDetailById(id: number | string): Project | undefined {
 }
 
 /**
+ * 根据项目ID和语言获取项目详细信息
+ * @param id 项目ID
+ * @param language 语言 ('zh' | 'en')
+ * @returns 项目详细信息对象或undefined
+ */
+export function getLocalizedProjectDetailById(id: number | string, language: 'zh' | 'en'): Project | undefined {
+  const project = getProjectDetailById(id);
+  
+  if (!project) {
+    return undefined;
+  }
+  
+  // 如果是中文，直接返回原始数据
+  if (language === 'zh') {
+    return project;
+  }
+  
+  // 如果是英文，返回英文版本的数据
+  if (language === 'en') {
+    const localizedProject: Project = {
+      ...project,
+      title: project.titleEn || project.title,
+      subtitle: project.subtitleEn || project.subtitle,
+      client: project.clientEn || project.client,
+      services: project.servicesEn || project.services,
+      description: project.descriptionEn || project.description,
+      content: project.contentEn || project.content
+    };
+    
+    // 处理详细信息的本地化
+    if (project.detailedInfo) {
+      localizedProject.detailedInfo = {
+        ...project.detailedInfo,
+        challenge: project.detailedInfo.challengeEn || project.detailedInfo.challenge,
+        solution: project.detailedInfo.solutionEn || project.detailedInfo.solution,
+        process: project.detailedInfo.processEn || project.detailedInfo.process,
+        results: project.detailedInfo.resultsEn || project.detailedInfo.results,
+        duration: project.detailedInfo.durationEn || project.detailedInfo.duration,
+        location: project.detailedInfo.locationEn || project.detailedInfo.location,
+        technologies: project.detailedInfo.technologiesEn || project.detailedInfo.technologies
+      };
+      
+      // 处理团队成员信息
+      if (project.detailedInfo.teamMembers) {
+        localizedProject.detailedInfo.teamMembers = project.detailedInfo.teamMembers.map(member => ({
+          name: member.nameEn || member.name,
+          role: member.roleEn || member.role
+        }));
+      }
+      
+      // 处理推荐语信息
+      if (project.detailedInfo.testimonial) {
+        localizedProject.detailedInfo.testimonial = {
+          quote: project.detailedInfo.testimonial.quoteEn || project.detailedInfo.testimonial.quote,
+          author: project.detailedInfo.testimonial.authorEn || project.detailedInfo.testimonial.author,
+          position: project.detailedInfo.testimonial.positionEn || project.detailedInfo.testimonial.position
+        };
+      }
+    }
+    
+    return localizedProject;
+  }
+  
+  return project;
+}
+
+/**
  * 获取项目的详细信息部分
  * @param id 项目ID
  * @returns 项目详细信息对象或undefined
