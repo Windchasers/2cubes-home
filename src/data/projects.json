@@ -26,7 +26,7 @@
         "/images/projects/1/mixtape效果图折页.jpg",
         "/images/projects/1/mixtape4.12效果图堆叠.jpg"
       ],
-      "thumbnail": "/images/projects/1/mixtape海报 2.jpg"
+      "thumbnail": "/images/projects/1/thumbnail.jpg"
     },
     {
       "id": 2,
@@ -38,9 +38,9 @@
       "services": ["网站设计", "用户体验", "前端开发"],
       "description": "为客户设计并开发了一个现代化的响应式网站，展示其作品集并提升品牌形象。",
       "images": [
-        "/images/projects/2/main.jpg",
-        "/images/projects/2/detail1.jpg",
-        "/images/projects/2/detail2.jpg"
+        "/images/projects/2/thumbnail.jpg",
+        "/images/projects/2/thumbnail.jpg",
+        "/images/projects/2/thumbnail.jpg"
       ],
       "thumbnail": "/images/projects/2/thumbnail.jpg"
     },
@@ -54,9 +54,9 @@
       "services": ["装置设计", "交互设计", "技术实现"],
       "description": "为艺术展览创作了一个互动装置，通过传感器和投影技术，让观众成为作品的一部分。",
       "images": [
-        "/images/projects/3/main.jpg",
-        "/images/projects/3/detail1.jpg",
-        "/images/projects/3/detail2.jpg"
+        "/images/projects/3/thumbnail.jpg",
+        "/images/projects/3/thumbnail.jpg",
+        "/images/projects/3/thumbnail.jpg"
       ],
       "thumbnail": "/images/projects/3/thumbnail.jpg"
     },
@@ -70,9 +70,9 @@
       "services": ["展览策划", "艺术家协调", "展览设计"],
       "description": "策划了一场探索当代社会议题的艺术展览，汇集了多位艺术家的作品。",
       "images": [
-        "/images/projects/4/main.jpg",
-        "/images/projects/4/detail1.jpg",
-        "/images/projects/4/detail2.jpg"
+        "/images/projects/4/thumbnail.jpg",
+        "/images/projects/4/thumbnail.jpg",
+        "/images/projects/4/thumbnail.jpg"
       ],
       "thumbnail": "/images/projects/4/thumbnail.jpg"
     },
@@ -86,9 +86,9 @@
       "services": ["数字艺术", "编程", "视觉设计"],
       "description": "这是一个探索数字媒体可能性的实验性项目，结合了生成艺术、数据可视化和互动元素。",
       "images": [
-        "/images/projects/5/main.jpg",
-        "/images/projects/5/detail1.jpg",
-        "/images/projects/5/detail2.jpg"
+        "/images/projects/5/thumbnail.jpg",
+        "/images/projects/5/thumbnail.jpg",
+        "/images/projects/5/thumbnail.jpg"
       ],
       "thumbnail": "/images/projects/5/thumbnail.jpg"
     },
@@ -102,9 +102,9 @@
       "services": ["书籍设计", "排版", "封面设计"],
       "description": "为一系列当代文学作品设计了书籍装帧和排版。",
       "images": [
-        "/images/projects/6/main.jpg",
-        "/images/projects/6/detail1.jpg",
-        "/images/projects/6/detail2.jpg"
+        "/images/projects/6/thumbnail.jpg",
+        "/images/projects/6/thumbnail.jpg",
+        "/images/projects/6/thumbnail.jpg"
       ],
       "thumbnail": "/images/projects/6/thumbnail.jpg"
     }

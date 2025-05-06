@@ -48,7 +48,7 @@ const ClientProjectDetail = ({ id }: ClientProjectDetailProps) => {
 
       <div className="flex flex-col md:flex-row gap-12">
         {/* 左侧：项目标题和基本信息 */}
-        <div className="w-full md:w-1/3">
+        <div className="w-full md:w-1/4">
           <h1 className="text-3xl font-bold mb-6">{project.title}</h1>
           <p className="text-xl mb-8 text-gray-600">{project.subtitle}</p>
           
@@ -102,7 +102,7 @@ const ClientProjectDetail = ({ id }: ClientProjectDetailProps) => {
         </div>
         
         {/* 右侧：详细描述和内容 */}
-        <div className="w-full md:w-2/3">
+        <div className="w-full md:w-3/4">
           <p className="mb-8 text-lg">{project.description}</p>
           
           {project.content.map((paragraph, index) => (

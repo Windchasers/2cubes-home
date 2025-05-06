@@ -209,6 +209,241 @@
         "duration": "4个月",
         "location": "上海"
       }
+    },
+    {
+      "id": 4,
+      "title": "艺术展览策划",
+      "titleEn": "Art Exhibition Curation",
+      "subtitle": "当代艺术主题展",
+      "subtitleEn": "Contemporary Art Themed Exhibition",
+      "category": "curation",
+      "year": "2022",
+      "client": "某艺术中心",
+      "clientEn": "Art Center",
+      "services": ["展览策划", "艺术家协调", "展览设计"],
+      "servicesEn": ["Exhibition Planning", "Artist Coordination", "Exhibition Design"],
+      "description": "策划了一场探索当代社会议题的艺术展览，汇集了多位艺术家的作品。通过精心的空间设计和作品编排，创造了一个引人深思的艺术体验。",
+      "descriptionEn": "Curated an art exhibition exploring contemporary social issues, bringing together works from multiple artists. Through careful spatial design and artwork arrangement, we created a thought-provoking artistic experience.",
+      "content": [
+        "策展理念：通过多元艺术形式探讨当代社会中的身份、技术与环境议题。",
+        "艺术家选择：邀请了来自不同背景和实践的艺术家，确保展览视角的多样性。",
+        "空间叙事：精心设计展览路线和作品编排，创造连贯而有层次的观展体验。"
+      ],
+      "contentEn": [
+        "Curatorial Concept: Exploring issues of identity, technology, and environment in contemporary society through diverse art forms.",
+        "Artist Selection: Invited artists from different backgrounds and practices to ensure diversity of perspectives in the exhibition.",
+        "Spatial Narrative: Carefully designed exhibition routes and artwork arrangement to create a coherent and layered viewing experience."
+      ],
+      "images": [
+        "/images/projects/4/thumbnail.jpg",
+        "/images/projects/4/thumbnail.jpg",
+        "/images/projects/4/thumbnail.jpg"
+      ],
+      "thumbnail": "/images/projects/4/thumbnail.jpg",
+      "detailedInfo": {
+        "challenge": "如何通过艺术展览有效地探讨复杂的社会议题，同时确保展览对不同背景的观众都具有吸引力和可理解性。",
+        "challengeEn": "How to effectively explore complex social issues through an art exhibition while ensuring the exhibition is attractive and understandable to audiences from different backgrounds.",
+        "solution": "我们采用了主题分区的方式组织展览，每个区域聚焦一个特定议题，并提供多层次的解释材料。同时，我们设计了互动元素和公共项目，增强观众参与度。",
+        "solutionEn": "We organized the exhibition using thematic zones, each focusing on a specific issue, and provided multi-layered explanatory materials. We also designed interactive elements and public programs to enhance audience engagement.",
+        "process": [
+          "研究与概念发展：深入研究展览主题和相关艺术实践",
+          "艺术家选择与合作：邀请并协调艺术家参展",
+          "展览设计：规划空间布局和视觉识别系统",
+          "内容开发：创建展览文本和教育材料",
+          "安装与呈现：协调作品安装和技术支持"
+        ],
+        "processEn": [
+          "Research & Concept Development: In-depth research on exhibition themes and related artistic practices",
+          "Artist Selection & Collaboration: Inviting and coordinating artists for the exhibition",
+          "Exhibition Design: Planning spatial layout and visual identity system",
+          "Content Development: Creating exhibition texts and educational materials",
+          "Installation & Presentation: Coordinating artwork installation and technical support"
+        ],
+        "results": "展览吸引了超过8000名观众，获得了艺术界和媒体的广泛关注。展览期间举办的讲座和工作坊进一步扩大了项目的影响力，促进了关于展览主题的公共讨论。",
+        "resultsEn": "The exhibition attracted over 8,000 visitors and received widespread attention from the art world and media. Lectures and workshops held during the exhibition further expanded the project's impact and promoted public discussion on the exhibition themes.",
+        "teamMembers": [
+          {
+            "name": "周策展人",
+            "nameEn": "Curator Zhou",
+            "role": "主策展人",
+            "roleEn": "Lead Curator"
+          },
+          {
+            "name": "林设计师",
+            "nameEn": "Designer Lin",
+            "role": "展览设计",
+            "roleEn": "Exhibition Designer"
+          },
+          {
+            "name": "陈协调员",
+            "nameEn": "Coordinator Chen",
+            "role": "项目协调",
+            "roleEn": "Project Coordinator"
+          }
+        ],
+        "duration": "6个月",
+        "durationEn": "6 months",
+        "location": "广州",
+        "locationEn": "Guangzhou"
+      }
+    },
+    {
+      "id": 5,
+      "title": "数字媒体艺术",
+      "titleEn": "Digital Media Art",
+      "subtitle": "探索数字与现实的边界",
+      "subtitleEn": "Exploring the Boundaries Between Digital and Reality",
+      "category": "digital",
+      "year": "2022",
+      "client": "独立项目",
+      "clientEn": "Independent Project",
+      "services": ["数字艺术", "编程", "视觉设计"],
+      "servicesEn": ["Digital Art", "Programming", "Visual Design"],
+      "description": "这是一个探索数字媒体可能性的实验性项目，结合了生成艺术、数据可视化和互动元素。项目通过算法创造出不断变化的视觉体验，反思数字时代的信息流动和感知方式。",
+      "descriptionEn": "This is an experimental project exploring the possibilities of digital media, combining generative art, data visualization, and interactive elements. The project creates ever-changing visual experiences through algorithms, reflecting on information flow and perception methods in the digital age.",
+      "content": [
+        "创作理念：探索算法与艺术创作的关系，以及数据如何被转化为有意义的视觉体验。",
+        "技术实现：使用自定义软件和开源工具，将实时数据转化为动态视觉形式。",
+        "展示方式：作品以网络平台和实体展览相结合的方式呈现，探索数字艺术的多种可能性。"
+      ],
+      "contentEn": [
+        "Creative Concept: Exploring the relationship between algorithms and artistic creation, and how data can be transformed into meaningful visual experiences.",
+        "Technical Implementation: Using custom software and open-source tools to transform real-time data into dynamic visual forms.",
+        "Presentation Method: The work is presented through a combination of online platforms and physical exhibitions, exploring various possibilities of digital art."
+      ],
+      "images": [
+        "/images/projects/5/thumbnail.jpg",
+        "/images/projects/5/thumbnail.jpg",
+        "/images/projects/5/thumbnail.jpg"
+      ],
+      "thumbnail": "/images/projects/5/thumbnail.jpg",
+      "detailedInfo": {
+        "challenge": "如何创造一个既具有艺术表现力又能反映数据本质的数字艺术作品，同时确保作品对非技术背景的观众也有吸引力。",
+        "challengeEn": "How to create a digital artwork that is both artistically expressive and reflective of the essence of data, while ensuring the work is also attractive to audiences without technical backgrounds.",
+        "solution": "我们开发了一个基于机器学习的系统，能够分析各种数据源并生成视觉上引人入胜的图像和动画。界面设计注重直觉性，允许观众轻松与作品互动。",
+        "solutionEn": "We developed a machine learning-based system capable of analyzing various data sources and generating visually engaging images and animations. The interface design emphasizes intuitiveness, allowing viewers to easily interact with the work.",
+        "process": [
+          "概念研究：探索数据艺术的历史和当代实践",
+          "技术开发：创建自定义软件工具和算法",
+          "数据收集：获取和处理用于艺术创作的数据",
+          "视觉设计：开发作品的美学语言",
+          "用户测试：收集反馈并优化互动体验"
+        ],
+        "processEn": [
+          "Concept Research: Exploring the history and contemporary practices of data art",
+          "Technical Development: Creating custom software tools and algorithms",
+          "Data Collection: Acquiring and processing data for artistic creation",
+          "Visual Design: Developing the aesthetic language of the work",
+          "User Testing: Collecting feedback and optimizing the interactive experience"
+        ],
+        "results": "项目在线平台吸引了全球超过10万次访问，实体展览在三个城市巡展。项目获得了数字艺术奖项，并被收录在数字艺术教育资源中。",
+        "resultsEn": "The project's online platform attracted over 100,000 visits globally, and the physical exhibition toured three cities. The project won digital art awards and was included in digital art educational resources.",
+        "teamMembers": [
+          {
+            "name": "王艺术家",
+            "nameEn": "Artist Wang",
+            "role": "艺术总监",
+            "roleEn": "Art Director"
+          },
+          {
+            "name": "李工程师",
+            "nameEn": "Engineer Li",
+            "role": "技术开发",
+            "roleEn": "Technical Development"
+          },
+          {
+            "name": "张设计师",
+            "nameEn": "Designer Zhang",
+            "role": "视觉设计",
+            "roleEn": "Visual Design"
+          }
+        ],
+        "technologies": ["JavaScript", "WebGL", "TensorFlow.js", "D3.js", "Processing"],
+        "technologiesEn": ["JavaScript", "WebGL", "TensorFlow.js", "D3.js", "Processing"],
+        "duration": "8个月",
+        "durationEn": "8 months",
+        "location": "深圳",
+        "locationEn": "Shenzhen"
+      }
+    },
+    {
+      "id": 6,
+      "title": "书籍设计系列",
+      "titleEn": "Book Design Series",
+      "subtitle": "当代文学作品集",
+      "subtitleEn": "Contemporary Literature Collection",
+      "category": "books",
+      "year": "2021",
+      "client": "某出版社",
+      "clientEn": "Publishing House",
+      "services": ["书籍设计", "排版", "封面设计"],
+      "servicesEn": ["Book Design", "Typography", "Cover Design"],
+      "description": "为一系列当代文学作品设计了书籍装帧和排版。通过精心的设计，每本书都成为了内容与形式完美结合的艺术品，提升了读者的阅读体验。",
+      "descriptionEn": "Designed book binding and typography for a series of contemporary literary works. Through careful design, each book became an artwork with perfect integration of content and form, enhancing the reader's reading experience.",
+      "content": [
+        "设计理念：每本书的设计都基于对文本内容的深入理解，力求通过视觉元素呼应文学作品的主题和情感。",
+        "材料选择：精选纸张、印刷工艺和装订方式，确保书籍的触感和视觉质量。",
+        "系列统一：在保持每本书独特性的同时，通过一致的设计语言建立系列识别度。"
+      ],
+      "contentEn": [
+        "Design Concept: The design of each book is based on a deep understanding of the text content, aiming to echo the themes and emotions of the literary work through visual elements.",
+        "Material Selection: Carefully selected paper, printing techniques, and binding methods to ensure the tactile and visual quality of the books.",
+        "Series Unity: Establishing series recognition through consistent design language while maintaining the uniqueness of each book."
+      ],
+      "images": [
+        "/images/projects/6/thumbnail.jpg",
+        "/images/projects/6/thumbnail.jpg",
+        "/images/projects/6/thumbnail.jpg"
+      ],
+      "thumbnail": "/images/projects/6/thumbnail.jpg",
+      "detailedInfo": {
+        "challenge": "如何为不同风格的文学作品创造独特而统一的设计，既能反映每本书的内容特点，又能建立系列的视觉一致性。",
+        "challengeEn": "How to create unique yet unified designs for literary works of different styles, both reflecting the content characteristics of each book and establishing visual consistency for the series.",
+        "solution": "我们开发了一个灵活的设计系统，包括统一的排版网格、字体系列和色彩策略，同时为每本书创造独特的封面艺术和内页细节，反映其内容特点。",
+        "solutionEn": "We developed a flexible design system, including unified typography grids, font families, and color strategies, while creating unique cover art and interior details for each book to reflect its content characteristics.",
+        "process": [
+          "内容分析：深入阅读每本书的文本，理解其主题和风格",
+          "概念开发：为每本书和整个系列创建设计概念",
+          "视觉设计：开发封面、内页和装帧设计",
+          "材料测试：选择和测试纸张、印刷和装订方案",
+          "生产监督：确保最终印刷品的质量"
+        ],
+        "processEn": [
+          "Content Analysis: In-depth reading of each book's text to understand its themes and style",
+          "Concept Development: Creating design concepts for each book and the entire series",
+          "Visual Design: Developing cover, interior, and binding designs",
+          "Material Testing: Selecting and testing paper, printing, and binding solutions",
+          "Production Supervision: Ensuring the quality of the final printed products"
+        ],
+        "results": "设计的书籍系列获得了读者和设计界的高度评价，销量超过预期40%。系列获得了国内图书设计奖项，并被收入设计年鉴。",
+        "resultsEn": "The designed book series received high praise from readers and the design community, with sales exceeding expectations by 40%. The series won domestic book design awards and was included in design yearbooks.",
+        "teamMembers": [
+          {
+            "name": "刘设计师",
+            "nameEn": "Designer Liu",
+            "role": "艺术指导",
+            "roleEn": "Art Director"
+          },
+          {
+            "name": "陈设计师",
+            "nameEn": "Designer Chen",
+            "role": "排版设计",
+            "roleEn": "Typography Designer"
+          },
+          {
+            "name": "杨设计师",
+            "nameEn": "Designer Yang",
+            "role": "封面插画",
+            "roleEn": "Cover Illustrator"
+          }
+        ],
+        "technologies": ["Adobe InDesign", "Adobe Illustrator", "Adobe Photoshop", "传统印刷工艺"],
+        "technologiesEn": ["Adobe InDesign", "Adobe Illustrator", "Adobe Photoshop", "Traditional Printing Techniques"],
+        "duration": "5个月",
+        "durationEn": "5 months",
+        "location": "北京",
+        "locationEn": "Beijing"
+      }
     }
   ]
 }
