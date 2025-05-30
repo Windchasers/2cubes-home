@@ -6,8 +6,8 @@ import ClientBody from "./ClientBody";
 import LayoutContent from "@/components/LayoutContent";
 
 export const metadata: Metadata = {
-  title: "2cubes design",
-  description: "Home site of 2cubes design coperatiopn",
+  title: "vansion design",
+  description: "Home site of vansion design coperatiopn",
 };
 
 

@@ -13,7 +13,7 @@ export default function LayoutContent({ children }: { children: React.ReactNode 
         <div className="flex justify-between items-center">
           <div className="logo-nav p-2">
             <a href="/" className="hover:opacity-80 transition-opacity">
-              <img src="/images/logo-main.png" alt="Another Design Logo" className="h-14" />
+              <span className="text-3xl font-bold">vansion</span>
             </a>
             {/* <span id="random" className="ml-2 text-4xl font-bold">design</span> */}
           </div>
@@ -27,7 +27,7 @@ export default function LayoutContent({ children }: { children: React.ReactNode 
       <footer className="mt-auto">
         <div className="container mx-auto px-6">
           <div className="footerinfo">
-            <p className="text-sm">info@2cubes.cn&nbsp;&nbsp;{t('footer.tel')}: 020-89636400</p>
+            <p className="text-sm">info@vansion.cn&nbsp;&nbsp;{t('footer.tel')}: 020-89636400</p>
           </div>
         </div>
       </footer>

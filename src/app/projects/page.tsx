@@ -4,26 +4,16 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-// Mock project categories
-const categoryIds = [
-  'all',
-  'branding',
-  'web',
-  'installation',
-  'curation',
-  'digital',
-  'exhibition',
-  'books',
-  'environment',
-  'animation',
-];
+import { getAllProjects, getAllCategories } from '@/lib/projectData';
 
-// Mock projects
-const projects = Array.from({ length: 20 }, (_, i) => ({
-  id: i + 1,
-  title: `Project ${i + 1}`,
-  category: categoryIds[Math.floor(Math.random() * categoryIds.length)],
-  image: `https://placehold.co/600x400/e2e2e2/white?text=Project+${i + 1}`,
+// 获取真实项目数据和分类
+const categoryIds = getAllCategories().map(category => category.id);
+const projects = getAllProjects();
+
+// 为项目添加占位图
+const projectsWithFallback = projects.map(project => ({
+  ...project,
+  imageFallback: `https://placehold.co/600x400/e2e2e2/white?text=Project+${project.id}`
 }));
 
 export default function ProjectsPage() {
@@ -31,8 +21,8 @@ export default function ProjectsPage() {
   const [activeCategory, setActiveCategory] = useState('all');
 
   const filteredProjects = activeCategory === 'all'
-    ? projects
-    : projects.filter(project => project.category === activeCategory);
+    ? projectsWithFallback
+    : projectsWithFallback.filter(project => project.category === activeCategory);
 
   return (
     <div className="container mx-auto p-6 pt-16">
@@ -58,9 +48,13 @@ export default function ProjectsPage() {
           <Link href={`/projects/${project.id}`} key={project.id}>
             <div className="bg-gray-200 aspect-square hover:opacity-90 transition-opacity">
               <img
-                src={project.image}
+                src={project.thumbnail}
                 alt={project.title}
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  // 如果图片加载失败，使用占位图
+                  e.currentTarget.src = project.imageFallback;
+                }}
               />
             </div>
           </Link>

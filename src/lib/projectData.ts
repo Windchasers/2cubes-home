@@ -12,6 +12,14 @@ export function getCategories(): Category[] {
 }
 
 /**
+ * 获取所有项目类别 (别名函数，与getCategories功能相同)
+ * @returns 项目类别数组
+ */
+export function getAllCategories(): Category[] {
+  return projectsData.categories;
+}
+
+/**
  * 获取所有项目
  * @returns 项目数组
  */

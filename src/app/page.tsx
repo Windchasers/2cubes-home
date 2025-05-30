@@ -4,29 +4,16 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-// Project categories
-const categoryIds = [
-  'all',
-  'branding',
-  'web',
-  'installation',
-  'curation',
-  'digital',
-  'exhibition',
-  'books',
-  'environment',
-  'animation',
-];
+import { getAllProjects, getAllCategories } from '@/lib/projectData';
 
-// Mock projects
-const projects = Array.from({ length: 20 }, (_, i) => ({
-  id: i + 1,
-  title: `Project ${i + 1}`,
-  category: categoryIds[Math.floor(Math.random() * categoryIds.length)],
-  // 使用新的图片引用规范 - 缩略图路径
-  image: `/images/projects/${i + 1}/thumbnail.jpg`,
-  // 如果图片不存在，使用占位图
-  imageFallback: `https://placehold.co/600x400/e2e2e2/white?text=Project+${i + 1}`,
+// 获取真实项目数据和分类
+const categoryIds = getAllCategories().map(category => category.id);
+const projects = getAllProjects();
+
+// 为项目添加占位图
+const projectsWithFallback = projects.map(project => ({
+  ...project,
+  imageFallback: `https://placehold.co/600x400/e2e2e2/white?text=Project+${project.id}`
 }));
 
 
@@ -56,8 +43,8 @@ export default function HomePage() {
   }, []);
 
   const filteredProjects = activeCategory === 'all'
-    ? projects
-    : projects.filter(project => project.category === activeCategory);
+    ? projectsWithFallback
+    : projectsWithFallback.filter(project => project.category === activeCategory);
 
   return (
     <div className="relative min-h-screen">
@@ -84,7 +71,7 @@ export default function HomePage() {
             <Link href={`/projects/${project.id}`} key={project.id}>
               <div className="bg-gray-200 aspect-square hover:opacity-90 transition-opacity">
                 <img
-                  src={project.image}
+                  src={project.thumbnail}
                   alt={project.title}
                   className="w-full h-full object-cover"
                   onError={(e) => {
