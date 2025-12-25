@@ -1,4 +1,4 @@
-import { ProjectsData, Project, Category, ProjectDetailedInfo } from '../types/project';
+import { ProjectsData, type Project, type Category, type ProjectDetailedInfo } from '../types/project';
 import projectsData from '../data/projects.json';
 import projectDetailsData from '../data/projectDetails.json';
 import { processProjectImages, processProjectsImages } from './imageUtils';
@@ -25,7 +25,7 @@ export function getAllProjects(): Project[] {
  * @returns 项目对象或undefined
  */
 export function getProjectById(id: number | string): Project | undefined {
-  const numericId = typeof id === 'string' ? parseInt(id, 10) : id;
+  const numericId = typeof id === 'string' ? Number.parseInt(id, 10) : id;
   const project = projectsData.projects.find(project => project.id === numericId);
   return project ? processProjectImages(project) : undefined;
 }
@@ -59,7 +59,7 @@ export function getCategoryName(categoryId: string): string {
  * @returns 项目详细信息对象或undefined
  */
 export function getProjectDetailById(id: number | string): Project | undefined {
-  const numericId = typeof id === 'string' ? parseInt(id, 10) : id;
+  const numericId = typeof id === 'string' ? Number.parseInt(id, 10) : id;
   const projectDetail = projectDetailsData.projectDetails.find(project => project.id === numericId);
   
   // 如果在详细信息中找到项目，返回完整的项目信息
@@ -144,7 +144,7 @@ export function getLocalizedProjectDetailById(id: number | string, language: 'zh
  * @returns 项目详细信息对象或undefined
  */
 export function getProjectDetailedInfo(id: number | string): ProjectDetailedInfo | undefined {
-  const numericId = typeof id === 'string' ? parseInt(id, 10) : id;
+  const numericId = typeof id === 'string' ? Number.parseInt(id, 10) : id;
   const projectDetail = projectDetailsData.projectDetails.find(project => project.id === numericId);
   
   return projectDetail?.detailedInfo;

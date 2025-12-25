@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueCrow Capital - Animation Replica</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #0e2b42;
+            --white: #ffffff;
+            --text-gray: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--white);
+            color: var(--text-gray);
+            /* 隐藏滚动条但保留功能，由 Lenis 接管 */
+            overflow-x: hidden;
+        }
+
+        /* 导航栏 */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            margin: 0;
+        }
+
+        nav li {
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            opacity: 0;
+            /* 初始隐藏，用于入场动画 */
+        }
+
+        /* 通用动画类：文字遮罩效果 */
+        .text-reveal-wrapper {
+            overflow: hidden;
+            /* 关键：用于遮挡下方的文字 */
+            line-height: 1.2;
+        }
+
+        .text-reveal {
+            display: block;
+            transform: translateY(120%);
+            /* 初始状态：在遮罩下方 */
+            opacity: 0;
+            transition: none;
+        }
+
+        /* 通用动画类：淡入上浮 */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        /* Hero 区域 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 50px;
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 90px);
+            font-weight: 300;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            margin-top: 40px;
+            font-size: 20px;
+            max-width: 600px;
+            opacity: 0.8;
+        }
+
+        /* 内容区域 */
+        section {
+            padding: 120px 50px;
+        }
+
+        .intro {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .intro p {
+            font-size: 32px;
+            font-weight: 300;
+            line-height: 1.4;
+            color: var(--primary);
+        }
+
+        /* 业务卡片区域 */
+        .grid-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            /* 分割线缝隙 */
+            background: #eee;
+            /* 形成边框颜色 */
+        }
+
+        .card {
+            background: #f9f9f9;
+            padding: 80px 40px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: background 0.5s;
+        }
+
+        .card:hover {
+            background: #fff;
+        }
+
+        .card h3 {
+            font-size: 28px;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .card-num {
+            font-size: 14px;
+            color: #999;
+        }
+
+        /* 统计数据 */
+        .stats {
+            background: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 100px 50px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 60px;
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* 图片/特色区域 */
+        .image-block {
+            height: 600px;
+            width: 100%;
+            background-color: #ddd;
+            /* 占位符 */
+            position: relative;
+            overflow: hidden;
+            margin: 50px 0;
+        }
+
+        .parallax-img {
+            width: 100%;
+            height: 120%;
+            /* 必须比容器高才能做视差 */
+            object-fit: cover;
+            background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            top: 0;
+        }
+
+        footer {
+            height: 300px;
+            background: #0a1f30;
+            color: #fff;
+            padding: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">BlueCrow</div>
+        <nav>
+            <ul>
+                <li>About</li>
+                <li>Funds</li>
+                <li>Portfolio</li>
+                <li>Contact</li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>
+            <div class="text-reveal-wrapper"><span class="text-reveal hero-text">Extend your</span></div>
+            <div class="text-reveal-wrapper"><span class="text-reveal hero-text">vision with</span></div>
+            <div class="text-reveal-wrapper"><span class="text-reveal hero-text">BlueCrow Capital</span></div>
+        </h1>
+        <div class="text-reveal-wrapper">
+            <p class="text-reveal hero-text">Asset management, investment funds, and financial advisory.</p>
+        </div>
+    </div>
+
+    <section class="intro">
+        <div class="text-reveal-wrapper">
+            <p class="text-reveal scroll-text">We manage investment funds and</p>
+        </div>
+        <div class="text-reveal-wrapper">
+            <p class="text-reveal scroll-text">discretionary portfolios with exposure</p>
+        </div>
+        <div class="text-reveal-wrapper">
+            <p class="text-reveal scroll-text">to both listed and unlisted assets.</p>
+        </div>
+    </section>
+
+    <div class="image-block">
+        <div class="parallax-img"></div>
+    </div>
+
+    <section class="grid-section">
+        <div class="card fade-up">
+            <span class="card-num">01</span>
+            <h3>Venture Capital</h3>
+        </div>
+        <div class="card fade-up">
+            <span class="card-num">02</span>
+            <h3>Private Equity</h3>
+        </div>
+        <div class="card fade-up">
+            <span class="card-num">03</span>
+            <h3>Capital Markets</h3>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stat-item fade-up">
+            <span class="stat-num">1M+</span>
+            <span>Subscribed Capital</span>
+        </div>
+        <div class="stat-item fade-up">
+            <span class="stat-num">#1</span>
+            <span>Funds Managed</span>
+        </div>
+        <div class="stat-item fade-up">
+            <span class="stat-num">100+</span>
+            <span>Investors</span>
+        </div>
+    </section>
+
+    <footer>
+        <div class="fade-up">
+            <p>© 2025 BlueCrow Capital. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. 初始化 Lenis (平滑滚动核心)
+        // 这是让网站感觉像 BlueCrow 一样"高级"和"丝滑"的关键
+        const lenis = new Lenis({
+            duration: 1.2, // 滚动持续时间
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // 缓动函数
+            direction: 'vertical',
+            smooth: true
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // 2. 注册 GSAP 插件
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 3. Hero 区域进场动画 (页面加载时触发)
+        const tl = gsap.timeline();
+
+        // 导航栏淡入
+        tl.to("nav li", {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out",
+            delay: 0.5
+        })
+            // Hero文字从下往上滑出
+            .to(".hero-text", {
+                y: 0,
+                opacity: 1,
+                duration: 1.2,
+                stagger: 0.15,
+                ease: "power4.out" // 使用强烈的缓动模拟高级感
+            }, "-=0.5");
+
+        // 4. 滚动触发文字动画 (Scroll Trigger)
+        // 这种 "Mask Reveal" 是 BlueCrow 网站最典型的效果
+        const scrollTexts = document.querySelectorAll(".scroll-text");
+
+        scrollTexts.forEach(text => {
+            gsap.to(text, {
+                scrollTrigger: {
+                    trigger: text,
+                    start: "top 85%", // 当元素顶部到达视口 85% 处时触发
+                    toggleActions: "play none none reverse" // 向上滚动时反向播放
+                },
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+
+        // 5. 普通板块上浮淡入 (Fade Up)
+        const fadeUpElements = document.querySelectorAll(".fade-up");
+
+        fadeUpElements.forEach(elem => {
+            gsap.to(elem, {
+                scrollTrigger: {
+                    trigger: elem,
+                    start: "top 90%",
+                },
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power2.out"
+            });
+        });
+
+        // 6. 图片视差效果 (Parallax)
+        // 图片滚动速度比页面慢，产生深度感
+        gsap.to(".parallax-img", {
+            scrollTrigger: {
+                trigger: ".image-block",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true // 动画进度直接绑定滚动条
+            },
+            y: 100, // 图片移动距离
+            ease: "none"
+        });
+
+    </script>
+</body>
+
+</html>

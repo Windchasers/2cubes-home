@@ -1,6 +1,6 @@
 'use client';
 
-import { Project } from '@/types/project';
+import type { Project } from '@/types/project';
 import { getLocalizedProjectDetailById } from '@/lib/projectData';
 import { useLanguage } from '@/contexts/LanguageContext';
 

@@ -1,0 +1,45 @@
+/（根目录）
+├── /markets                    # 市场总览页面
+│   ├── /                       # 默认展示所有市场
+│   ├── /all                     # 全部市场（主流、热门、AI等）
+│   ├── /new                     # 新币市场
+│   ├── /category                # 分类市场：AI、Layer 1/2、DeFi、Meme等
+│   ├── /favorites               # 我的自选市场
+│   └── /search                  # 市场搜索页
+│
+├── /follow                      # 跟单功能
+│   ├── /mentors                 # 导师列表
+│   └── /mentor/{mentorId}       # 导师详细页面（展示导师操作与跟单）
+│
+├── /live                        # 直播功能（第三方集成）
+│   ├── /schedule                # 直播日程
+│   └── /stream/{streamId}       # 直播观看页面
+│
+├── /account                     # 账户功能（无交易功能）
+│   ├── /overview                # 账户总览（个人信息、设置等）
+│   ├── /settings                # 账户设置（修改密码、通知设置等）
+│   └── /history                 # 账户操作历史
+│
+├── /download                    # 下载页面
+│   ├── /app                      # 移动应用下载（iOS/Android）
+│   └── /desktop                  # 桌面应用下载（Windows/macOS）
+│
+├── /help                        # 帮助中心
+│   ├── /faq                      # 常见问题
+│   ├── /getting-started          # 入门指南
+│   ├── /tutorials                # 教程
+│   ├── /terms                    # 服务条款
+│   └── /privacy                  # 隐私政策
+│
+├── /about                       # 关于我们
+│   ├── /company                  # 公司信息
+│   ├── /careers                  # 招聘信息
+│   ├── /contact                  # 联系我们
+│   └── /press                    # 媒体报道
+│
+├── /blog                        # 官方博客
+│   ├── /categories               # 博客分类（新闻、分析、公告等）
+│   ├── /author/{authorName}      # 按作者展示文章
+│   └── /post/{postId}            # 文章详情
+│
+└── /sitemap.xml                  # 网站地图

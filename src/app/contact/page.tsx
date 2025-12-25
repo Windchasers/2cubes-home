@@ -1,35 +1,81 @@
+import React from 'react';
+import Image from 'next/image';
+
 export default function ContactPage() {
   return (
-    <div className="container mx-auto p-6 pt-16">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-        <div className="contact-item">
-          <h2 className="contact-title">office</h2>
-          <div className="content">
-            <p className="mb-2">#1202, Guangyin Creative Factory, No.83, Yanzigangnan Road, Haizhu district, Guangzhou, China. 510280</p>
-            <p className="mb-2">广州市海珠区燕子岗南路广印创意园1202</p>
-          </div>
-        </div>
-
-        <div className="contact-item">
-          <h2 className="contact-title">social</h2>
-          <div className="content">
-            <p className="mb-2">instagram: @another_lab</p>
-            <p className="mb-2">wechat: anotherdesign</p>
-            <p className="mb-2">小红书：anotherdesign</p>
-          </div>
-        </div>
-
-        <div className="contact-item">
-          <h2 className="contact-title">contact</h2>
-          <div className="content">
-            <p className="mb-2">商务合作 Business Contact</p>
-            <p className="mb-2">business@2cubes.cn.com</p>
-            <p className="mb-4">出版及应聘Publication & Job</p>
-            <p className="mb-2">info@2cubes.cn.com</p>
-            <p className="mb-2">tel: 020-89636400</p>
-          </div>
-        </div>
+    <div className="flex flex-col items-center pt-20 pb-20">
+      
+      {/* Logo */}
+      <div className="mb-12 relative">
+        <Image
+          src="https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/logo.svg"
+          alt="2cubes Logo"
+          width={80}
+          height={105}
+          priority
+        />
       </div>
+
+      {/* Contact Information */}
+      <div className="text-center space-y-3 font-futura text-[48px] font-normal tracking-wide mb-10">
+        <p>E-mail_2cubes Design@foxmail.com</p>
+        <p>Ins_@2cubes Design</p>
+        <p>Xiaohongshu_2cubes Design</p>
+        <p>Behance_2cubes Design</p>
+      </div>
+
+      {/* Divider Line */}
+      <div className="w-[300px] h-px bg-black opacity-30 mb-10"></div>
+
+      {/* Social Icons */}
+      <div className="flex gap-8 items-center justify-center">
+        {/* Email */}
+        <a href="mailto:2cubes Design@foxmail.com" className="hover:opacity-80 transition-opacity">
+          <Image 
+            src="/images/social-media-icons/email.svg"
+            alt="Email"
+            width={40}
+            height={40}
+          />
+        </a>
+        
+        {/* Instagram */}
+        <a href="#" className="hover:opacity-80 transition-opacity">
+          <Image 
+            src="/images/social-media-icons/ins.svg"
+            alt="Instagram"
+            width={40}
+            height={40}
+          />
+        </a>
+
+        {/* Xiaohongshu */}
+        <a href="#" className="hover:opacity-80 transition-opacity">
+           <Image 
+            src="/images/social-media-icons/redbook.svg"
+            alt="Xiaohongshu"
+            width={40}
+            height={40}
+          />
+        </a>
+
+        {/* Behance */}
+        <a href="#" className="hover:opacity-80 transition-opacity">
+           <Image 
+            src="/images/social-media-icons/behance.svg"
+            alt="Behance"
+            width={40}
+            height={40}
+          />
+        </a>
+      </div>
+
+      {/* Footer */}
+      <div className="fixed bottom-8 left-0 right-0 px-[30px] flex justify-between text-[20px] font-futura">
+        <div>@ 2cubes Design.com</div>
+        <div>China & Japan</div>
+      </div>
+
     </div>
   );
 }

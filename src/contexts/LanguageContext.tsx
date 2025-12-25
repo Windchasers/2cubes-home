@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 // 同步导入所有翻译文件
 import zhTranslations from '../locales/zh.json';
 import enTranslations from '../locales/en.json';
