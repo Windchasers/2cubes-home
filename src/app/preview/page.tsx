@@ -3,38 +3,36 @@ import Link from 'next/link';
 import projectsData from '@/data/projects.json';
 
 export default function PreviewPage() {
-  const projects = projectsData.projects;
-
-  const getImage = (project: (typeof projects)[number]) => {
-    return project.thumbnail || (project.images && project.images[0]) || undefined;
-  };
+  const projects = projectsData.projects; // Removed slice to show all projects in preview
 
   return (
-    <div className="bg-black text-white">
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 py-10 sm:py-14">
-        {/* 响应式项目网格：可滚动，块可点击 */}
-        <div className="grid grid-cols-12 gap-6 sm:gap-8">
+    <div className="bg-white text-black min-h-screen">
+      <div className="w-full px-[30px] py-10 sm:py-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[30px]">
           {projects.map((p) => {
-            const img = getImage(p);
+            const img = p.thumbnail || p.images?.[0];
             return (
-              <div key={p.id} className="col-span-12 md:col-span-4">
-                <Link href={`/projects/${p.id}`} className="block group">
-                  <div className="relative w-full aspect-[4/3] bg-neutral-700">
-                    {img && (
-                      <Image
-                        src={img}
-                        alt={p.title}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1280px) 33vw, 480px"
-                        priority={p.id === 1}
-                      />
-                    )}
-                  </div>
-                </Link>
-              </div>
+              <Link key={p.id} href={`/projects/${p.id}`} className="block group">
+                <div className="relative w-full aspect-[4/3] bg-neutral-300">
+                  {img && (
+                    <Image
+                      src={img}
+                      alt={p.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      priority={p.id === 1}
+                    />
+                  )}
+                </div>
+              </Link>
             );
           })}
+        </div>
+
+        <div className="flex justify-between items-center mt-10 text-[20px] text-gray-600">
+          <div>@ 2cubesDesign.com</div>
+          <div>China & Japan</div>
         </div>
       </div>
     </div>
