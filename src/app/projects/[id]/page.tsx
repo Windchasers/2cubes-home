@@ -25,13 +25,13 @@ export async function generateStaticParams() {
 
 export default function ProjectDetailPage({ params }: Props) {
   const { id } = params;
-  
+
   // 服务器端获取项目数据，用于生成元数据
   const project: Project | undefined = getProjectDetailById(id);
-  
+
   if (!project) {
-    return <div className="container mx-auto p-6 pt-16">Project not found</div>;
+    return <div className="container mx-auto px-[10px] pt-16">Project not found</div>;
   }
-  
+
   return <ClientProjectDetail id={id} />;
 } 

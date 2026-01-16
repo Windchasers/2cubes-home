@@ -12,7 +12,7 @@ export default function Navigation() {
 
   return (
     <nav className="nav-menu">
-      <ul className="flex flex-wrap items-center gap-8">
+      <ul className="flex items-center gap-3 m:gap-8 whitespace-nowrap text-[9px] s:text-[7px] m:text-[1.171875vw]">
         <li>
           <Link href="/works" className="hover:opacity-80 transition-opacity">Works</Link>
         </li>

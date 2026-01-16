@@ -35,16 +35,15 @@ export default function ProjectsPage() {
     : projects.filter(project => project.category === activeCategory);
 
   return (
-    <div className="container mx-auto p-6 pt-16">
+    <div className="container mx-auto px-[10px] pt-16">
       <div className="mb-8">
         <div className="text-sm text-gray-500 mb-2">{t('projectType')}</div>
         <div className="flex flex-wrap gap-4">
           {categoryIds.map((categoryId) => (
             <button
               key={categoryId}
-              className={`text-sm ${
-                activeCategory === categoryId ? 'font-bold' : 'text-gray-600'
-              }`}
+              className={`text-sm ${activeCategory === categoryId ? 'font-bold' : 'text-gray-600'
+                }`}
               onClick={() => setActiveCategory(categoryId)}
             >
               {t(`categories.${categoryId}`)}

@@ -1,10 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
+import Footer from '@/components/Footer';
 
 export default function ContactPage() {
   return (
     <div className="flex flex-col items-center pt-20 pb-20">
-      
+
       {/* Logo */}
       <div className="mb-12 relative">
         <Image
@@ -31,17 +32,17 @@ export default function ContactPage() {
       <div className="flex gap-8 items-center justify-center">
         {/* Email */}
         <a href="mailto:2cubes Design@foxmail.com" className="hover:opacity-80 transition-opacity">
-          <Image 
+          <Image
             src="/images/social-media-icons/email.svg"
             alt="Email"
             width={40}
             height={40}
           />
         </a>
-        
+
         {/* Instagram */}
         <a href="#" className="hover:opacity-80 transition-opacity">
-          <Image 
+          <Image
             src="/images/social-media-icons/ins.svg"
             alt="Instagram"
             width={40}
@@ -51,7 +52,7 @@ export default function ContactPage() {
 
         {/* Xiaohongshu */}
         <a href="#" className="hover:opacity-80 transition-opacity">
-           <Image 
+          <Image
             src="/images/social-media-icons/redbook.svg"
             alt="Xiaohongshu"
             width={40}
@@ -61,7 +62,7 @@ export default function ContactPage() {
 
         {/* Behance */}
         <a href="#" className="hover:opacity-80 transition-opacity">
-           <Image 
+          <Image
             src="/images/social-media-icons/behance.svg"
             alt="Behance"
             width={40}
@@ -71,10 +72,7 @@ export default function ContactPage() {
       </div>
 
       {/* Footer */}
-      <div className="fixed bottom-8 left-0 right-0 px-[30px] flex justify-between text-[20px] font-futura">
-        <div>@ 2cubes Design.com</div>
-        <div>China & Japan</div>
-      </div>
+      <Footer className="fixed bottom-8 left-0 right-0 px-[10px] text-black" />
 
     </div>
   );

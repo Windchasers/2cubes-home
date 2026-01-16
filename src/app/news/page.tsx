@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '@/components/Footer';
 
 export default function NewsPage() {
   const newsItems = [
@@ -28,21 +29,22 @@ export default function NewsPage() {
 
   return (
     <div className="bg-white text-black min-h-screen font-['Futura_PT']">
-      <div className="w-full px-[30px] py-10 sm:py-14">
+      <div className="w-full px-[10px] py-10 s:py-14">
         <div className="space-y-32">
           {newsItems.map((item) => (
             <div key={item.id} className="flex flex-col items-center w-full">
-              
+
               {/* Title Section */}
-              <div className="text-center mb-12 max-w-[1400px] mx-auto">
-                <h2 className="text-[70px] sm:text-[70px] font-normal uppercase leading-tight mb-6 relative inline-block">
+              {/* Title Section */}
+              <div className="text-center mb-6 s:mb-12 max-w-[1400px] mx-auto">
+                <h2 className="text-[26px] s:text-[35px] m:text-[40px] l:text-[3.90625vw] font-normal uppercase leading-[1.2] s:leading-[90px] m:leading-[90px] l:leading-[8.789vw] mb-4 s:mb-6 relative inline-block tracking-[-0.03em]">
                   {item.title}
-                  <sup className="text-2xl sm:text-[30px] absolute -top-2 -right-6">{item.superscript}</sup>
+                  <sup className="text-sm s:text-[18px] m:text-[20px] l:text-[1.953125vw] absolute -top-1 -right-3 s:top-4 s:-right-4 m:top-4 m:-right-4 l:top-[1.5625vw] l:-right-[1.5625vw]">{item.superscript}</sup>
                 </h2>
-                
-                <div className="space-y-4 text-lg sm:text-[33px] font-medium leading-relaxed">
-                  <p>{item.description}</p>
-                  <div className="flex flex-col gap-1">
+
+                <div className="space-y-4 text-[13px] s:text-[13px] m:text-[33px] font-medium leading-relaxed font-futura">
+                  <p className="px-4 s:px-0 max-w-[448px] m:max-w-[736px] mx-auto text-center">{item.description}</p>
+                  <div className="flex flex-col gap-1 items-center">
                     {item.list.map((line, index) => (
                       <p key={index}>{line}</p>
                     ))}
@@ -51,10 +53,34 @@ export default function NewsPage() {
               </div>
 
               {/* Images Grid */}
-              <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
-                {[1, 2, 3].map((imgIndex) => (
-                  <div key={imgIndex} className="w-full aspect-[4/3] bg-gray-200">
-                    {/* Placeholder for images as per design */}
+              {/* XS: 2 columns, squareish aspect, gap-10px
+                  S:  2 columns, 219/198.7 aspect (~1.1), gap-10px
+                  M:  3 columns, 239/175.5 aspect (~1.36), gap-10px
+                  L:  3 columns, 324/169.5 aspect (~1.91), gap-10px
+              */}
+              <div className="w-full grid grid-cols-2 m:grid-cols-3 gap-[10px]">
+                {/* 
+                   Display Logic:
+                   XS: 2 images (1 row) - Indices 1, 2
+                   S:  4 images (2 rows) - Indices 1, 2, 3, 4
+                   M:  3 images (1 row) - Indices 1, 2, 3
+                   L:  3 images (1 row) - Indices 1, 2, 3
+                */}
+                {[1, 2, 3, 4].map((imgIndex) => (
+                  <div
+                    key={imgIndex}
+                    className={`w-full bg-[#D9D9D9] relative
+                      aspect-square 
+                      s:aspect-[219/198.7] 
+                      m:aspect-[239/175.5]
+                      l:aspect-[324/169.5]
+                      
+                      ${/* Visiblity Classes */ ''}
+                      ${imgIndex === 3 ? 'hidden s:block' : '' /* Index 3: Hidden XS, Show S, Show M, Show L */}
+                      ${imgIndex === 4 ? 'hidden s:block m:hidden' : '' /* Index 4: Hidden XS, Show S, Hide M, Hide L */}
+                    `}
+                  >
+                    {/* Placeholder for images */}
                   </div>
                 ))}
               </div>
@@ -64,12 +90,7 @@ export default function NewsPage() {
         </div>
 
         {/* Page Footer */}
-        <div className="flex justify-between items-end mt-32 text-sm font-medium">
-            <div className="flex items-center gap-2">
-               <span>@ 2cubes Design.com</span>
-            </div>
-            <div>China & Japan</div>
-        </div>
+        <Footer className="mt-32 text-black" />
       </div>
     </div>
   );

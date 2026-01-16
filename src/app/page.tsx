@@ -1,7 +1,6 @@
-'use client';
-
 import Image from 'next/image';
 import projectsData from '@/data/projects.json';
+import Footer from '@/components/Footer';
 
 export default function HomePage() {
   const projects = projectsData.projects;
@@ -18,10 +17,10 @@ export default function HomePage() {
           sizes="100vw"
           priority
         />
-        <div className="absolute bottom-6 left-6 right-6 flex justify-between text-[20px] text-black">
-          <div>@ 2cubesDesign.com</div>·
-          <div>China & Japan</div>
-        </div>
+        <Footer
+          isHome
+          className="absolute bottom-6 left-[10px] right-[10px] text-black"
+        />
       </section>
     </div>
   );

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import projectsData from '@/data/projects.json';
+import Footer from '@/components/Footer';
 
 export default function WorksPage() {
   const projects = projectsData.projects;
@@ -12,96 +13,118 @@ export default function WorksPage() {
 
   return (
     <div className="bg-white text-black min-h-screen">
-      <div className="w-full px-6 sm:px-8 py-10 sm:py-14">
-        <div className="space-y-32">
+      <div className="w-full px-[10px] py-10">
+        <div className="flex flex-col gap-[10px]">
           {projects.map((project) => (
-            <div key={project.id} className="flex flex-col">
+            <div key={project.id} className="flex flex-col pb-[10px] border-b-[0.5px] border-black last:border-0">
               {/* Header: Title & Metadata */}
-              <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end mb-4 gap-4 lg:gap-0 mix-blend-difference text-white">
-                <h2 className="text-4xl sm:text-[60px] font-normal uppercase leading-tight font-['Futura_PT']">
+              <div className="flex flex-col m:flex-row m:justify-between m:items-end mb-[10px]">
+                <h2 className="text-[26px] m:text-[34px] l:text-[48px] font-normal leading-tight m:leading-none l:leading-[42px] tracking-[-0.03em] font-futura uppercase">
                   {project.title}
                 </h2>
-                <div className="text-right text-[18px] font-medium font-['Futura_PT']">
+                {/* Metadata shown here on M and Large screens */}
+                <div className="hidden m:block text-[7px] font-medium leading-[7px] font-['Helvetica_Neue',_sans-serif]">
                   {project.year} / {getCategoryName(project.category)} / {project.services?.slice(0, 2).join(' & ')}
                 </div>
               </div>
 
-              {/* Top Divider */}
-              <div className="w-full border-t border-black"></div>
-
-              {/* Content Grid (Between Dividers) */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-black">
-                {/* Left Column: Description & Arrow */}
-                <div className="lg:col-span-2 flex flex-col justify-between h-full min-h-[200px] lg:min-h-0 py-4">
-                  <p className="text-sm leading-relaxed text-gray-800 max-w-xs">
+              {/* Content Grid: Description & Images */}
+              {/* layout changes:
+                  XS: 1 col (Desc, Img1)
+                  S:  1 col (Desc), then 2 cols (Img1, Img2) below
+                  M/L:  3 cols (Desc, Img1, Img2) side-by-side
+              */}
+              <div className="grid grid-cols-1 m:grid-cols-3 gap-[10px]">
+                {/* Col 1: Description */}
+                <div className="text-[9px] s:text-[10px] m:text-[7px] l:text-[9px] font-normal leading-[16px] font-['Helvetica_Neue',_sans-serif] mb-[10px] m:mb-0">
+                  <p className="max-w-full l:max-w-[324px]">
                     {project.description}
                   </p>
-                  
-                  {/* Arrow Button */}
-                  <div className="mt-8 lg:mt-0">
-                    <Link
-                      href={`/projects/${project.id}`}
-                      className="inline-flex items-center justify-center w-[54px] h-[54px] rounded-full border border-black hover:bg-black hover:text-white transition-all duration-300"
-                    >
-                      <ArrowUpRight size={20} strokeWidth={1} />
-                    </Link>
+                </div>
+
+                {/* XS/S View of Images (Hidden on M+) */}
+                <div className="grid grid-cols-1 s:grid-cols-2 gap-[10px] m:hidden">
+                  <div className="relative w-full aspect-[324/201.5] s:aspect-[219/128] bg-[#D9D9D9]">
+                    {project.images?.[0] && (
+                      <Image
+                        src={project.images[0]}
+                        alt={project.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 480px) 100vw, 50vw"
+                      />
+                    )}
+                  </div>
+                  {/* Image 2 hidden on XS, shown on S */}
+                  <div className="hidden s:block relative w-full aspect-[219/128] bg-[#D9D9D9]">
+                    {project.images?.[1] ? (
+                      <Image
+                        src={project.images[1]}
+                        alt={project.title}
+                        fill
+                        className="object-cover"
+                        sizes="50vw"
+                      />
+                    ) : (
+                      project.thumbnail ? (
+                        <Image
+                          src={project.thumbnail}
+                          alt={project.title}
+                          fill
+                          className="object-cover opacity-80"
+                          sizes="50vw"
+                        />
+                      ) : null
+                    )}
                   </div>
                 </div>
 
-                {/* Middle Column: Image 1 */}
-                <div className="lg:col-span-5">
-                   <div className="relative w-full aspect-[600/383] bg-gray-100">
-                      {project.images?.[0] ? (
-                         <Image
-                           src={project.images[0]}
-                           alt={project.title}
-                           fill
-                           className="object-cover"
-                           sizes="(max-width: 1024px) 100vw, 40vw"
-                         />
-                      ) : (
-                         <div className="w-full h-full flex items-center justify-center text-gray-400">No Image</div>
-                      )}
-                   </div>
+                {/* M/L View of Images (Hidden on XS/S) */}
+                <div className="hidden m:block relative w-full aspect-[324/201.5] bg-[#D9D9D9]">
+                  {project.images?.[0] && (
+                    <Image
+                      src={project.images[0]}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                      sizes="33vw"
+                    />
+                  )}
+                </div>
+                <div className="hidden m:block relative w-full aspect-[324/201.5] bg-[#D9D9D9]">
+                  {project.images?.[1] ? (
+                    <Image
+                      src={project.images[1]}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                      sizes="33vw"
+                    />
+                  ) : (
+                    project.thumbnail ? (
+                      <Image
+                        src={project.thumbnail}
+                        alt={project.title}
+                        fill
+                        className="object-cover opacity-80"
+                        sizes="33vw"
+                      />
+                    ) : null
+                  )}
                 </div>
 
-                {/* Right Column: Image 2 */}
-                <div className="lg:col-span-5">
-                   <div className="relative w-full aspect-[600/383] bg-gray-100">
-                      {project.images?.[1] ? (
-                         <Image
-                           src={project.images[1]}
-                           alt={project.title}
-                           fill
-                           className="object-cover"
-                           sizes="(max-width: 1024px) 100vw, 40vw"
-                         />
-                      ) : (
-                         // Fallback to thumbnail if second image is missing
-                         project.thumbnail ? (
-                            <Image
-                              src={project.thumbnail}
-                              alt={project.title}
-                              fill
-                              className="object-cover opacity-80"
-                              sizes="(max-width: 1024px) 100vw, 40vw"
-                            />
-                         ) : null
-                      )}
-                   </div>
-                </div>
+              </div>
+
+              {/* Metadata shown at bottom only on XS/S screens */}
+              <div className="m:hidden mt-[10px] text-[7px] font-medium leading-[7px] font-['Helvetica_Neue',_sans-serif]">
+                {project.year} / {getCategoryName(project.category)} / {project.services?.slice(0, 2).join(' & ')}
               </div>
             </div>
           ))}
         </div>
 
         {/* Page Footer */}
-        <div className="flex justify-between items-end mt-32 text-sm font-medium">
-            <div className="flex items-center gap-2">
-               <span>@ 2cubes Design.com</span>
-            </div>
-            <div>China & Japan</div>
-        </div>
+        <Footer className="mt-32 text-black" />
       </div>
     </div>
   );

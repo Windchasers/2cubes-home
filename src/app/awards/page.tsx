@@ -1,3 +1,5 @@
+import Footer from '@/components/Footer';
+
 export default function AwardsPage() {
   const awards = {
     chinese: [
@@ -38,9 +40,9 @@ export default function AwardsPage() {
 
   return (
     <div className="min-h-screen bg-white text-black">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-[10px] py-16">
         {/* Title row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-1 m:grid-cols-2 gap-8 mb-12">
           <div>
             <h1 className="text-4xl font-bold">奖项</h1>
           </div>
@@ -50,7 +52,7 @@ export default function AwardsPage() {
         </div>
 
         {/* Awards content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 m:grid-cols-2 gap-8">
           {/* Chinese awards */}
           <div>
             <div className="space-y-3">
@@ -75,10 +77,7 @@ export default function AwardsPage() {
         </div>
 
         {/* Footer */}
-        <div className="flex justify-between items-center mt-16 text-[20px] text-gray-600">
-          <div>@ 2cubesDesign.com</div>
-          <div>China ChangSha & Japan Tokyo</div>
-        </div>
+        <Footer className="mt-16 text-gray-600" />
       </div>
     </div>
   );
