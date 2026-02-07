@@ -278,49 +278,142 @@ export default function InformationPage() {
       {/* ========================================== */}
       {/* 4. L Layout (1024px+)                      */}
       {/* ========================================== */}
-      <div className="hidden l:block px-[10px] max-w-7xl mx-auto pb-20">
-        <section className="text-center pt-24 mb-32">
-          <Image src="https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/logo.svg" alt="Logo" width={80} height={105} className="mx-auto mb-12" />
-          <h1 className="text-[70px] font-normal font-futura leading-tight mb-12">2cubes Design Lab, founded in 2022</h1>
-          <div className="max-w-4xl mx-auto space-y-6 text-[24px]">
-            <p>Its services include brand design, packaging design...</p>
-          </div>
-          <div className="mt-20 flex justify-center gap-20">
+      <div className="hidden l:block bg-white px-[44px] pb-[40px]">
+        <section className="mx-auto max-w-[936px] text-center font-futura text-black">
+          <Image
+            src="https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/logo.svg"
+            alt="2cubes Logo"
+            width={58}
+            height={76}
+            className="mx-auto"
+            priority
+          />
+
+          <h1 className="mx-auto mt-[34px] max-w-[760px] text-[58px] font-normal leading-[1.28] tracking-[-0.03em]">
+            2cubes Design Lab, founded in 2022, is a creative studio based in Changsha, China, and Tokyo, Japan.
+          </h1>
+
+          <p className="mx-auto mt-[18px] max-w-[760px] text-[22px] font-normal leading-[1.72] tracking-[-0.03em]">
+            Its services include brand design, packaging design, exhibition design, cultural and creative product
+            design, and new media design.
+            <br />
+            With extensive experience in full-project design and execution, 2cubes maintains a global perspective and
+            provides professional design services to clients across diverse industries worldwide.
+          </p>
+
+          <div className="mx-auto mt-[28px] grid max-w-[760px] grid-cols-2 items-start gap-x-[28px]">
             <div className="flex flex-col items-center">
-              <Image src="https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/chinese-base.svg" alt="China" width={531} height={553} />
-              <div className="mt-4 text-[24px]">China Office: address...</div>
+              <Image
+                src="https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/chinese-base.svg"
+                alt="China Office Map"
+                width={270}
+                height={280}
+                className="h-auto w-[270px]"
+              />
+              <div className="mt-[22px] text-center text-[13px] leading-[1.7] tracking-[-0.03em]">
+                <p>China Office:</p>
+                <p>Design Studio, 233 Art Community - 233 Art Museum,</p>
+                <p>Yuhua District, Changsha, Hunan Province, China</p>
+              </div>
             </div>
+
             <div className="flex flex-col items-center">
-              <Image src="https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/japan-base.svg" alt="Japan" width={584} height={486} />
-              <div className="mt-4 text-[24px]">Japan Office: address...</div>
+              <Image
+                src="https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/japan-base.svg"
+                alt="Japan Office Map"
+                width={340}
+                height={282}
+                className="h-auto w-[340px]"
+              />
+              <div className="mt-[22px] text-center text-[13px] leading-[1.7] tracking-[-0.03em]">
+                <p>Japan Office:</p>
+                <p>东京都大田区大森北3-4-4</p>
+                <p>KT大森北北ビル4階</p>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Team 3-Cols */}
-        <section className="mb-32">
-          <h2 className="text-[70px] font-futura border-b border-black pb-4 text-center mb-16 uppercase">Team Introduction</h2>
-          <div className="grid grid-cols-3 gap-x-8 gap-y-16">
+        <section className="mx-auto mt-[74px] max-w-[936px] font-futura text-black">
+          <h2 className="text-center text-[42px] font-normal uppercase tracking-[-0.03em]">Team Introduction</h2>
+
+          <div className="mt-[46px] grid grid-cols-3 gap-x-[58px] gap-y-[68px]">
             {teamMembers.map((member, i) => (
-              <div key={i} className="flex flex-col">
-                <h3 className="text-[48px] uppercase mb-2">{member.name}</h3>
-                <div className="w-full h-[1px] bg-black mb-4"></div>
-                <div className="w-full aspect-square bg-gray-200 mb-6"></div>
-                <p className="text-[14px] leading-relaxed text-gray-600" dangerouslySetInnerHTML={{ __html: member.description }} />
-              </div>
+              <article
+                key={member.name}
+                className={`${
+                  i === 3 ? "col-start-1" : ""
+                } ${i === 4 ? "col-start-2" : ""}`}
+              >
+                <h3 className="border-b border-black pb-[4px] text-[33px] uppercase leading-none tracking-[-0.03em]">
+                  {member.name}
+                </h3>
+                <div className="mt-[6px] h-[220px] w-full bg-[#c6c6c6]" />
+                <p className="mt-[10px] text-[10px] leading-[1.45] tracking-[-0.03em]">
+                  {member.location} / {member.roles.join(" / ")}
+                </p>
+                <p
+                  className="mt-[8px] text-[10px] leading-[1.6] tracking-[-0.03em]"
+                  dangerouslySetInnerHTML={{ __html: member.description }}
+                />
+              </article>
             ))}
           </div>
         </section>
 
-        {/* Awards 3-Cols */}
-        <section className="mb-24">
-          <div className="grid grid-cols-3 gap-8">
-            <div><h2 className="text-[50px] font-bold border-b pb-2 mb-8">奖项</h2>{/* mapping... */}</div>
-            <div><h2 className="text-[50px] font-futura border-b pb-2 mb-8 uppercase">Award</h2>{/* mapping... */}</div>
+        <section className="mx-auto mt-[78px] grid max-w-[936px] grid-cols-2 gap-x-[58px] font-futura text-black">
+          <div>
+            <h3 className="text-[36px] font-normal tracking-[-0.03em]">奖项</h3>
+            <div className="mt-[7px] h-[1px] w-full bg-black" />
+            <ul className="mt-[14px] space-y-[5px] text-[10px] leading-[1.45] tracking-[-0.03em]">
+              {awards.chinese.map((award) => (
+                <li key={`cn-${award.year}-${award.title}`}>
+                  {award.year} &nbsp; {award.title}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-[36px] font-normal uppercase tracking-[-0.03em]">Award</h3>
+            <div className="mt-[7px] h-[1px] w-full bg-black" />
+            <ul className="mt-[14px] space-y-[5px] text-[10px] leading-[1.45] tracking-[-0.03em]">
+              {awards.english.map((award) => (
+                <li key={`en-${award.year}-${award.title}`}>
+                  {award.year} &nbsp; {award.title}
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
-        <Footer className="pt-8 border-t border-gray-100 text-black" />
+        <section className="mx-auto mt-[72px] grid max-w-[936px] grid-cols-2 gap-x-[58px] font-futura text-black">
+          <div>
+            <h3 className="text-[36px] font-normal tracking-[-0.03em]">活动与展览</h3>
+            <div className="mt-[7px] h-[1px] w-full bg-black" />
+            <ul className="mt-[14px] space-y-[5px] text-[10px] leading-[1.45] tracking-[-0.03em]">
+              {events.chinese.map((event) => (
+                <li key={`event-cn-${event.year}-${event.title}`}>
+                  {event.year} &nbsp; {event.title}, {event.location}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-[36px] font-normal uppercase tracking-[-0.03em]">Events & Exhibitions</h3>
+            <div className="mt-[7px] h-[1px] w-full bg-black" />
+            <ul className="mt-[14px] space-y-[5px] text-[10px] leading-[1.45] tracking-[-0.03em]">
+              {events.english.map((event) => (
+                <li key={`event-en-${event.year}-${event.title}`}>
+                  {event.year} &nbsp; {event.title}, {event.location}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <Footer className="mx-auto mt-[64px] max-w-[936px] pt-[18px] text-black" />
       </div>
 
     </div>
