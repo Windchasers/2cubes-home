@@ -7,7 +7,7 @@ interface FooterProps {
 }
 
 export default function Footer({ className = '', isHome = false, showFullLocation = false }: FooterProps) {
-    const commonClasses = "flex justify-between items-center text-[7px] l:text-[12px] font-futura  tracking-wider";
+    const commonClasses = "flex justify-between items-center text-[7px] l:text-[12px] l:leading-[15px] font-futura font-[450] tracking-[-0.03em]";
 
     return (
         <div className={`${commonClasses} ${className}`}>
