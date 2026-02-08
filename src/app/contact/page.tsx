@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Image from "next/image";
 import React from "react";
 
@@ -69,8 +70,8 @@ export default function ContactPage() {
       </div>
 
       {/* L layout */}
-      <div className="hidden min-h-[calc(100vh-96px)] bg-white l:block">
-        <section className="mx-auto flex min-h-[calc(100vh-96px)] w-full max-w-[1024px] flex-col items-center px-[14px] pb-[16px] pt-[12px] font-futura">
+      <div className="hidden bg-white l:block">
+        <section className="mx-auto flex w-full max-w-[1024px] flex-col items-center px-[14px] pb-[16px] pt-[12px] font-futura">
           <Image
             src="https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/logo.svg"
             alt="2cubes Logo"
@@ -100,11 +101,7 @@ export default function ContactPage() {
             ))}
           </div>
 
-          <div className="mt-auto grid w-full grid-cols-3 text-[12px] font-[450] leading-none tracking-[-0.03em]">
-            <p className="justify-self-start">@ 2cubes Design.com</p>
-            <p className="justify-self-center">China &amp; Japan</p>
-            <p />
-          </div>
+          <Footer className="mt-auto w-full" />
         </section>
       </div>
     </div>

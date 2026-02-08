@@ -1,5 +1,5 @@
-import React from 'react';
 import Footer from '@/components/Footer';
+import React from 'react';
 
 export default function NewsPage() {
   const newsItems = [
@@ -89,7 +89,7 @@ export default function NewsPage() {
         </div>
 
         {/* Page Footer */}
-        <Footer className="mt-32 text-black" />
+        <Footer />
       </div>
     </div>
   );

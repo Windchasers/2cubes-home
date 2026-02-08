@@ -77,7 +77,7 @@ export default function AwardsPage() {
         </div>
 
         {/* Footer */}
-        <Footer className="mt-16 text-gray-600" />
+        <Footer />
       </div>
     </div>
   );

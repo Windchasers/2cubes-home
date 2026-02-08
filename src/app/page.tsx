@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import projectsData from '@/data/projects.json';
 import Footer from '@/components/Footer';
+import projectsData from '@/data/projects.json';
+import Image from 'next/image';
 
 export default function HomePage() {
   const projects = projectsData.projects;
@@ -17,10 +17,7 @@ export default function HomePage() {
           sizes="100vw"
           priority
         />
-        <Footer
-          isHome
-          className="absolute bottom-6 left-[10px] right-[10px] text-black"
-        />
+        <Footer className="absolute bottom-6 left-[10px] right-[10px] mt-0" />
       </section>
     </div>
   );

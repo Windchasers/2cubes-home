@@ -260,10 +260,12 @@ body {
   .page-scale-wrap {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
   }
 
   .page-scale {
     width: 1024px;
+    flex: 0 0 auto;
     transform: scale(var(--page-scale, 1));
     transform-origin: top center;
   }
@@ -271,11 +273,17 @@ body {
   .page-scale-header-wrap {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
   }
 
   .page-scale-header {
     width: 1024px;
     transform: scale(var(--page-scale, 1));
     transform-origin: top center;
+  }
+
+  /* Use content height on scaled pages instead of forcing viewport-height blocks */
+  .page-scale .min-h-screen {
+    min-height: auto;
   }
 }

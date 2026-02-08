@@ -195,7 +195,7 @@ export default function InformationPage() {
           </div>
         </section>
 
-        <Footer className="mt-20 pt-8 border-t border-gray-100 text-black" />
+        <Footer />
       </div>
 
       {/* ========================================== */}
@@ -233,7 +233,7 @@ export default function InformationPage() {
           </div>
         </section>
 
-        <Footer className="mt-24 pt-8 border-t border-gray-100 text-black" />
+        <Footer />
       </div>
 
       {/* ========================================== */}
@@ -272,7 +272,7 @@ export default function InformationPage() {
           </div>
         </section>
 
-        <Footer className="pt-8 border-t border-gray-100 text-black" />
+        <Footer />
       </div>
 
       {/* ========================================== */}
@@ -283,34 +283,34 @@ export default function InformationPage() {
           <Image
             src="https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/logo.svg"
             alt="2cubes Logo"
-            width={58}
-            height={76}
+            width={52}
+            height={69}
             className="mx-auto"
             priority
           />
 
-          <h1 className="mx-auto mt-[34px] max-w-[760px] text-[58px] font-normal leading-[1.28] tracking-[-0.03em]">
-            2cubes Design Lab, founded in 2022, is a creative studio based in Changsha, China, and Tokyo, Japan.
+          <h1 className="mx-auto mt-[33px] max-w-[730px] text-[44.2px] font-normal leading-[1.28] tracking-[-0.03em]">
+            2cubes Design Lab, founded in 2022,<br /> is a creative studio based in Changsha, China, and Tokyo, Japan.
           </h1>
 
-          <p className="mx-auto mt-[18px] max-w-[760px] text-[22px] font-normal leading-[1.72] tracking-[-0.03em]">
-            Its services include brand design, packaging design, exhibition design, cultural and creative product
+          <p className="mx-auto mt-[17px] max-w-[730px] text-[21.1px] font-normal leading-[1.72] tracking-[-0.03em]">
+            Its services include brand design, packaging design, exhibition design,<br /> cultural and creative product
             design, and new media design.
             <br />
-            With extensive experience in full-project design and execution, 2cubes maintains a global perspective and
-            provides professional design services to clients across diverse industries worldwide.
+            With extensive experience in full-project design and execution, <br />2cubes maintains a global perspective and
+            provides professional design <br />services to clients across diverse industries worldwide.
           </p>
 
-          <div className="mx-auto mt-[28px] grid max-w-[760px] grid-cols-2 items-start gap-x-[28px]">
+          <div className="mx-auto mt-[23px] grid max-w-[622px] grid-cols-2 items-start gap-x-[23px]">
             <div className="flex flex-col items-center">
               <Image
                 src="https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/chinese-base.svg"
                 alt="China Office Map"
-                width={270}
-                height={280}
-                className="h-auto w-[270px]"
+                width={220}
+                height={229}
+                className="h-auto w-[220px]"
               />
-              <div className="mt-[22px] text-center text-[13px] leading-[1.7] tracking-[-0.03em]">
+              <div className="mt-[18px] text-center text-[10.3px] leading-[1.7] tracking-[-0.03em]">
                 <p>China Office:</p>
                 <p>Design Studio, 233 Art Community - 233 Art Museum,</p>
                 <p>Yuhua District, Changsha, Hunan Province, China</p>
@@ -321,11 +321,11 @@ export default function InformationPage() {
               <Image
                 src="https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/japan-base.svg"
                 alt="Japan Office Map"
-                width={340}
-                height={282}
-                className="h-auto w-[340px]"
+                width={278}
+                height={231}
+                className="h-auto w-[278px]"
               />
-              <div className="mt-[22px] text-center text-[13px] leading-[1.7] tracking-[-0.03em]">
+              <div className="mt-[18px] text-center text-[10.3px] leading-[1.7] tracking-[-0.03em]">
                 <p>Japan Office:</p>
                 <p>东京都大田区大森北3-4-4</p>
                 <p>KT大森北北ビル4階</p>
@@ -334,26 +334,25 @@ export default function InformationPage() {
           </div>
         </section>
 
-        <section className="mx-auto mt-[74px] max-w-[936px] font-futura text-black">
-          <h2 className="text-center text-[42px] font-normal uppercase tracking-[-0.03em]">Team Introduction</h2>
+        <section className="mx-auto mt-[61px] max-w-[764px] font-futura text-black">
+          <h2 className="text-center text-[34px] font-normal uppercase tracking-[-0.03em]">Team Introduction</h2>
 
-          <div className="mt-[46px] grid grid-cols-3 gap-x-[58px] gap-y-[68px]">
+          <div className="mt-[37px] grid grid-cols-3 gap-x-[47px] gap-y-[56px]">
             {teamMembers.map((member, i) => (
               <article
                 key={member.name}
-                className={`${
-                  i === 3 ? "col-start-1" : ""
-                } ${i === 4 ? "col-start-2" : ""}`}
+                className={`${i === 3 ? "col-start-1" : ""
+                  } ${i === 4 ? "col-start-2" : ""}`}
               >
-                <h3 className="border-b border-black pb-[4px] text-[33px] uppercase leading-none tracking-[-0.03em]">
+                <h3 className="border-b border-black pb-[3px] text-[27px] uppercase leading-none tracking-[-0.03em]">
                   {member.name}
                 </h3>
-                <div className="mt-[6px] h-[220px] w-full bg-[#c6c6c6]" />
-                <p className="mt-[10px] text-[10px] leading-[1.45] tracking-[-0.03em]">
+                <div className="mt-[5px] h-[179px] w-full bg-[#c6c6c6]" />
+                <p className="mt-[8px] text-[8.25px] leading-[1.45] tracking-[-0.03em]">
                   {member.location} / {member.roles.join(" / ")}
                 </p>
                 <p
-                  className="mt-[8px] text-[10px] leading-[1.6] tracking-[-0.03em]"
+                  className="mt-[6px] text-[8.25px] leading-[1.6] tracking-[-0.03em]"
                   dangerouslySetInnerHTML={{ __html: member.description }}
                 />
               </article>
@@ -361,11 +360,11 @@ export default function InformationPage() {
           </div>
         </section>
 
-        <section className="mx-auto mt-[78px] grid max-w-[936px] grid-cols-2 gap-x-[58px] font-futura text-black">
+        <section className="mx-auto mt-[64px] grid max-w-[764px] grid-cols-2 gap-x-[47px] font-futura text-black">
           <div>
-            <h3 className="text-[36px] font-normal tracking-[-0.03em]">奖项</h3>
-            <div className="mt-[7px] h-[1px] w-full bg-black" />
-            <ul className="mt-[14px] space-y-[5px] text-[10px] leading-[1.45] tracking-[-0.03em]">
+            <h3 className="text-[30px] font-normal tracking-[-0.03em]">奖项</h3>
+            <div className="mt-[6px] h-[1px] w-full bg-black" />
+            <ul className="mt-[11.3px] space-y-[4px] text-[8.25px] leading-[1.45] tracking-[-0.03em]">
               {awards.chinese.map((award) => (
                 <li key={`cn-${award.year}-${award.title}`}>
                   {award.year} &nbsp; {award.title}
@@ -375,9 +374,9 @@ export default function InformationPage() {
           </div>
 
           <div>
-            <h3 className="text-[36px] font-normal uppercase tracking-[-0.03em]">Award</h3>
-            <div className="mt-[7px] h-[1px] w-full bg-black" />
-            <ul className="mt-[14px] space-y-[5px] text-[10px] leading-[1.45] tracking-[-0.03em]">
+            <h3 className="text-[30px] font-normal uppercase tracking-[-0.03em]">Award</h3>
+            <div className="mt-[6px] h-[1px] w-full bg-black" />
+            <ul className="mt-[11.3px] space-y-[4px] text-[8.25px] leading-[1.45] tracking-[-0.03em]">
               {awards.english.map((award) => (
                 <li key={`en-${award.year}-${award.title}`}>
                   {award.year} &nbsp; {award.title}
@@ -387,11 +386,11 @@ export default function InformationPage() {
           </div>
         </section>
 
-        <section className="mx-auto mt-[72px] grid max-w-[936px] grid-cols-2 gap-x-[58px] font-futura text-black">
+        <section className="mx-auto mt-[59px] grid max-w-[764px] grid-cols-2 gap-x-[47px] font-futura text-black">
           <div>
-            <h3 className="text-[36px] font-normal tracking-[-0.03em]">活动与展览</h3>
-            <div className="mt-[7px] h-[1px] w-full bg-black" />
-            <ul className="mt-[14px] space-y-[5px] text-[10px] leading-[1.45] tracking-[-0.03em]">
+            <h3 className="text-[30px] font-normal tracking-[-0.03em]">活动与展览</h3>
+            <div className="mt-[6px] h-[1px] w-full bg-black" />
+            <ul className="mt-[11.3px] space-y-[4px] text-[8.25px] leading-[1.45] tracking-[-0.03em]">
               {events.chinese.map((event) => (
                 <li key={`event-cn-${event.year}-${event.title}`}>
                   {event.year} &nbsp; {event.title}, {event.location}
@@ -401,9 +400,9 @@ export default function InformationPage() {
           </div>
 
           <div>
-            <h3 className="text-[36px] font-normal uppercase tracking-[-0.03em]">Events & Exhibitions</h3>
-            <div className="mt-[7px] h-[1px] w-full bg-black" />
-            <ul className="mt-[14px] space-y-[5px] text-[10px] leading-[1.45] tracking-[-0.03em]">
+            <h3 className="text-[30px] font-normal uppercase tracking-[-0.03em]">Events & Exhibitions</h3>
+            <div className="mt-[6px] h-[1px] w-full bg-black" />
+            <ul className="mt-[11.3px] space-y-[4px] text-[8.25px] leading-[1.45] tracking-[-0.03em]">
               {events.english.map((event) => (
                 <li key={`event-en-${event.year}-${event.title}`}>
                   {event.year} &nbsp; {event.title}, {event.location}
@@ -413,7 +412,7 @@ export default function InformationPage() {
           </div>
         </section>
 
-        <Footer className="mx-auto mt-[64px] max-w-[936px] pt-[18px] text-black" />
+        <Footer className="mx-auto max-w-[764px]" />
       </div>
 
     </div>

@@ -1,7 +1,7 @@
+import Footer from '@/components/Footer';
+import projectsData from '@/data/projects.json';
 import Image from 'next/image';
 import Link from 'next/link';
-import projectsData from '@/data/projects.json';
-import Footer from '@/components/Footer';
 
 export default function PreviewPage() {
   const projects = projectsData.projects; // Removed slice to show all projects in preview
@@ -31,7 +31,7 @@ export default function PreviewPage() {
           })}
         </div>
 
-        <Footer className="mt-10 text-gray-600" />
+        <Footer />
       </div>
     </div>
   );

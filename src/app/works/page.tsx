@@ -124,7 +124,7 @@ export default function WorksPage() {
           </div>
 
           {/* Page Footer */}
-          <Footer className="mt-32 text-black" />
+          <Footer />
         </div>
     </div>
   );
