@@ -1,7 +1,6 @@
-import type { Metadata } from 'next';
-import { getProjectDetailById } from '@/lib/projectData';
-import type { Project } from '@/types/project';
-import ClientProjectDetail from './ClientProjectDetail';
+import { getProjectDetailById } from "@/lib/projectData";
+import type { Metadata } from "next";
+import ClientProjectDetail from "./ClientProjectDetail";
 
 type Props = {
   params: { id: string };
@@ -12,7 +11,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // 注意：这里无法使用客户端的语言上下文，所以使用默认的中文标题
   // 实际页面内容会在客户端组件中根据语言环境动态显示
   return {
-    title: project ? `${project.title} - another design` : `Project ${params.id} - another design`,
+    title: project
+      ? `${project.title} - another design`
+      : `Project ${params.id} - another design`,
   };
 }
 
@@ -26,12 +27,5 @@ export async function generateStaticParams() {
 export default function ProjectDetailPage({ params }: Props) {
   const { id } = params;
 
-  // 服务器端获取项目数据，用于生成元数据
-  const project: Project | undefined = getProjectDetailById(id);
-
-  if (!project) {
-    return <div className="container mx-auto px-[10px] pt-16">Project not found</div>;
-  }
-
   return <ClientProjectDetail id={id} />;
-} 
+}

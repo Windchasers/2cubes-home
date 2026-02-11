@@ -8,7 +8,7 @@ export default function HomePage() {
 
   return (
     <div className="bg-white text-black">
-      <section className="relative w-screen h-screen">
+      <section className="relative w-full h-[calc(100vh/var(--page-scale,1))] overflow-hidden">
         <Image
           src={heroSrc}
           alt="2cubes Design hero"

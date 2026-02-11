@@ -88,7 +88,7 @@ export default function ContactPage() {
 
           <div className="mt-[14px] h-px w-[380px] bg-black/45" />
 
-          <div className="mt-[14px] flex items-center justify-center gap-[14px]">
+          <div className="mt-[14px] mb-[98px] flex items-center justify-center gap-[14px]">
             {socialLinks.map((link) => (
               <a
                 key={`l-${link.alt}`}
