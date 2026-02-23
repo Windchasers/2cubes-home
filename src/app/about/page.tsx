@@ -278,7 +278,7 @@ export default function InformationPage() {
       {/* ========================================== */}
       {/* 4. L Layout (1024px+)                      */}
       {/* ========================================== */}
-      <div className="hidden l:block bg-white px-[44px] pb-[40px]">
+      <div className="hidden l:block bg-white px-[44px] pb-[96px]">
         <section className="mx-auto max-w-[936px] text-center font-futura text-black">
           <Image
             src="https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/logo.svg"
@@ -335,24 +335,33 @@ export default function InformationPage() {
         </section>
 
         <section className="mx-auto mt-[61px] max-w-[764px] font-futura text-black">
-          <h2 className="text-center text-[34px] font-normal uppercase tracking-[-0.03em]">Team Introduction</h2>
+          <div className="text-center">
+            <h2 className="inline-block text-[34px] font-normal uppercase tracking-[-0.03em]">
+              Team Introduction
+            </h2>
+          </div>
+          <div className="mt-[7px] grid grid-cols-3 gap-x-[30px]">
+            <div />
+            <div className="h-[1px] w-full bg-black" />
+            <div />
+          </div>
 
-          <div className="mt-[37px] grid grid-cols-3 gap-x-[47px] gap-y-[56px]">
+          <div className="mt-[61px] grid grid-cols-3 gap-x-[30px] gap-y-[56px]">
             {teamMembers.map((member, i) => (
               <article
                 key={member.name}
                 className={`${i === 3 ? "col-start-1" : ""
                   } ${i === 4 ? "col-start-2" : ""}`}
               >
-                <h3 className="border-b border-black pb-[3px] text-[27px] uppercase leading-none tracking-[-0.03em]">
+                <h3 className="inline-block border-b border-black pb-[3px] text-[24px] uppercase leading-none tracking-[-0.03em]">
                   {member.name}
                 </h3>
-                <div className="mt-[5px] h-[179px] w-full bg-[#c6c6c6]" />
-                <p className="mt-[8px] text-[8.25px] leading-[1.45] tracking-[-0.03em]">
+                <div className="mt-[12px] h-[179px] w-full bg-[#c6c6c6]" />
+                <p className="mt-[14px] text-[8.25px] leading-[1.45] tracking-[-0.03em]">
                   {member.location} / {member.roles.join(" / ")}
                 </p>
                 <p
-                  className="mt-[6px] text-[8.25px] leading-[1.6] tracking-[-0.03em]"
+                  className="mt-[12px] text-[8.25px] leading-[1.7] tracking-[-0.03em]"
                   dangerouslySetInnerHTML={{ __html: member.description }}
                 />
               </article>
@@ -412,7 +421,7 @@ export default function InformationPage() {
           </div>
         </section>
 
-        <Footer className="mx-auto max-w-[764px]" />
+        <Footer />
       </div>
 
     </div>

@@ -30,24 +30,21 @@ export default function NewsPage() {
   return (
     <div className="bg-white text-black min-h-screen font-['Futura_PT']">
       <div className="w-full px-[10px] py-10 s:py-14 l:px-[16px] l:pt-[50px] l:pb-[35px] l:-mt-[46px]">
-        <div className="space-y-32">
+        <div className="space-y-16 s:space-y-20 l:space-y-[56px]">
           {newsItems.map((item) => (
             <div key={item.id} className="flex flex-col items-center w-full">
 
               {/* Title Section */}
-              <div className="text-center mb-6 s:mb-12 l:mb-[2px] l:w-[992px] l:mx-auto">
-                <h2 className="text-[26px] s:text-[35px] m:text-[40px] l:text-[40px] font-normal uppercase leading-[1.2] s:leading-[90px] m:leading-[90px] l:leading-[90px] mb-2 s:mb-6 l:mb-[-8px] inline-flex items-start tracking-[-0.03em]">
-                  <span className="block leading-[90px]">{item.title}</span>
-                  <span className="block text-sm s:text-[18px] m:text-[20px] l:text-[24px] leading-[14px] ml-[4px] mt-[32px] tracking-[-0.03em]">{item.superscript}</span>
+              <div className="text-center mb-[14px] s:mb-[18px] l:mb-[16px] l:w-[992px] l:mx-auto">
+                <h2 className="text-[26px] s:text-[35px] m:text-[40px] l:text-[40px] font-normal uppercase leading-none mb-0 inline-flex items-start tracking-[-0.03em]">
+                  <span className="block leading-none">{item.title}</span>
+                  <span className="block text-sm s:text-[18px] m:text-[20px] l:text-[24px] leading-none ml-[4px] mt-[3px] s:mt-[4px] m:mt-[5px] l:mt-[5px] tracking-[-0.03em]">{item.superscript}</span>
                 </h2>
 
-                <div className="space-y-4 l:space-y-[2px] text-[13px] s:text-[13px] m:text-[16px] l:text-[15px] font-normal leading-relaxed l:leading-[24px] font-futura l:mt-0">
-                  <p className="m-0 px-4 s:px-0 max-w-[448px] m:max-w-[736px] l:max-w-[520px] mx-auto text-center whitespace-pre-line">{item.description}</p>
-                  <div className="flex flex-col gap-1 l:gap-[6px] items-center">
-                    {item.list.map((line, index) => (
-                      <p key={index} className="m-0">{line}</p>
-                    ))}
-                  </div>
+                <div className="text-[13px] s:text-[13px] m:text-[16px] l:text-[15px] font-normal leading-[1.52] l:leading-[1.72] font-futura mt-[12px]">
+                  <p className="m-0 px-4 s:px-0 max-w-[448px] m:max-w-[736px] l:max-w-[520px] mx-auto text-center whitespace-pre-line leading-[inherit]">
+                    {`${item.description}\n${item.list.join("\n")}`}
+                  </p>
                 </div>
               </div>
 

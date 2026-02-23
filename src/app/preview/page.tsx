@@ -8,7 +8,7 @@ export default function PreviewPage() {
 
   return (
     <div className="bg-white text-black min-h-screen">
-      <div className="w-full px-[10px] py-10 s:py-14">
+      <div className="w-full px-[10px] pt-0 pb-10 s:pb-14 l:px-[16px]">
         <div className="grid grid-cols-1 s:grid-cols-2 m:grid-cols-3 gap-[10px]">
           {projects.map((p) => {
             const img = p.thumbnail || p.images?.[0];

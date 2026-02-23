@@ -282,6 +282,18 @@ body {
     transform-origin: top center;
   }
 
+  .page-scale-footer-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  .page-scale-footer {
+    width: 1024px;
+    transform: scale(var(--page-scale, 1));
+    transform-origin: bottom center;
+  }
+
   /* Use content height on scaled pages instead of forcing viewport-height blocks */
   .page-scale .min-h-screen {
     min-height: auto;

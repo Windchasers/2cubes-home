@@ -75,7 +75,7 @@ export default function ContactPage() {
           <Image
             src="https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/logo.svg"
             alt="2cubes Logo"
-            width={58}
+            width={54}
             height={76}
             priority
           />
@@ -88,7 +88,7 @@ export default function ContactPage() {
 
           <div className="mt-[14px] h-px w-[380px] bg-black/45" />
 
-          <div className="mt-[14px] mb-[98px] flex items-center justify-center gap-[14px]">
+          <div className="mt-[14px] mb-[98px] flex items-center justify-center gap-[22px]">
             {socialLinks.map((link) => (
               <a
                 key={`l-${link.alt}`}
@@ -96,12 +96,12 @@ export default function ContactPage() {
                 className="transition-opacity hover:opacity-80"
                 aria-label={link.alt}
               >
-                <Image src={link.icon} alt={link.alt} width={40} height={40} />
+                <Image src={link.icon} alt={link.alt} width={30} height={30} />
               </a>
             ))}
           </div>
 
-          <Footer className="mt-auto w-full" />
+          <Footer />
         </section>
       </div>
     </div>

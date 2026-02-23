@@ -17,7 +17,7 @@ export default function HomePage() {
           sizes="100vw"
           priority
         />
-        <Footer className="absolute bottom-6 left-[10px] right-[10px] mt-0" />
+        <Footer />
       </section>
     </div>
   );

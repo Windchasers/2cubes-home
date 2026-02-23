@@ -6,6 +6,7 @@ import PageScale from "@/components/PageScale";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type React from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function LayoutContent({
   children,
@@ -13,11 +14,43 @@ export default function LayoutContent({
   const pathname = usePathname();
   const isHome = pathname === "/";
   const isScaled = true;
+  const isPreview = pathname === "/preview";
+  const headerRef = useRef<HTMLElement>(null);
+  const [headerHeight, setHeaderHeight] = useState(0);
+  const [pageScale, setPageScale] = useState(1);
+
+  useEffect(() => {
+    const measureHeader = () => {
+      if (!headerRef.current) return;
+      setHeaderHeight(headerRef.current.getBoundingClientRect().height);
+      const scaleValue = Number.parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue("--page-scale")
+      );
+      setPageScale(Number.isFinite(scaleValue) && scaleValue > 0 ? scaleValue : 1);
+    };
+
+    measureHeader();
+    window.addEventListener("resize", measureHeader);
+
+    const observer = new ResizeObserver(measureHeader);
+    if (headerRef.current) observer.observe(headerRef.current);
+
+    return () => {
+      window.removeEventListener("resize", measureHeader);
+      observer.disconnect();
+    };
+  }, []);
+
+  const mainClassName = isHome ? "" : isPreview ? "" : "pt-24";
+  const previewPaddingTop = Math.ceil((headerHeight || 86) + 10 * pageScale);
 
   return (
     <div className="bg-white text-black">
       <CustomCursor />
-      <header className="fixed top-0 left-0 right-0 z-[100] px-[10px] pt-6 s:pt-8 l:px-0 l:pt-[10px] pointer-events-none mix-blend-difference">
+      <header
+        ref={headerRef}
+        className="fixed top-0 left-0 right-0 z-[100] px-[10px] pt-6 s:pt-8 l:px-0 l:pt-[10px] pointer-events-none mix-blend-difference"
+      >
         <div
           className={`${isScaled ? "page-scale-header-wrap" : ""} pointer-events-auto`}
         >
@@ -33,7 +66,7 @@ export default function LayoutContent({
                   2cubes
                 </span>
                 <span className="text-[9px] s:text-[7px] m:text-[1.171875vw] l:text-[12px] opacity-80 leading-none">
-                  design
+                  Design
                 </span>
               </Link>
             </div>
@@ -45,7 +78,10 @@ export default function LayoutContent({
         </div>
       </header>
 
-      <main className={isHome ? "" : "pt-24"}>
+      <main
+        className={mainClassName}
+        style={isPreview ? { paddingTop: `${previewPaddingTop}px` } : undefined}
+      >
         {isScaled ? <PageScale>{children}</PageScale> : children}
       </main>
     </div>

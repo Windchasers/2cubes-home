@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useMotionValue } from 'framer-motion';
 
 export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
@@ -63,7 +63,7 @@ export default function CustomCursor() {
         }
       `}</style>
       <motion.div
-        className="fixed top-0 left-0 w-[30px] h-[30px] bg-transparent border border-black rounded-full pointer-events-none z-[9999]"
+        className="fixed top-0 left-0 w-[30px] h-[30px] bg-transparent border border-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
         animate={{
           scale: isClicked ? 0.8 : 1
         }}

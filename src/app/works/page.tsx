@@ -55,7 +55,7 @@ export default function WorksPage() {
             >
               {/* Header: Title & Metadata */}
               <div className="flex flex-col m:flex-row m:justify-between m:items-end mb-[10px]">
-                <h2 className="text-[26px] m:text-[34px] l:text-[48px] font-normal leading-tight m:leading-none l:leading-[42px] tracking-[-0.03em] font-futura uppercase">
+                <h2 className="text-[22px] m:text-[30px] l:text-[44px] font-normal leading-tight m:leading-none l:leading-[42px] tracking-[-0.03em] font-futura uppercase">
                   VISION DESIGN
                 </h2>
                 {/* Metadata shown here on M and Large screens */}
@@ -76,8 +76,8 @@ export default function WorksPage() {
                 */}
               <div className="grid grid-cols-1 m:grid-cols-3 gap-[10px]">
                 {/* Col 1: Description */}
-                <div className="text-[9px] s:text-[10px] m:text-[7px] l:text-[9px] font-normal leading-[16px] font-['Helvetica_Neue',_sans-serif] mb-[10px] m:mb-0">
-                  <p className="max-w-full l:max-w-[324px]">
+                <div className="text-[9px] s:text-[10px] m:text-[7px] l:text-[9px] font-normal leading-[16px] font-['Helvetica_Neue',_sans-serif] mb-[10px] m:mb-0 m:-mt-[3px]">
+                  <p className="m-0 max-w-full l:max-w-[324px]">
                     Illusion Architecture, a pioneering studio based in Nanning,
                     embraces the philosophy of a “dialogue between space and
                     perception.” Its visual identity draws inspiration from
