@@ -6,6 +6,7 @@ import { motion, useMotionValue } from 'framer-motion';
 export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(false);
   
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -18,14 +19,27 @@ export default function CustomCursor() {
   useEffect(() => {
     // Check if device supports hover (basically non-touch devices)
     const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const ua = navigator.userAgent;
+    const detectedSafari =
+      /Safari/i.test(ua) &&
+      !/Chrome|Chromium|CriOS|Edg|OPR|Brave|FxiOS|Firefox/i.test(ua);
     
     if (!mediaQuery.matches) {
+      setIsEnabled(false);
       return;
     }
 
+    setIsEnabled(true);
+
     const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX - 15); // Center the cursor (30px width / 2)
-      cursorY.set(e.clientY - 15); // Center the cursor (30px height / 2)
+      const viewport = window.visualViewport;
+      const offsetX = detectedSafari && viewport ? viewport.offsetLeft : 0;
+      const offsetY = detectedSafari && viewport ? viewport.offsetTop : 0;
+
+      // Safari zoom/pan: clientX/clientY are visual-viewport relative.
+      // Add visualViewport offsets so fixed cursor can continue tracking to the right.
+      cursorX.set(e.clientX + offsetX - 15); // Center the cursor (30px width / 2)
+      cursorY.set(e.clientY + offsetY - 15); // Center the cursor (30px height / 2)
       if (!isVisible) setIsVisible(true);
     };
 
@@ -48,8 +62,7 @@ export default function CustomCursor() {
     };
   }, [cursorX, cursorY, isVisible]);
 
-  // If not a device with a fine pointer, don't render custom cursor
-  if (typeof window !== 'undefined' && window.matchMedia && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  if (!isEnabled) {
     return null;
   }
 
