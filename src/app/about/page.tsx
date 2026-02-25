@@ -183,7 +183,7 @@ export default function InformationPage() {
         {/* Awards */}
         <section className="mt-20 space-y-10">
           <div>
-            <h2 className="text-[24px] font-bold border-b border-gray-200 pb-2 mb-4">奖项 / AWARD</h2>
+            <h2 className="text-[24px] font-bold border-b-[0.5px] border-gray-200 pb-2 mb-4">奖项 / AWARD</h2>
             <div className="space-y-2">
               {awards.chinese.map((award, i) => (
                 <div key={i} className="flex text-[13px]">
@@ -220,7 +220,7 @@ export default function InformationPage() {
 
         {/* Team */}
         <section className="mt-24">
-          <h2 className="text-3xl text-center mb-12 border-b border-black pb-4 inline-block mx-auto w-full">Team Introduction</h2>
+          <h2 className="text-3xl text-center mb-12 border-b-[0.5px] border-black pb-4 inline-block mx-auto w-full">Team Introduction</h2>
           <div className="grid grid-cols-1 gap-12">
             {teamMembers.map((member, i) => (
               <div key={i} className="flex flex-col">
@@ -260,7 +260,7 @@ export default function InformationPage() {
 
         {/* Team 2-Cols */}
         <section className="mb-32">
-          <h2 className="text-[50px] font-futura uppercase border-b border-black pb-4 mb-16 text-center">Team Introduction</h2>
+          <h2 className="text-[50px] font-futura uppercase border-b-[0.5px] border-black pb-4 mb-16 text-center">Team Introduction</h2>
           <div className="grid grid-cols-2 gap-x-12 gap-y-20">
             {teamMembers.map((m, i) => (
               <div key={i} className="flex flex-col">
@@ -342,7 +342,7 @@ export default function InformationPage() {
           </div>
           <div className="mt-[7px] grid grid-cols-3 gap-x-[30px]">
             <div />
-            <div className="h-[1px] w-full bg-black" />
+            <div className="h-[0.5px] w-full bg-black" />
             <div />
           </div>
 
@@ -353,7 +353,7 @@ export default function InformationPage() {
                 className={`${i === 3 ? "col-start-1" : ""
                   } ${i === 4 ? "col-start-2" : ""}`}
               >
-                <h3 className="inline-block border-b border-black pb-[3px] text-[24px] uppercase leading-none tracking-[-0.03em]">
+                <h3 className="inline-block border-b-[0.5px] border-black pb-[3px] text-[24px] uppercase leading-none tracking-[-0.03em]">
                   {member.name}
                 </h3>
                 <div className="mt-[12px] h-[179px] w-full bg-[#c6c6c6]" />
@@ -372,7 +372,7 @@ export default function InformationPage() {
         <section className="mx-auto mt-[64px] grid max-w-[764px] grid-cols-2 gap-x-[47px] font-futura text-black">
           <div>
             <h3 className="text-[30px] font-normal tracking-[-0.03em]">奖项</h3>
-            <div className="mt-[6px] h-[1px] w-full bg-black" />
+            <div className="mt-[6px] h-[0.5px] w-full bg-black" />
             <ul className="mt-[11.3px] space-y-[4px] text-[8.25px] leading-[1.45] tracking-[-0.03em]">
               {awards.chinese.map((award) => (
                 <li key={`cn-${award.year}-${award.title}`}>
@@ -384,7 +384,7 @@ export default function InformationPage() {
 
           <div>
             <h3 className="text-[30px] font-normal uppercase tracking-[-0.03em]">Award</h3>
-            <div className="mt-[6px] h-[1px] w-full bg-black" />
+            <div className="mt-[6px] h-[0.5px] w-full bg-black" />
             <ul className="mt-[11.3px] space-y-[4px] text-[8.25px] leading-[1.45] tracking-[-0.03em]">
               {awards.english.map((award) => (
                 <li key={`en-${award.year}-${award.title}`}>
@@ -398,7 +398,7 @@ export default function InformationPage() {
         <section className="mx-auto mt-[59px] grid max-w-[764px] grid-cols-2 gap-x-[47px] font-futura text-black">
           <div>
             <h3 className="text-[30px] font-normal tracking-[-0.03em]">活动与展览</h3>
-            <div className="mt-[6px] h-[1px] w-full bg-black" />
+            <div className="mt-[6px] h-[0.5px] w-full bg-black" />
             <ul className="mt-[11.3px] space-y-[4px] text-[8.25px] leading-[1.45] tracking-[-0.03em]">
               {events.chinese.map((event) => (
                 <li key={`event-cn-${event.year}-${event.title}`}>
@@ -410,7 +410,7 @@ export default function InformationPage() {
 
           <div>
             <h3 className="text-[30px] font-normal uppercase tracking-[-0.03em]">Events & Exhibitions</h3>
-            <div className="mt-[6px] h-[1px] w-full bg-black" />
+            <div className="mt-[6px] h-[0.5px] w-full bg-black" />
             <ul className="mt-[11.3px] space-y-[4px] text-[8.25px] leading-[1.45] tracking-[-0.03em]">
               {events.english.map((event) => (
                 <li key={`event-en-${event.year}-${event.title}`}>

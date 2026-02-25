@@ -49,11 +49,13 @@ export default function ContactPage() {
 
         <div className="space-y-3 text-center font-futura text-[48px] font-normal tracking-wide">
           {contactLines.map((line) => (
-            <p key={line}>{line}</p>
+            <p key={line} className="m-0">
+              {line}
+            </p>
           ))}
         </div>
 
-        <div className="mb-10 mt-10 h-px w-[300px] bg-black opacity-30" />
+        <div className="my-10 h-px w-[300px] bg-black opacity-30" />
 
         <div className="flex items-center justify-center gap-8">
           {socialLinks.map((link) => (
@@ -80,15 +82,17 @@ export default function ContactPage() {
             priority
           />
 
-          <div className="mt-[26px] space-y-[4px] text-center text-[22px] font-normal leading-[1.7] tracking-[-0.03em]">
+          <div className="mt-[26px] -mb-[0.35em] space-y-[4px] text-center text-[22px] font-normal leading-[1.7] tracking-[-0.03em]">
             {contactLines.map((line) => (
-              <p key={`l-${line}`}>{line}</p>
+              <p key={`l-${line}`} className="m-0">
+                {line}
+              </p>
             ))}
           </div>
 
-          <div className="mt-[14px] h-px w-[380px] bg-black/45" />
+          <div className="my-[14px] h-px w-[380px] bg-black/45" />
 
-          <div className="mt-[14px] mb-[98px] flex items-center justify-center gap-[22px]">
+          <div className="mb-[98px] flex items-center justify-center gap-[22px]">
             {socialLinks.map((link) => (
               <a
                 key={`l-${link.alt}`}
