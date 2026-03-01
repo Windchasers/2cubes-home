@@ -1,8 +1,10 @@
 "use client";
 
+import AppleMotion from "@/components/AppleMotion";
 import CustomCursor from "@/components/CustomCursor";
 import Navigation from "@/components/Navigation";
 import PageScale from "@/components/PageScale";
+import SiteEntrance from "@/components/SiteEntrance";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type React from "react";
@@ -24,9 +26,13 @@ export default function LayoutContent({
       if (!headerRef.current) return;
       setHeaderHeight(headerRef.current.getBoundingClientRect().height);
       const scaleValue = Number.parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue("--page-scale")
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--page-scale",
+        ),
       );
-      setPageScale(Number.isFinite(scaleValue) && scaleValue > 0 ? scaleValue : 1);
+      setPageScale(
+        Number.isFinite(scaleValue) && scaleValue > 0 ? scaleValue : 1,
+      );
     };
 
     measureHeader();
@@ -46,7 +52,9 @@ export default function LayoutContent({
 
   return (
     <div className="bg-white text-black">
+      <SiteEntrance />
       <CustomCursor />
+      <AppleMotion />
       <header
         ref={headerRef}
         className="fixed top-0 left-0 right-0 z-[100] px-[10px] pt-6 s:pt-8 l:px-0 l:pt-[10px] pointer-events-none mix-blend-difference"

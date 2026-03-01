@@ -179,6 +179,60 @@ body {
   animation: fadeIn 0.5s ease-in-out;
 }
 
+/* Apple-style reveal motion */
+.apple-reveal {
+  opacity: 0;
+  transform: translate3d(0, 32px, 0) scale(0.99);
+  filter: none;
+  will-change: opacity, transform;
+  transition:
+    opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--apple-reveal-delay, 0ms);
+}
+
+.apple-reveal-title {
+  transform: translate3d(0, 18px, 0) scale(0.997);
+}
+
+.apple-reveal-body {
+  transform: translate3d(0, 24px, 0) scale(0.995);
+}
+
+.apple-reveal-divider {
+  opacity: 0.65;
+  transform: scaleX(0);
+  transform-origin: center;
+  filter: none;
+  transition:
+    opacity 1.05s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-reveal-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: none;
+}
+
+.apple-reveal-divider.apple-reveal-visible {
+  opacity: 1;
+  transform: scaleX(1);
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apple-reveal,
+  .apple-reveal-title,
+  .apple-reveal-body,
+  .apple-reveal-divider {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}
+
 /* Homepage video */
 .video-background {
   position: fixed;
