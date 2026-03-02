@@ -182,21 +182,21 @@ body {
 /* Apple-style reveal motion */
 .apple-reveal {
   opacity: 0;
-  transform: translate3d(0, 32px, 0) scale(0.99);
+  transform: translate3d(0, 18px, 0);
   filter: none;
   will-change: opacity, transform;
   transition:
-    opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 1.35s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.58s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.72s cubic-bezier(0.2, 0.9, 0.28, 1.02);
   transition-delay: var(--apple-reveal-delay, 0ms);
 }
 
 .apple-reveal-title {
-  transform: translate3d(0, 18px, 0) scale(0.997);
+  transform: translate3d(0, 10px, 0);
 }
 
 .apple-reveal-body {
-  transform: translate3d(0, 24px, 0) scale(0.995);
+  transform: translate3d(0, 14px, 0);
 }
 
 .apple-reveal-divider {
@@ -205,13 +205,13 @@ body {
   transform-origin: center;
   filter: none;
   transition:
-    opacity 1.05s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 1.45s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.56s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.82s cubic-bezier(0.2, 0.9, 0.28, 1.02);
 }
 
 .apple-reveal-visible {
   opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
+  transform: translate3d(0, 0, 0);
   filter: none;
 }
 

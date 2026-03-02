@@ -1,112 +1,48 @@
 {
   "categories": [
-    { "id": "all", "name": "全部" },
-    { "id": "branding", "name": "品牌设计" },
-    { "id": "web", "name": "网站设计" },
-    { "id": "installation", "name": "装置艺术" },
-    { "id": "curation", "name": "策展" },
-    { "id": "digital", "name": "数字媒体" },
-    { "id": "exhibition", "name": "展览设计" },
-    { "id": "books", "name": "书籍设计" },
-    { "id": "environment", "name": "环境设计" },
-    { "id": "animation", "name": "动画" }
+    {
+      "id": "all",
+      "name": "全部"
+    },
+    {
+      "id": "Identity",
+      "name": "Identity"
+    }
   ],
   "projects": [
     {
       "id": 1,
-      "title": "品牌重塑项目",
-      "subtitle": "为客户打造全新品牌形象",
-      "category": "branding",
-      "year": "2024",
-      "client": "某科技公司",
-      "services": ["品牌设计", "视觉识别系统", "营销物料"],
-      "description": "这是一个全面的品牌重塑项目，我们为客户创建了新的品牌标识、视觉语言和应用系统。",
-      "images": [
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/1/mixtape%E6%B5%B7%E6%8A%A5%202.jpg",
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/1/mixtape%E6%95%88%E6%9E%9C%E5%9B%BE%E6%8A%98%E9%A1%B5.jpg",
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/1/mixtape4.12%E6%95%88%E6%9E%9C%E5%9B%BE%E5%A0%86%E5%8F%A0.jpg"
-      ],
-      "thumbnail": "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/1/thumbnail.jpg"
-    },
-    {
-      "id": 2,
-      "title": "响应式网站设计",
-      "subtitle": "现代化的用户体验设计",
-      "category": "web",
+      "title": "别猜了，就是一本小说",
+      "titleEn": "Stop Guessing",
+      "subtitle": "《红楼梦》评论集书籍设计",
+      "subtitleEn": "It's Just a Novel",
+      "category": "Identity",
       "year": "2023",
-      "client": "某设计工作室",
-      "services": ["网站设计", "用户体验", "前端开发"],
-      "description": "为客户设计并开发了一个现代化的响应式网站，展示其作品集并提升品牌形象。",
-      "images": [
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/2/thumbnail.jpg",
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/2/thumbnail.jpg",
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/2/thumbnail.jpg"
+      "client": "Shaanxi Normal University Press",
+      "clientEn": "Shaanxi Normal University Press",
+      "ad": "Jin Li",
+      "designer": "ZhiWei Sun",
+      "services": [
+        "Videos & Motion Graphics"
       ],
-      "thumbnail": "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/2/thumbnail.jpg"
-    },
-    {
-      "id": 3,
-      "title": "互动装置艺术",
-      "subtitle": "融合技术与艺术的沉浸式体验",
-      "category": "installation",
-      "year": "2023",
-      "client": "某艺术展览",
-      "services": ["装置设计", "交互设计", "技术实现"],
-      "description": "为艺术展览创作了一个互动装置，通过传感器和投影技术，让观众成为作品的一部分。",
-      "images": [
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/3/thumbnail.jpg",
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/3/thumbnail.jpg",
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/3/thumbnail.jpg"
+      "servicesEn": [
+        "Videos & Motion Graphics"
       ],
-      "thumbnail": "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/3/thumbnail.jpg"
-    },
-    {
-      "id": 4,
-      "title": "艺术展览策划",
-      "subtitle": "当代艺术主题展",
-      "category": "curation",
-      "year": "2022",
-      "client": "某艺术中心",
-      "services": ["展览策划", "艺术家协调", "展览设计"],
-      "description": "策划了一场探索当代社会议题的艺术展览，汇集了多位艺术家的作品。",
+      "description": "这是一本《红楼梦》评论集，作者以细腻的笔触带领读者破解红楼文本的隐藏密码。设计从文本内容入手，形成高辨识度的美学语言，在文本之外留给读者更多想象空间。",
+      "descriptionEn": "A visual identity and motion project for a collection of essays on Dream of the Red Chamber, translating literary imagery into a contemporary and elegant book language.",
       "images": [
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/4/thumbnail.jpg",
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/4/thumbnail.jpg",
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/4/thumbnail.jpg"
+        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/book-design-just-a-novel/1.avif",
+        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/book-design-just-a-novel/2.avif",
+        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/book-design-just-a-novel/3.avif",
+        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/book-design-just-a-novel/4.avif",
+        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/book-design-just-a-novel/5.avif",
+        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/book-design-just-a-novel/6.avif",
+        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/book-design-just-a-novel/7.avif",
+        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/book-design-just-a-novel/8.avif",
+        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/book-design-just-a-novel/9.avif",
+        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/book-design-just-a-novel/10.avif"
       ],
-      "thumbnail": "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/4/thumbnail.jpg"
-    },
-    {
-      "id": 5,
-      "title": "数字媒体艺术",
-      "subtitle": "探索数字与现实的边界",
-      "category": "digital",
-      "year": "2022",
-      "client": "独立项目",
-      "services": ["数字艺术", "编程", "视觉设计"],
-      "description": "这是一个探索数字媒体可能性的实验性项目，结合了生成艺术、数据可视化和互动元素。",
-      "images": [
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/5/thumbnail.jpg",
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/5/thumbnail.jpg",
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/5/thumbnail.jpg"
-      ],
-      "thumbnail": "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/5/thumbnail.jpg"
-    },
-    {
-      "id": 6,
-      "title": "书籍设计系列",
-      "subtitle": "当代文学作品集",
-      "category": "books",
-      "year": "2021",
-      "client": "某出版社",
-      "services": ["书籍设计", "排版", "封面设计"],
-      "description": "为一系列当代文学作品设计了书籍装帧和排版。",
-      "images": [
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/6/thumbnail.jpg",
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/6/thumbnail.jpg",
-        "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/6/thumbnail.jpg"
-      ],
-      "thumbnail": "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/6/thumbnail.jpg"
+      "thumbnail": "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/book-design-just-a-novel/cover.avif"
     }
   ]
 }

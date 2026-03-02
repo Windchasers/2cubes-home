@@ -38,14 +38,14 @@ const EXCLUDED_TAGS = new Set([
 const PHASE_ORDER = {
   title: 0,
   divider: 0,
-  body: 460,
+  body: 180,
 } as const;
 
 const PHASE_VALUES = ["title", "divider", "body"] as const;
-const GROUP_DELAY_MS = 120;
-const MAX_GROUP_DELAY_MS = 360;
-const MAX_DELAY_MS = 920;
-const STEP_DELAY_MS = 80;
+const GROUP_DELAY_MS = 70;
+const MAX_GROUP_DELAY_MS = 180;
+const MAX_DELAY_MS = 460;
+const STEP_DELAY_MS = 40;
 
 type RevealPhase = (typeof PHASE_VALUES)[number];
 
@@ -186,15 +186,15 @@ export default function AppleMotion() {
         }
       },
       {
-        rootMargin: "0px 0px -12% 0px",
-        threshold: 0.18,
+        rootMargin: "0px 0px -6% 0px",
+        threshold: 0.12,
       },
     );
 
     for (const element of targets) {
       const rect = element.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
-      if (rect.top < viewportHeight * 0.82) {
+      if (rect.top < viewportHeight * 0.88) {
         element.classList.add("apple-reveal-visible");
       } else {
         observer.observe(element);

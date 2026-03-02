@@ -1,23 +1,10 @@
 import Footer from "@/components/Footer";
 import projectsData from "@/data/projects.json";
-import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function WorksPage() {
   const projects = projectsData.projects;
-  const categoryEnglishMap: Record<string, string> = {
-    all: "All",
-    branding: "Branding",
-    web: "Web",
-    installation: "Installation",
-    curation: "Curation",
-    digital: "Digital",
-    exhibition: "Exhibition",
-    books: "Books",
-    environment: "Environment",
-    animation: "Animation",
-  };
+  const categoryEnglishMap: Record<string, string> = { all: "All" };
 
   const serviceEnglishMap: Record<string, string> = {
     品牌设计: "Brand Design",
@@ -48,15 +35,19 @@ export default function WorksPage() {
     <div className="bg-white text-black min-h-screen">
       <div className="w-full px-[10px] py-10 l:px-[16px] l:pt-[50px] l:pb-[35px] l:-mt-[46px]">
         <div className="flex flex-col gap-[10px]">
-          {projects.map((project) => (
-            <div
-              key={project.id}
-              className="flex flex-col pb-[10px] border-b-[0.5px] border-black last:border-0"
-            >
+          {projects.map((project) => {
+            const firstImage = project.images?.[0];
+            const secondImage = project.images?.[1] || project.images?.[0];
+
+            return (
+              <div
+                key={project.id}
+                className="flex flex-col pb-[10px] border-b-[0.5px] border-black last:border-0"
+              >
               {/* Header: Title & Metadata */}
               <div className="flex flex-col m:flex-row m:justify-between m:items-end mb-[10px]">
                 <h2 className="text-[22px] m:text-[30px] l:text-[44px] font-normal leading-tight m:leading-none l:leading-[42px] tracking-[-0.03em] font-futura uppercase">
-                  VISION DESIGN
+                  {(project.titleEn || project.title).toUpperCase()}
                 </h2>
                 {/* Metadata shown here on M and Large screens */}
                 <div className="hidden m:block text-[7px] font-medium leading-[7px] text-right font-['Helvetica_Neue',_sans-serif]">
@@ -78,20 +69,16 @@ export default function WorksPage() {
                 {/* Col 1: Description */}
                 <div className="text-[9px] s:text-[10px] m:text-[7px] l:text-[9px] font-normal leading-[16px] font-['Helvetica_Neue',_sans-serif] mb-[10px] m:mb-0 m:-mt-[3px]">
                   <p className="m-0 max-w-full l:max-w-[324px]">
-                    Illusion Architecture, a pioneering studio based in Nanning,
-                    embraces the philosophy of a “dialogue between space and
-                    perception.” Its visual identity draws inspiration from
-                    water ripples—symbols of spatial extension, energy flow, and
-                    infinite design possibilities.
+                    {project.descriptionEn || project.description}
                   </p>
                 </div>
 
                 {/* XS/S View of Images (Hidden on M+) */}
                 <div className="grid grid-cols-1 s:grid-cols-2 gap-[10px] m:hidden">
                   <div className="relative w-full aspect-[324/201.5] s:aspect-[219/128] bg-[#D9D9D9]">
-                    {project.images?.[0] && (
+                    {firstImage && (
                       <Image
-                        src={project.images[0]}
+                        src={firstImage}
                         alt={project.title}
                         fill
                         className="object-cover"
@@ -101,20 +88,12 @@ export default function WorksPage() {
                   </div>
                   {/* Image 2 hidden on XS, shown on S */}
                   <div className="hidden s:block relative w-full aspect-[219/128] bg-[#D9D9D9]">
-                    {project.images?.[1] ? (
+                    {secondImage ? (
                       <Image
-                        src={project.images[1]}
+                        src={secondImage}
                         alt={project.title}
                         fill
                         className="object-cover"
-                        sizes="50vw"
-                      />
-                    ) : project.thumbnail ? (
-                      <Image
-                        src={project.thumbnail}
-                        alt={project.title}
-                        fill
-                        className="object-cover opacity-80"
                         sizes="50vw"
                       />
                     ) : null}
@@ -123,9 +102,9 @@ export default function WorksPage() {
 
                 {/* M/L View of Images (Hidden on XS/S) */}
                 <div className="hidden m:block relative w-full aspect-[324/201.5] bg-[#D9D9D9]">
-                  {project.images?.[0] && (
+                  {firstImage && (
                     <Image
-                      src={project.images[0]}
+                      src={firstImage}
                       alt={project.title}
                       fill
                       className="object-cover"
@@ -134,20 +113,12 @@ export default function WorksPage() {
                   )}
                 </div>
                 <div className="hidden m:block relative w-full aspect-[324/201.5] bg-[#D9D9D9]">
-                  {project.images?.[1] ? (
+                  {secondImage ? (
                     <Image
-                      src={project.images[1]}
+                      src={secondImage}
                       alt={project.title}
                       fill
                       className="object-cover"
-                      sizes="33vw"
-                    />
-                  ) : project.thumbnail ? (
-                    <Image
-                      src={project.thumbnail}
-                      alt={project.title}
-                      fill
-                      className="object-cover opacity-80"
                       sizes="33vw"
                     />
                   ) : null}
@@ -159,8 +130,9 @@ export default function WorksPage() {
                 {project.year} / {getCategoryName(project.category)} /{" "}
                 {project.services?.slice(0, 2).map(getServiceName).join(" & ")}
               </div>
-            </div>
-          ))}
+              </div>
+            );
+          })}
         </div>
 
         {/* Page Footer */}

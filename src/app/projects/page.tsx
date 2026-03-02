@@ -1,69 +1,44 @@
-'use client';
-
-import { useState } from 'react';
-import Link from 'next/link';
-import { useLanguage } from '@/contexts/LanguageContext';
-
-// Mock project categories
-const categoryIds = [
-  'all',
-  'branding',
-  'web',
-  'installation',
-  'curation',
-  'digital',
-  'exhibition',
-  'books',
-  'environment',
-  'animation',
-];
-
-// Mock projects
-const projects = Array.from({ length: 20 }, (_, i) => ({
-  id: i + 1,
-  title: `Project ${i + 1}`,
-  category: categoryIds[Math.floor(Math.random() * categoryIds.length)],
-  image: `https://placehold.co/600x400/e2e2e2/white?text=Project+${i + 1}`,
-}));
+import Footer from "@/components/Footer";
+import projectsData from "@/data/projects.json";
+import { getProjectRouteParam } from "@/lib/projectData";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function ProjectsPage() {
-  const { t } = useLanguage();
-  const [activeCategory, setActiveCategory] = useState('all');
-
-  const filteredProjects = activeCategory === 'all'
-    ? projects
-    : projects.filter(project => project.category === activeCategory);
+  const projects = projectsData.projects;
 
   return (
-    <div className="container mx-auto px-[10px] pt-16">
-      <div className="mb-8">
-        <div className="text-sm text-gray-500 mb-2">{t('projectType')}</div>
-        <div className="flex flex-wrap gap-4">
-          {categoryIds.map((categoryId) => (
-            <button
-              key={categoryId}
-              className={`text-sm ${activeCategory === categoryId ? 'font-bold' : 'text-gray-600'
-                }`}
-              onClick={() => setActiveCategory(categoryId)}
-            >
-              {t(`categories.${categoryId}`)}
-            </button>
-          ))}
-        </div>
-      </div>
+    <div className="bg-white text-black min-h-screen">
+      <div className="w-full px-[10px] pt-0 pb-10 s:pb-14 l:px-[16px]">
+        <div className="grid grid-cols-1 s:grid-cols-2 m:grid-cols-3 gap-[10px]">
+          {projects.map((project) => {
+            const image = project.thumbnail || project.images?.[0];
+            const routeParam = getProjectRouteParam(project.id);
 
-      <div className="projects-grid">
-        {filteredProjects.map((project) => (
-          <Link href={`/projects/${project.id}`} key={project.id}>
-            <div className="bg-gray-200 aspect-square hover:opacity-90 transition-opacity">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </Link>
-        ))}
+            return (
+              <Link
+                key={project.id}
+                href={`/projects/${routeParam}`}
+                className="block group"
+              >
+                <div className="relative w-full aspect-[4/3] bg-neutral-300">
+                  {image && (
+                    <Image
+                      src={image}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 480px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      priority={project.id === 1}
+                    />
+                  )}
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+
+        <Footer />
       </div>
     </div>
   );

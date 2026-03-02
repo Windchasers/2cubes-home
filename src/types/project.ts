@@ -15,6 +15,10 @@ export interface Project {
   year: string;
   client: string;
   clientEn?: string;
+  ad?: string;
+  adEn?: string;
+  designer?: string;
+  designerEn?: string;
   services: string[];
   servicesEn?: string[];
   description: string;

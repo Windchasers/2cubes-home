@@ -46,7 +46,7 @@ export default function SiteEntrance() {
     >
       <div className="flex h-full w-full items-center justify-center px-6">
         <video
-          className="pointer-events-none h-auto w-full max-w-[920px] object-contain"
+          className="pointer-events-none h-auto w-full max-w-[980px] object-contain"
           autoPlay
           loop
           muted

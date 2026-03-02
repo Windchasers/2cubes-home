@@ -1,31 +1,36 @@
-import { getProjectDetailById } from "@/lib/projectData";
+import {
+  getProjectDetailByRouteParam,
+  getProjectRoutes,
+} from "@/lib/projectData";
 import type { Metadata } from "next";
 import ClientProjectDetail from "./ClientProjectDetail";
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const project = getProjectDetailById(params.id);
+  const { id } = await params;
+  const project = getProjectDetailByRouteParam(id);
   // 注意：这里无法使用客户端的语言上下文，所以使用默认的中文标题
   // 实际页面内容会在客户端组件中根据语言环境动态显示
   return {
     title: project
       ? `${project.title} - another design`
-      : `Project ${params.id} - another design`,
+      : `Project ${id} - another design`,
   };
 }
 
 export async function generateStaticParams() {
-  // Generate params for project IDs 1 through 6 (based on available project folders)
-  return Array.from({ length: 6 }, (_, i) => ({
-    id: String(i + 1),
+  const routes = getProjectRoutes();
+
+  return routes.map((route) => ({
+    id: route.slug,
   }));
 }
 
-export default function ProjectDetailPage({ params }: Props) {
-  const { id } = params;
+export default async function ProjectDetailPage({ params }: Props) {
+  const { id } = await params;
 
-  return <ClientProjectDetail id={id} />;
+  return <ClientProjectDetail routeParam={id} />;
 }

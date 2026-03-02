@@ -1,6 +1,7 @@
 import { ProjectsData, type Project, type Category, type ProjectDetailedInfo } from '../types/project';
 import projectsData from '../data/projects.json';
 import projectDetailsData from '../data/projectDetails.json';
+import projectRoutesData from '../data/projectRoutes.json';
 import { processProjectImages, processProjectsImages } from './imageUtils';
 
 /**
@@ -28,6 +29,39 @@ export function getProjectById(id: number | string): Project | undefined {
   const numericId = typeof id === 'string' ? Number.parseInt(id, 10) : id;
   const project = projectsData.projects.find(project => project.id === numericId);
   return project ? processProjectImages(project) : undefined;
+}
+
+/**
+ * 获取项目路由映射
+ * @returns 项目路由映射数组
+ */
+export function getProjectRoutes(): Array<{ id: number; slug: string }> {
+  return projectRoutesData.routes;
+}
+
+/**
+ * 将路由参数解析为项目ID（支持 slug 或数字ID）
+ * @param routeParam 路由参数
+ * @returns 项目ID或undefined
+ */
+export function resolveProjectId(routeParam: string): number | undefined {
+  const numeric = Number.parseInt(routeParam, 10);
+  if (Number.isFinite(numeric) && String(numeric) === routeParam) {
+    return numeric;
+  }
+
+  const route = projectRoutesData.routes.find(item => item.slug === routeParam);
+  return route?.id;
+}
+
+/**
+ * 根据项目ID获取路由参数（优先返回slug）
+ * @param id 项目ID
+ * @returns 路由参数字符串
+ */
+export function getProjectRouteParam(id: number): string {
+  const route = projectRoutesData.routes.find(item => item.id === id);
+  return route?.slug || String(id);
 }
 
 /**
@@ -72,6 +106,20 @@ export function getProjectDetailById(id: number | string): Project | undefined {
 }
 
 /**
+ * 根据路由参数获取项目详细信息（支持 slug 或数字ID）
+ * @param routeParam 路由参数
+ * @returns 项目详细信息对象或undefined
+ */
+export function getProjectDetailByRouteParam(routeParam: string): Project | undefined {
+  const resolvedId = resolveProjectId(routeParam);
+  if (typeof resolvedId === 'number') {
+    return getProjectDetailById(resolvedId);
+  }
+
+  return undefined;
+}
+
+/**
  * 根据项目ID和语言获取项目详细信息
  * @param id 项目ID
  * @param language 语言 ('zh' | 'en')
@@ -96,6 +144,8 @@ export function getLocalizedProjectDetailById(id: number | string, language: 'zh
       title: project.titleEn || project.title,
       subtitle: project.subtitleEn || project.subtitle,
       client: project.clientEn || project.client,
+      ad: project.adEn || project.ad,
+      designer: project.designerEn || project.designer,
       services: project.servicesEn || project.services,
       description: project.descriptionEn || project.description,
       content: project.contentEn || project.content
