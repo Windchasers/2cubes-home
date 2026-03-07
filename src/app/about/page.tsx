@@ -14,6 +14,8 @@ interface TeamMember {
   location: string;
   roles: string[];
   description: string;
+  imageUrl?: string;
+  imagePosition?: string;
 }
 
 interface Award {
@@ -34,13 +36,16 @@ const teamMembers: TeamMember[] = [
     name: 'ZHIWEI SUN',
     location: '中国办公室',
     roles: ['平面设计师', '动态设计师'],
-    description: '2cubes design平面设计师。<br/>本科毕业于中国/西安美术学院。<br/>具有多年设计艺术行业经验，带领团队持续为客户提供具有竞争力的设计类服务。作品曾获德国红点奖、台湾金点奖、东京TDC、中国最美的书、Award 360等国际国内奖项。'
+    description: '2cubes design平面设计师。<br/>本科毕业于中国/西安美术学院。<br/>具有多年设计艺术行业经验，带领团队持续为客户提供具有竞争力的设计类服务。作品曾获德国红点奖、台湾金点奖、东京TDC、中国最美的书、Award 360等国际国内奖项。',
+    imageUrl: 'https://4p6gppmls93l24ur.public.blob.vercel-storage.com/team/zhiweisun.jpg',
+    imagePosition: '50% 22%'
   },
   {
     name: 'LUNYI HE',
     location: '中国办公室',
     roles: ['平面设计师', '策展人'],
-    description: '2cubes design创意总监、平面设计师；233艺术社区艺术指导、策展人。<br>本科毕业于中国/西安美术学院，硕士研究生毕业于英国/皇家艺术学院。<br>深耕艺术设计领域多年，深度参与在地艺术与展览项目。其作品多次获得Tokyo TDC、澳门设计大奖等国内外重要奖项。'
+    description: '2cubes design创意总监、平面设计师；233艺术社区艺术指导、策展人。<br>本科毕业于中国/西安美术学院，硕士研究生毕业于英国/皇家艺术学院。<br>深耕艺术设计领域多年，深度参与在地艺术与展览项目。其作品多次获得Tokyo TDC、澳门设计大奖等国内外重要奖项。',
+    imageUrl: 'https://4p6gppmls93l24ur.public.blob.vercel-storage.com/team/lunyihe.jpg'
   },
   {
     name: 'ZHONGHAO WU',
@@ -58,9 +63,27 @@ const teamMembers: TeamMember[] = [
     name: 'YUCHEN XU',
     location: '日本办公室',
     roles: ['客户执行AE', '商务BD', '供应链管理'],
-    description: '2cubes design日本分部商务BD、供应链负责人。<br>本科毕业于中国/西安美术学院，硕士研究生毕业于日本/东京福祉大学。<br>具有丰富行业经验，对商业环境有着敏锐的感知反应。负责拓展2cubes design的项目合作渠道、高效推进设计项目执行、以及保障设计产品高品质生产。'
+    description: '2cubes design日本分部商务BD、供应链负责人。<br>本科毕业于中国/西安美术学院，硕士研究生毕业于日本/东京福祉大学。<br>具有丰富行业经验，对商业环境有着敏锐的感知反应。负责拓展2cubes design的项目合作渠道、高效推进设计项目执行、以及保障设计产品高品质生产。',
+    imageUrl: 'https://4p6gppmls93l24ur.public.blob.vercel-storage.com/team/yuchenxu.jpg'
   }
 ];
+
+function TeamMemberPhoto({ member, className }: { member: TeamMember; className: string }) {
+  return (
+    <div className={`${className} relative overflow-hidden bg-[#D9D9D9]`}>
+      {member.imageUrl ? (
+        <Image
+          src={member.imageUrl}
+          alt={`${member.name} portrait`}
+          fill
+          className="object-cover"
+          style={member.imagePosition ? { objectPosition: member.imagePosition } : undefined}
+          sizes="(max-width: 768px) 100vw, 33vw"
+        />
+      ) : null}
+    </div>
+  );
+}
 
 const awards = {
   chinese: [
@@ -163,9 +186,7 @@ export default function InformationPage() {
           <div className="space-y-[40px]">
             {teamMembers.map((member, i) => (
               <div key={i} className="flex flex-col">
-                <div className="w-full aspect-square bg-[#D9D9D9] mb-[15px] relative">
-                  {/* Placeholder for member photo */}
-                </div>
+                <TeamMemberPhoto member={member} className="mb-[15px] w-full aspect-square" />
                 <div className="flex items-end justify-between mb-[20px]">
                   <h3 className="text-[18px] font-futura uppercase tracking-[-0.03em] leading-none">{member.name}</h3>
                   <div className="text-[7px] text-right tracking-[-0.03em] leading-none">
@@ -225,7 +246,7 @@ export default function InformationPage() {
             {teamMembers.map((member, i) => (
               <div key={i} className="flex flex-col">
                 <h3 className="text-3xl uppercase mb-2">{member.name}</h3>
-                <div className="w-full aspect-square bg-gray-200 mb-6"></div>
+                <TeamMemberPhoto member={member} className="mb-6 w-full aspect-square" />
                 <p className="text-sm font-bold mb-2">{member.location} / {member.roles.join(' / ')}</p>
                 <p className="text-sm text-gray-700" dangerouslySetInnerHTML={{ __html: member.description }} />
               </div>
@@ -265,7 +286,7 @@ export default function InformationPage() {
             {teamMembers.map((m, i) => (
               <div key={i} className="flex flex-col">
                 <h3 className="text-[36px] uppercase mb-4">{m.name}</h3>
-                <div className="w-full aspect-square bg-gray-200 mb-6"></div>
+                <TeamMemberPhoto member={m} className="mb-6 w-full aspect-square" />
                 <p className="text-[14px] leading-relaxed" dangerouslySetInnerHTML={{ __html: m.description }} />
               </div>
             ))}
@@ -356,7 +377,7 @@ export default function InformationPage() {
                 <h3 className="inline-block border-b-[0.5px] border-black pb-[3px] text-[24px] uppercase leading-none tracking-[-0.03em]">
                   {member.name}
                 </h3>
-                <div className="mt-[12px] h-[179px] w-full bg-[#c6c6c6]" />
+                <TeamMemberPhoto member={member} className="mt-[12px] h-[179px] w-full" />
                 <p className="mt-[14px] text-[8.25px] leading-[1.45] tracking-[-0.03em]">
                   {member.location} / {member.roles.join(" / ")}
                 </p>
