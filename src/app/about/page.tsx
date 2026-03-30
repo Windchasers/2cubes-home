@@ -16,6 +16,7 @@ interface TeamMember {
   description: string;
   imageUrl?: string;
   imagePosition?: string;
+  imageScale?: number;
 }
 
 interface Award {
@@ -37,34 +38,39 @@ const teamMembers: TeamMember[] = [
     location: '中国办公室',
     roles: ['平面设计师', '动态设计师'],
     description: '2cubes design平面设计师。<br/>本科毕业于中国/西安美术学院。<br/>具有多年设计艺术行业经验，带领团队持续为客户提供具有竞争力的设计类服务。作品曾获德国红点奖、台湾金点奖、东京TDC、中国最美的书、Award 360等国际国内奖项。',
-    imageUrl: 'https://4p6gppmls93l24ur.public.blob.vercel-storage.com/team/zhiweisun.jpg',
-    imagePosition: '50% 22%'
+    imageUrl: 'https://4p6gppmls93l24ur.public.blob.vercel-storage.com/team/zhiweisun.avif',
+    imagePosition: '50% 12%'
   },
   {
     name: 'LUNYI HE',
     location: '中国办公室',
     roles: ['平面设计师', '策展人'],
     description: '2cubes design创意总监、平面设计师；233艺术社区艺术指导、策展人。<br>本科毕业于中国/西安美术学院，硕士研究生毕业于英国/皇家艺术学院。<br>深耕艺术设计领域多年，深度参与在地艺术与展览项目。其作品多次获得Tokyo TDC、澳门设计大奖等国内外重要奖项。',
-    imageUrl: 'https://4p6gppmls93l24ur.public.blob.vercel-storage.com/team/lunyihe.jpg'
+    imageUrl: 'https://4p6gppmls93l24ur.public.blob.vercel-storage.com/team/lunyihe-v2.avif',
+    imagePosition: '50% 70%'
   },
   {
     name: 'ZHONGHAO WU',
     location: '中国办公室',
     roles: ['高级软件工程师', '全栈开发者', 'AIGC创作者'],
-    description: '2cubes design全栈开发者及AIGC创作者。<br>本科毕业于中国/湖南师范大学，硕士研究生毕业于澳大利亚/昆士兰大学。<br>曾任Expensify核心贡献者。拥有跨学科背景，致力于将艺术设计思维与现代软件工程相结合。擅长 React Native 生态、全栈开发及生成式AI工作流搭建。在政务服务平台、跨境电商SaaS及创意工具开发领域拥有丰富的实战经验，热衷于探索技术与创意的边界。'
+    description: '2cubes design全栈开发者及AIGC创作者。<br>本科毕业于中国/湖南师范大学，硕士研究生毕业于澳大利亚/昆士兰大学。<br>曾任Expensify核心贡献者。拥有跨学科背景，致力于将艺术设计思维与现代软件工程相结合。擅长 React Native 生态、全栈开发及生成式AI工作流搭建。在政务服务平台、跨境电商SaaS及创意工具开发领域拥有丰富的实战经验，热衷于探索技术与创意的边界。',
+    imageUrl: 'https://4p6gppmls93l24ur.public.blob.vercel-storage.com/team/zhonghaowu.avif',
+    imagePosition: '50% 15%'
   },
   {
     name: 'WENWEI LI',
     location: '日本办公室',
     roles: ['平面设计师', '信息设计师'],
-    description: '2cubes design日本分部负责人、平面设计师。<br>本科毕业于中国/西安美术学院，现研究生就读于日本/多摩美术大学。<br>主要从事品牌视觉与信息设计方向的研究与实践，长期参与并主导品牌视觉系统、视觉叙事内容与实验性设计项目的策划与执行。作品曾入选并获奖于东京TDC、中国GDC新升奖等国内外设计赛事。'
+    description: '2cubes design日本分部负责人、平面设计师。<br>本科毕业于中国/西安美术学院，现研究生就读于日本/多摩美术大学。<br>主要从事品牌视觉与信息设计方向的研究与实践，长期参与并主导品牌视觉系统、视觉叙事内容与实验性设计项目的策划与执行。作品曾入选并获奖于东京TDC、中国GDC新升奖等国内外设计赛事。',
+    imageUrl: 'https://4p6gppmls93l24ur.public.blob.vercel-storage.com/team/wenweili-v2.avif',
+    imagePosition: '50% 15%'
   },
   {
     name: 'YUCHEN XU',
     location: '日本办公室',
     roles: ['客户执行AE', '商务BD', '供应链管理'],
     description: '2cubes design日本分部商务BD、供应链负责人。<br>本科毕业于中国/西安美术学院，硕士研究生毕业于日本/东京福祉大学。<br>具有丰富行业经验，对商业环境有着敏锐的感知反应。负责拓展2cubes design的项目合作渠道、高效推进设计项目执行、以及保障设计产品高品质生产。',
-    imageUrl: 'https://4p6gppmls93l24ur.public.blob.vercel-storage.com/team/yuchenxu.jpg'
+    imageUrl: 'https://4p6gppmls93l24ur.public.blob.vercel-storage.com/team/yuchenxu.avif'
   }
 ];
 
@@ -77,7 +83,10 @@ function TeamMemberPhoto({ member, className }: { member: TeamMember; className:
           alt={`${member.name} portrait`}
           fill
           className="object-cover"
-          style={member.imagePosition ? { objectPosition: member.imagePosition } : undefined}
+          style={{
+            objectPosition: member.imagePosition,
+            ...(member.imageScale ? { transform: `scale(${member.imageScale})` } : {})
+          }}
           sizes="(max-width: 768px) 100vw, 33vw"
         />
       ) : null}

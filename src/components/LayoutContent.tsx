@@ -51,11 +51,12 @@ export default function LayoutContent({
   const previewPaddingTop = Math.ceil((headerHeight || 86) + 10 * pageScale);
 
   return (
-    <div className="bg-white text-black">
-      <SiteEntrance />
+    <>
       <CustomCursor />
-      <AppleMotion />
-      <header
+      <div className="site-home-shell bg-white text-black">
+        <SiteEntrance />
+        <AppleMotion />
+        <header
         ref={headerRef}
         className="fixed top-0 left-0 right-0 z-[100] px-[10px] pt-6 s:pt-8 l:px-0 l:pt-[10px] pointer-events-none mix-blend-difference"
       >
@@ -93,5 +94,6 @@ export default function LayoutContent({
         {isScaled ? <PageScale>{children}</PageScale> : children}
       </main>
     </div>
+    </>
   );
 }

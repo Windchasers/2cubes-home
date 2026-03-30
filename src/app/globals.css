@@ -182,27 +182,11 @@ body {
 /* Site entrance exit animation */
 @keyframes siteEntranceOverlayExit {
   from {
-    clip-path: inset(0 0 0 0);
-  }
-
-  65% {
-    clip-path: inset(0 0 10% 0);
-  }
-
-  to {
-    clip-path: inset(0 0 100% 0);
-  }
-}
-
-@keyframes siteEntranceEdgeExit {
-  from {
-    opacity: 0.55;
-    transform: translateY(0);
+    opacity: 1;
   }
 
   to {
     opacity: 0;
-    transform: translateY(-40px);
   }
 }
 
@@ -210,11 +194,13 @@ body {
   from {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
   }
 
   to {
-    opacity: 1;
-    transform: translate3d(0, -28px, 0) scale(1.02);
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(2.8);
+    filter: blur(22px);
   }
 }
 
@@ -230,16 +216,26 @@ body {
   }
 }
 
-.site-entrance--exiting {
-  animation: siteEntranceOverlayExit 1050ms cubic-bezier(0.3, 0, 0.2, 1) forwards;
+@keyframes siteHomeReveal {
+  from {
+    opacity: 0;
+    transform: scale(0);
+    filter: blur(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
 }
 
-.site-entrance--exiting .site-entrance-edge {
-  animation: siteEntranceEdgeExit 780ms cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+.site-entrance--exiting {
+  animation: siteEntranceOverlayExit 1800ms linear forwards;
 }
 
 .site-entrance--exiting .site-entrance-stage {
-  animation: siteEntranceStageExit 1050ms cubic-bezier(0.3, 0, 0.2, 1) forwards;
+  animation: siteEntranceStageExit 1800ms linear forwards;
 }
 
 .site-entrance--exiting .site-entrance-hint {
@@ -247,16 +243,24 @@ body {
 }
 
 .site-entrance {
-  will-change: clip-path;
+  will-change: opacity;
 }
 
 .site-entrance-stage {
-  will-change: transform;
+  will-change: transform, opacity, filter;
+  transform-origin: center center;
 }
 
-.site-entrance-edge {
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0));
-  filter: blur(0.4px);
+.site-home-shell {
+  transform-origin: center center;
+  will-change: transform, opacity, filter;
+  overflow: hidden;
+  overflow: clip;
+  position: relative;
+}
+
+html.site-home-entering .site-home-shell {
+  animation: siteHomeReveal 1800ms linear both;
 }
 
 /* Apple-style reveal motion */
@@ -303,9 +307,9 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .site-entrance--exiting,
-  .site-entrance--exiting .site-entrance-edge,
   .site-entrance--exiting .site-entrance-stage,
-  .site-entrance--exiting .site-entrance-hint {
+  .site-entrance--exiting .site-entrance-hint,
+  html.site-home-entering .site-home-shell {
     animation: none !important;
   }
 
