@@ -219,7 +219,7 @@ body {
 @keyframes siteHomeReveal {
   from {
     opacity: 0;
-    transform: scale(0);
+    transform: scale(0.7);
     filter: blur(22px);
   }
 
@@ -231,11 +231,11 @@ body {
 }
 
 .site-entrance--exiting {
-  animation: siteEntranceOverlayExit 1800ms linear forwards;
+  animation: siteEntranceOverlayExit 800ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .site-entrance--exiting .site-entrance-stage {
-  animation: siteEntranceStageExit 1800ms linear forwards;
+  animation: siteEntranceStageExit 800ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .site-entrance--exiting .site-entrance-hint {
@@ -244,6 +244,10 @@ body {
 
 .site-entrance {
   will-change: opacity;
+}
+
+html.hide-entrance-fast #site-entrance-wrapper {
+  display: none !important;
 }
 
 .site-entrance-stage {
@@ -260,7 +264,7 @@ body {
 }
 
 html.site-home-entering .site-home-shell {
-  animation: siteHomeReveal 1800ms linear both;
+  animation: siteHomeReveal 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* Apple-style reveal motion */

@@ -7,11 +7,11 @@ const ENTRANCE_VIDEO_URL =
   "https://4p6gppmls93l24ur.public.blob.vercel-storage.com/videos/home-bg.mp4";
 const ENTRANCE_SESSION_KEY = "site-intro-completed";
 const HOME_ENTERING_CLASS = "site-home-entering";
-const EXIT_DURATION_MS = 1800;
-const HOME_REVEAL_DURATION_MS = 1800;
+const EXIT_DURATION_MS = 800;
+const HOME_REVEAL_DURATION_MS = 800;
 
 export default function SiteEntrance() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
@@ -21,9 +21,11 @@ export default function SiteEntrance() {
   useEffect(() => {
     try {
       const hasSeen = window.sessionStorage.getItem(ENTRANCE_SESSION_KEY) === "1";
-      setIsVisible(!hasSeen);
+      if (hasSeen) {
+        setIsVisible(false);
+      }
     } catch {
-      setIsVisible(true);
+      // Keep visible
     }
 
     return () => {
@@ -65,9 +67,22 @@ export default function SiteEntrance() {
   if (!isVisible) return null;
 
   return (
-    <div
-      data-state={isExiting ? "exiting" : "idle"}
-      className={`site-entrance fixed inset-0 z-[300] cursor-pointer bg-white opacity-100 ${isExiting ? "site-entrance--exiting" : ""}`}
+    <>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            try {
+              if (window.sessionStorage.getItem('${ENTRANCE_SESSION_KEY}') === '1') {
+                document.documentElement.classList.add('hide-entrance-fast');
+              }
+            } catch(e) {}
+          `,
+        }}
+      />
+      <div
+        id="site-entrance-wrapper"
+        data-state={isExiting ? "exiting" : "idle"}
+        className={`site-entrance fixed inset-0 z-[300] cursor-pointer bg-white opacity-100 ${isExiting ? "site-entrance--exiting" : ""}`}
       role="button"
       tabIndex={0}
       onClick={handleEnter}
@@ -100,5 +115,6 @@ export default function SiteEntrance() {
         Click anywhere to enter
       </div>
     </div>
+    </>
   );
 }
