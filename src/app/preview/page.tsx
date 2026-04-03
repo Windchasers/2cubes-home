@@ -34,7 +34,7 @@ export default function PreviewPage() {
   return (
     <div className="bg-white text-black min-h-screen">
       <div className="w-full px-[10px] pt-0 pb-10 s:pb-14 l:px-[16px]">
-        <div className="grid grid-cols-1 s:grid-cols-2 m:grid-cols-3 gap-[10px]">
+        <div className="grid grid-cols-2 s:grid-cols-3 m:grid-cols-4 l:grid-cols-5 gap-[10px]">
           {thumbnails.map((t) => (
             <Link
               key={t.id}
@@ -47,8 +47,9 @@ export default function PreviewPage() {
                   alt={`Case ${t.id}`}
                   fill
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                  sizes="(max-width: 480px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  priority={t.id <= 2}
+                  sizes="(max-width: 480px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+                  priority={t.id <= 4}
+
                 />
               </div>
             </Link>
