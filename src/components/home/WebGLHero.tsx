@@ -3,6 +3,7 @@
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader.js";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
@@ -14,8 +15,8 @@ import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
  *      chromatic dispersion shader) — echoing the 2cubes name
  *   3. a full-screen film-grain post pass (the "tiny particle" texture)
  *
- * Palette is intentionally different from monopo's teal — a deep violet base
- * with a warm coral accent. Tweak `colors` to recolour the whole language.
+ * Palette is a coordinated warm lilac → coral family (see DEFAULT_COLORS).
+ * Tweak `colors` to recolour the whole language.
  */
 
 type HeroColors = {
@@ -30,12 +31,16 @@ type HeroColors = {
 type WebGLHeroProps = {
   className?: string;
   colors?: HeroColors;
+  /** URL of the logo rendered (blurred) at the centre of the cube. */
+  logoSrc?: string;
 };
 
+// Coordinated analogous palette (warm lilac → coral) — keeping the band in
+// one hue family avoids the muddy grey of complementary blue/red mixing.
 const DEFAULT_COLORS: HeroColors = {
-  base: "#f3eff8",
-  secondary: "#4d8dab",
-  accent: "#ff6a3d",
+  base: "#f1e9f4",
+  secondary: "#bd8fc6",
+  accent: "#ff7a4d",
 };
 
 const INTRO_SESSION_KEY = "site-intro-completed";
@@ -133,7 +138,7 @@ uniform float uTime;
 uniform float uProgress;
 uniform float uZoom;
 uniform float uBaseFreq;
-uniform float uPatternScale;
+uniform float uBandWidth;
 uniform float uAccentOpacity;
 uniform float uOpacity;
 uniform vec2 uRes;
@@ -143,44 +148,39 @@ uniform vec3 uColorAccent;
 
 ${NOISE_GLSL}
 
-mat2 rotate2d(float a){ return mat2(cos(a),-sin(a),sin(a),cos(a)); }
-
-float lines(in vec2 pos, float b){
-  pos *= uPatternScale;
-  return smoothstep(0.0, .5 + b * .5, abs((sin(pos.x * 3.1415) + b * 2.0)) * .5);
-}
-
-float circle(in vec2 st, in float radius, in float blur){
-  return 1.0 - smoothstep(radius - (radius * blur), radius + (radius * blur), dot(st, st) * 4.0);
-}
-
 void main(){
   // aspect-corrected centred coordinates
   vec2 uv = vUv - 0.5;
   uv.x *= uRes.x / uRes.y;
 
   float progress = uProgress;
+  float t = uTime;
 
-  float baseNoise = snoise(uBaseFreq * uv + uTime);
-  vec2 basePos = rotate2d(baseNoise) * uv * uZoom;
-  float basePattern = lines(basePos, .5);
+  // Domain-warp the space, then read one large-scale noise field. Low
+  // frequency + warping yields a single flowing "silk" gradient band
+  // instead of repeating stripes.
+  float w = snoise(uv * uBaseFreq + vec2(t, t * 0.6));
+  vec2 warped = uv + uZoom * 0.4 * vec2(cos(w * 3.1415), sin(w * 3.1415));
+  float field = snoise(warped * uBaseFreq + t * 0.3) * 0.5 + 0.5; // 0..1
 
-  vec2 accentPos = rotate2d(baseNoise) * uv * uZoom;
-  float accentPattern = lines(accentPos, .1);
+  // Base gradient sweeping across the single band.
+  vec3 col = mix(uColorA, uColorB, smoothstep(0.5 - uBandWidth, 0.5 + uBandWidth, field));
 
-  // centre-out reveal mask (screen space)
-  vec2 st = gl_FragCoord.xy / uRes.xy - vec2(.5);
+  // One soft accent ridge riding the crest of the band.
+  float ridge = smoothstep(0.52, 0.6, field) * (1.0 - smoothstep(0.6, 0.8, field));
+  col = mix(col, uColorAccent, ridge * uAccentOpacity);
+
+  // Barely-there life noise (the post grain does the rest).
+  col += snoise3(vec3(uv * 2.0, t * 2.0)) * 0.012 * (1.0 - progress);
+
+  // Centre-out reveal.
+  vec2 st = gl_FragCoord.xy / uRes.xy - vec2(0.5);
   st.y *= uRes.y / uRes.x;
-  float c = circle(st, .2 + progress * 4.0, 2.);
+  float reveal = smoothstep(0.0, 0.35, (0.05 + progress * 1.7) - length(st));
+  col = mix(uColorA, col, reveal);
 
-  float nc = snoise3(vec3(uv * 2.0, uTime * 4.0)) * .03;
-  float d = length(st) * (1.0 - progress) * 0.6;
-
-  vec3 baseMix = mix(uColorA, uColorB, basePattern);
-  vec3 accentMix = mix(baseMix, uColorAccent, accentPattern - (1. - uAccentOpacity));
-
-  float finalMask = smoothstep(1., 1., pow(c, 6.) * 10. + nc * (1. - progress));
-  vec3 col = mix(vec3(finalMask) * uColorA, accentMix, clamp(finalMask + progress, 0., 1.)) * (1.0 - d);
+  // Soft vignette to settle the edges.
+  col *= 1.0 - length(st) * 0.22 * (1.0 - progress * 0.4);
 
   gl_FragColor = vec4(col, uOpacity);
 }
@@ -290,7 +290,69 @@ const GRAIN_SHADER = {
   `,
 };
 
-export default function WebGLHero({ className, colors }: WebGLHeroProps) {
+// Extruded 3D logo inside the cube — soft wrap-lit so the extruded side
+// walls read as real thickness, with a gentle fresnel rim and fade-in.
+const LOGO_VERTEX = /* glsl */ `
+varying vec3 vNormal;
+varying vec3 vView;
+void main(){
+  vNormal = normalize( normalMatrix * normal );
+  vec4 mv = modelViewMatrix * vec4( position, 1.0 );
+  vView = normalize( -mv.xyz );
+  gl_Position = projectionMatrix * mv;
+}
+`;
+
+const LOGO_FRAGMENT = /* glsl */ `
+uniform vec3 uColor;
+varying vec3 vNormal;
+varying vec3 vView;
+
+void main(){
+  vec3 N = normalize( vNormal );
+  if ( !gl_FrontFacing ) N = -N;
+  vec3 V = normalize( vView );
+  vec3 L = normalize( vec3( 0.45, 0.7, 0.55 ) );
+
+  float wrap = clamp( dot( N, L ), 0.0, 1.0 ) * 0.55 + 0.45; // soft wrap light
+  float fres = pow( 1.0 - clamp( dot( N, V ), 0.0, 1.0 ), 2.0 );
+
+  vec3 col = uColor * wrap + fres * 0.22;
+  gl_FragColor = vec4( col, 1.0 );
+}
+`;
+
+// Composites the offscreen-rendered 3D logo with a scatter blur, so it reads
+// as if diffused by the frosted glass it sits inside (optical consistency).
+const LOGO_COMPOSITE_VERT = /* glsl */ `
+varying vec2 vUv;
+void main(){
+  vUv = uv;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+}
+`;
+
+const LOGO_COMPOSITE_FRAG = /* glsl */ `
+uniform sampler2D uLogoTex;
+uniform float uOpacity;
+uniform float uBlur;
+uniform vec2 uTexel;
+varying vec2 vUv;
+
+void main(){
+  vec4 acc = vec4( 0.0 );
+  for ( int x = -2; x <= 2; x++ ) {
+    for ( int y = -2; y <= 2; y++ ) {
+      vec2 o = vec2( float( x ), float( y ) ) * uTexel * uBlur;
+      acc += texture2D( uLogoTex, vUv + o );
+    }
+  }
+  acc /= 25.0;
+  gl_FragColor = vec4( acc.rgb, acc.a * uOpacity );
+}
+`;
+
+export default function WebGLHero({ className, colors, logoSrc }: WebGLHeroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -321,8 +383,18 @@ export default function WebGLHero({ className, colors }: WebGLHeroProps) {
 
     container.appendChild(canvas);
 
-    let width = container.clientWidth || window.innerWidth;
-    let height = container.clientHeight || window.innerHeight;
+    // Measure the actual displayed box. Using the rect (not clientHeight,
+    // which can read 0 before layout) keeps the draw-buffer aspect identical
+    // to the CSS display aspect, so the cube never gets stretched.
+    const measure = () => {
+      const rect = container.getBoundingClientRect();
+      return {
+        w: Math.max(1, Math.round(rect.width || window.innerWidth)),
+        h: Math.max(1, Math.round(rect.height || window.innerHeight)),
+      };
+    };
+
+    let { w: width, h: height } = measure();
     const pixelRatio = Math.min(window.devicePixelRatio, 2);
 
     renderer.setPixelRatio(pixelRatio);
@@ -330,19 +402,24 @@ export default function WebGLHero({ className, colors }: WebGLHeroProps) {
     renderer.setClearColor(new THREE.Color(palette.base), 1);
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    camera.position.set(0, 0, 6);
+    // Long lens (low FOV) + distant camera ≈ near-orthographic, so the cube's
+    // near/far faces stay near-equal and it reads as a true cube.
+    const camera = new THREE.PerspectiveCamera(18, width / height, 0.1, 100);
+    camera.position.set(0, 0, 14);
     camera.lookAt(0, 0, 0);
 
     // ── Background plane ──────────────────────────────────────────────
     const bgUniforms = {
       uTime: { value: 0 },
       uProgress: { value: 0 },
-      uZoom: { value: 1.35 },
-      uBaseFreq: { value: 1.05 },
-      // Lower = fewer, larger, more cohesive bands (was effectively ~10).
-      uPatternScale: { value: 3.0 },
-      uAccentOpacity: { value: 0.9 },
+      // Warp strength — how much the single band folds/flows.
+      uZoom: { value: 0.9 },
+      // Low frequency = one large cohesive band rather than many stripes.
+      uBaseFreq: { value: 0.55 },
+      // Half-width of the base→secondary transition (bigger = softer band).
+      uBandWidth: { value: 0.32 },
+      // Keep the accent ridge subtle so it reads as one calm gradient.
+      uAccentOpacity: { value: 0.5 },
       uOpacity: { value: 0 },
       uRes: { value: new THREE.Vector2(width * pixelRatio, height * pixelRatio) },
       uColorA: { value: new THREE.Vector3(...hexToVec3(palette.base)) },
@@ -400,15 +477,132 @@ export default function WebGLHero({ className, colors }: WebGLHeroProps) {
     });
 
     const isNarrow = width < 768;
-    // A frosted glass cube (echoing "2cubes"), standing upright.
+    // A frosted glass cube (echoing "2cubes"), equal edges, near-centre.
     const lens = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), lensMaterial);
-    const lensHome = new THREE.Vector3(isNarrow ? 0 : -1.6, isNarrow ? 0.2 : 0.8, 2);
+    const lensHome = new THREE.Vector3(isNarrow ? 0 : -0.4, isNarrow ? 0.1 : 0.25, 2);
     lens.position.copy(lensHome);
-    lens.scale.setScalar(isNarrow ? 1.4 : 1.7);
-    // Slight tilt so two faces + the top read, but kept upright ("正").
-    lens.rotation.set(-0.18, 0.5, 0);
+    // Scaled up to match apparent size under the long lens.
+    lens.scale.setScalar(isNarrow ? 1.6 : 1.95);
+    // Balanced 3/4 view so all three visible faces read with equal edges.
+    lens.rotation.set(-0.28, 0.62, 0);
+    lens.renderOrder = 2;
     scene.add(lens);
     cubeCamera.position.copy(lens.position);
+
+    // ── Extruded 3D logo, rendered offscreen then blurred into the glass ──
+    // The 3D logo lives in its own scene so we can render it to a texture,
+    // scatter-blur it, and composite it under the frosted faces.
+    const logoScene = new THREE.Scene();
+
+    const logoUniforms = {
+      uColor: { value: new THREE.Vector3(0.95, 0.93, 1.0) },
+    };
+
+    const logoMaterial = new THREE.ShaderMaterial({
+      uniforms: logoUniforms,
+      vertexShader: LOGO_VERTEX,
+      fragmentShader: LOGO_FRAGMENT,
+      side: THREE.DoubleSide,
+    });
+
+    // Group shares the cube's transform → same perspective, turns with glass.
+    const logoGroup = new THREE.Group();
+    logoGroup.position.copy(lensHome);
+    logoGroup.rotation.copy(lens.rotation);
+    logoScene.add(logoGroup);
+
+    let logoMesh: THREE.Mesh | null = null;
+    const logoTargetSize = isNarrow ? 0.8 : 1.0;
+    const logoThickness = 0.13; // thinner slab
+
+    const svgLoader = new SVGLoader();
+    svgLoader.setCrossOrigin("anonymous");
+    svgLoader.load(
+      logoSrc ?? "",
+      (data) => {
+        const shapes: THREE.Shape[] = [];
+        for (const path of data.paths) {
+          for (const shape of SVGLoader.createShapes(path)) shapes.push(shape);
+        }
+        if (shapes.length === 0) return;
+
+        const geo = new THREE.ExtrudeGeometry(shapes, {
+          depth: 20,
+          bevelEnabled: true,
+          bevelThickness: 1.5,
+          bevelSize: 1,
+          bevelSegments: 2,
+        });
+        geo.computeBoundingBox();
+        const bb = geo.boundingBox;
+        if (!bb) return;
+        geo.translate(
+          -(bb.max.x + bb.min.x) / 2,
+          -(bb.max.y + bb.min.y) / 2,
+          -(bb.max.z + bb.min.z) / 2,
+        );
+        const footprint = Math.max(bb.max.x - bb.min.x, bb.max.y - bb.min.y);
+        const zSize = bb.max.z - bb.min.z || 20;
+        const s = logoTargetSize / footprint;
+        const sz = (logoTargetSize * logoThickness) / zSize;
+        // Negative Y flips the SVG's y-down axis into world space.
+        geo.scale(s, -s, sz);
+        geo.computeVertexNormals();
+
+        logoMesh = new THREE.Mesh(geo, logoMaterial);
+        logoGroup.add(logoMesh);
+      },
+      undefined,
+      () => {
+        // CORS / parse failure — scene still works without the logo.
+      },
+    );
+
+    // Offscreen target (low-res → naturally soft) + screen-space composite.
+    const logoRTScale = 0.32;
+    const logoRT = new THREE.WebGLRenderTarget(
+      Math.max(2, Math.round(width * logoRTScale)),
+      Math.max(2, Math.round(height * logoRTScale)),
+      { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter },
+    );
+
+    const compositeUniforms = {
+      uLogoTex: { value: logoRT.texture },
+      uOpacity: { value: 0 },
+      uBlur: { value: 1.6 },
+      uTexel: {
+        value: new THREE.Vector2(
+          1 / logoRT.width,
+          1 / logoRT.height,
+        ),
+      },
+    };
+
+    const compositeMaterial = new THREE.ShaderMaterial({
+      uniforms: compositeUniforms,
+      vertexShader: LOGO_COMPOSITE_VERT,
+      fragmentShader: LOGO_COMPOSITE_FRAG,
+      transparent: true,
+      depthTest: false,
+      depthWrite: false,
+    });
+
+    // Screen-filling quad placed just in front of the camera; drawn between
+    // the background (0) and the glass cube (2) so the glass overlays it.
+    const logoComposite = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      compositeMaterial,
+    );
+    logoComposite.renderOrder = 1;
+    logoComposite.frustumCulled = false;
+    scene.add(logoComposite);
+
+    const COMPOSITE_DIST = 2;
+    const fitComposite = () => {
+      const h = 2 * COMPOSITE_DIST * Math.tan((camera.fov * Math.PI) / 360);
+      logoComposite.scale.set(h * camera.aspect, h, 1);
+    };
+    fitComposite();
 
     // ── Post-processing: film grain ───────────────────────────────────
     const composer = new EffectComposer(renderer);
@@ -422,6 +616,8 @@ export default function WebGLHero({ className, colors }: WebGLHeroProps) {
     // ── Mouse parallax ────────────────────────────────────────────────
     const mouse = new THREE.Vector2(0, 0);
     const camTarget = new THREE.Vector2(0, 0);
+    const forward = new THREE.Vector3();
+    const baseClearColor = new THREE.Color(palette.base);
     const onPointerMove = (event: PointerEvent) => {
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouse.y = (event.clientY / window.innerHeight) * 2 - 1;
@@ -434,6 +630,8 @@ export default function WebGLHero({ className, colors }: WebGLHeroProps) {
         bgUniforms.uOpacity.value = 1;
         bgUniforms.uProgress.value = 1;
         lensUniforms.uReveal.value = 1;
+        compositeUniforms.uOpacity.value = 0.9;
+        logoGroup.scale.setScalar(1);
         return;
       }
       const tl = gsap.timeline();
@@ -443,6 +641,18 @@ export default function WebGLHero({ className, colors }: WebGLHeroProps) {
           lensUniforms.uReveal,
           { value: 1, duration: 1.6, ease: "power2.out" },
           0.6,
+        )
+        // Logo emerges softly from the cube's core and settles into place.
+        .to(
+          compositeUniforms.uOpacity,
+          { value: 0.9, duration: 2, ease: "power2.out" },
+          1.0,
+        )
+        .fromTo(
+          logoGroup.scale,
+          { x: 0.55, y: 0.55, z: 0.55 },
+          { x: 1, y: 1, z: 1, duration: 2.2, ease: "power3.out" },
+          1.0,
         )
         .fromTo(
           lens.scale,
@@ -494,17 +704,39 @@ export default function WebGLHero({ className, colors }: WebGLHeroProps) {
       // Mouse-eased camera parallax.
       camTarget.x = lerp(camTarget.x, mouse.x, 0.05);
       camTarget.y = lerp(camTarget.y, mouse.y, 0.05);
-      camera.position.x = camTarget.x * 0.6;
-      camera.position.y = -camTarget.y * 0.35;
+      camera.position.x = camTarget.x * 0.4;
+      camera.position.y = -camTarget.y * 0.24;
       camera.lookAt(0, 0, 0);
 
       // Gentle turntable spin around the vertical axis (stays upright).
       lens.rotation.y += 0.0011;
 
-      // Refresh the cube map for the lens (hide it while sampling).
+      // Logo lives in the cube's space: match its orientation each frame so
+      // it shares the same perspective and turns with the glass.
+      logoGroup.rotation.copy(lens.rotation);
+
+      // Render the 3D logo offscreen (low-res → soft) with the main camera.
+      renderer.setRenderTarget(logoRT);
+      renderer.setClearColor(0x000000, 0);
+      renderer.clear();
+      renderer.render(logoScene, camera);
+      renderer.setRenderTarget(null);
+      renderer.setClearColor(baseClearColor, 1);
+
+      // Keep the composite quad filling the view, just ahead of the camera.
+      camera.getWorldDirection(forward);
+      logoComposite.position
+        .copy(camera.position)
+        .addScaledVector(forward, COMPOSITE_DIST);
+      logoComposite.quaternion.copy(camera.quaternion);
+
+      // Refresh the cube map for the lens (hide the glass + composite so they
+      // don't recursively sample themselves into the refraction).
       lens.visible = false;
+      logoComposite.visible = false;
       cubeCamera.update(renderer, scene);
       lens.visible = true;
+      logoComposite.visible = true;
 
       composer.render();
     };
@@ -525,29 +757,47 @@ export default function WebGLHero({ className, colors }: WebGLHeroProps) {
     }
 
     // ── Resize ────────────────────────────────────────────────────────
-    const onResize = () => {
-      width = container.clientWidth || window.innerWidth;
-      height = container.clientHeight || window.innerHeight;
+    const applySize = () => {
+      const m = measure();
+      if (m.w === width && m.h === height) return;
+      width = m.w;
+      height = m.h;
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height, false);
       composer.setSize(width, height);
       bgUniforms.uRes.value.set(width * pixelRatio, height * pixelRatio);
+      logoRT.setSize(
+        Math.max(2, Math.round(width * logoRTScale)),
+        Math.max(2, Math.round(height * logoRTScale)),
+      );
+      compositeUniforms.uTexel.value.set(1 / logoRT.width, 1 / logoRT.height);
       fitBackground();
+      fitComposite();
       if (prefersReducedMotion) renderFrame();
     };
-    window.addEventListener("resize", onResize);
+    window.addEventListener("resize", applySize);
+    // Tracks the displayed box directly (page-scale, entrance reveal, etc.)
+    // and corrects any pre-layout mismeasure on the first callback.
+    const resizeObserver = new ResizeObserver(applySize);
+    resizeObserver.observe(container);
 
     // ── Cleanup ───────────────────────────────────────────────────────
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", applySize);
+      resizeObserver.disconnect();
       window.removeEventListener("site-enter-complete", startOnce);
       bgMesh.geometry.dispose();
       bgMaterial.dispose();
       lens.geometry.dispose();
       lensMaterial.dispose();
+      logoMesh?.geometry.dispose();
+      logoMaterial.dispose();
+      logoComposite.geometry.dispose();
+      compositeMaterial.dispose();
+      logoRT.dispose();
       cubeRenderTarget.dispose();
       composer.dispose();
       renderer.dispose();
@@ -555,7 +805,7 @@ export default function WebGLHero({ className, colors }: WebGLHeroProps) {
         container.removeChild(canvas);
       }
     };
-  }, [colors]);
+  }, [colors, logoSrc]);
 
   return (
     <div

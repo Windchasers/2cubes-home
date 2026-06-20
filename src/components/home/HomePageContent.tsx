@@ -281,9 +281,9 @@ export default function HomePageContent() {
       {/* ───────── Hero — pinned full-bleed background + rotating badge ───────── */}
       <section
         data-home-hero
-        className="home-hero relative flex min-h-[calc(100vh/var(--page-scale,1))] items-center justify-center overflow-hidden bg-[#f3eff8] text-black"
+        className="home-hero relative flex min-h-[calc(100vh/var(--page-scale,1))] items-center justify-center overflow-hidden bg-[#f1e9f4] text-black"
       >
-        <WebGLHero className="absolute inset-0 h-full w-full" />
+        <WebGLHero className="absolute inset-0 h-full w-full" logoSrc={LOGO_SRC} />
         {/* Soft bottom vignette grounds the scroll badge without darkening. */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/[0.06]" />
 
