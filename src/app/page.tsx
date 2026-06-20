@@ -1,24 +1,5 @@
-import Footer from '@/components/Footer';
-import projectsData from '@/data/projects.json';
-import Image from 'next/image';
+import HomePageContent from "@/components/home/HomePageContent";
 
 export default function HomePage() {
-  const projects = projectsData.projects;
-  const heroSrc = 'https://4p6gppmls93l24ur.public.blob.vercel-storage.com/images/projects/4/thumbnail.jpg';
-
-  return (
-    <div className="bg-white text-black">
-      <section className="relative w-full h-[calc(100vh/var(--page-scale,1))] overflow-hidden">
-        <Image
-          src={heroSrc}
-          alt="2cubes Design hero"
-          fill
-          className="object-cover"
-          sizes="100vw"
-          priority
-        />
-        <Footer />
-      </section>
-    </div>
-  );
+  return <HomePageContent />;
 }

@@ -20,6 +20,11 @@ export function getCdnUrl(imagePath: string): string {
     return imagePath;
   }
 
+  // 如果已经是绝对路径，返回原始路径
+  if (imagePath.startsWith('http://') || imagePath.startsWith('https://') || imagePath.startsWith('//')) {
+    return imagePath;
+  }
+
   // 如果CDN未启用，返回原始路径
   if (!CDN_ENABLED) {
     return imagePath;

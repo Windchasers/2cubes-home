@@ -110,6 +110,27 @@ body {
   font-family: 'Futura PT', 'ESKlarheitKurrent', Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 }
 
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 .logo-text {
   @apply text-4xl font-bold;
 }
@@ -250,6 +271,7 @@ html.hide-entrance-fast #site-entrance-wrapper {
   display: none !important;
 }
 
+/* legacy: entrance skip handled in React state */
 .site-entrance-stage {
   will-change: transform, opacity, filter;
   transform-origin: center center;
@@ -258,12 +280,12 @@ html.hide-entrance-fast #site-entrance-wrapper {
 .site-home-shell {
   transform-origin: center center;
   will-change: transform, opacity, filter;
-  overflow: hidden;
-  overflow: clip;
   position: relative;
 }
 
 html.site-home-entering .site-home-shell {
+  overflow: hidden;
+  overflow: clip;
   animation: siteHomeReveal 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -328,7 +350,102 @@ html.site-home-entering .site-home-shell {
   }
 }
 
-/* Homepage video */
+/* Homepage scroll layout */
+.home-section + .home-section {
+  margin-top: 0;
+}
+
+/* Rotating circular type marks (hero badge + manifesto emblem) */
+.home-rot-spin {
+  animation-name: homeRotSpin;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.home-rot-text {
+  fill: currentColor;
+  font-family: 'Futura PT', 'ESKlarheitKurrent', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+@keyframes homeRotSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Hero bilingual headline crossfade */
+.home-hero-headline {
+  display: block;
+}
+
+.home-hero-line {
+  position: absolute;
+  inset: 0;
+  display: block;
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.home-hero-line[data-active="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Expertise accordion plus/close sign */
+.home-acc-sign::before,
+.home-acc-sign::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+
+.home-acc-sign::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.home-acc-sign::after {
+  left: 50%;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  transform: translateX(-50%);
+}
+
+/* Tiles marquee */
+.home-tiles-track {
+  transform: rotate(-4deg);
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-rot-spin {
+    animation: none !important;
+  }
+
+  .home-hero-line {
+    transition: none !important;
+  }
+
+  .home-hero-line:not([data-active="true"]) {
+    display: none;
+  }
+}
+
 .video-background {
   position: fixed;
   top: 0;

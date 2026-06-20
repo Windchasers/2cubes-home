@@ -1,5 +1,6 @@
 "use client";
 
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePathname } from "next/navigation";
 import type React from "react";
 import { useEffect, useRef } from "react";
@@ -12,6 +13,17 @@ export default function PageScale({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!pathname) return;
 
+    let refreshTimer: ReturnType<typeof window.setTimeout> | null = null;
+
+    const scheduleScrollRefresh = () => {
+      if (pathname !== "/") return;
+      if (refreshTimer) window.clearTimeout(refreshTimer);
+      refreshTimer = window.setTimeout(() => {
+        ScrollTrigger.refresh();
+        refreshTimer = null;
+      }, 120);
+    };
+
     const update = () => {
       if (!outerRef.current || !innerRef.current) return;
 
@@ -22,6 +34,15 @@ export default function PageScale({ children }: { children: React.ReactNode }) {
       document.documentElement.style.setProperty("--page-scale", String(scale));
       outerRef.current.style.setProperty("--page-scale", String(scale));
 
+      const isHome = pathname === "/";
+      const layoutHeight = innerRef.current.scrollHeight * scale;
+
+      if (isHome) {
+        outerRef.current.style.height = `${Math.min(Math.max(layoutHeight, 0), 200000)}px`;
+        scheduleScrollRefresh();
+        return;
+      }
+
       // Use visual height after transform to avoid over-estimating container height.
       const visualHeight = innerRef.current.getBoundingClientRect().height;
       if (
@@ -29,8 +50,7 @@ export default function PageScale({ children }: { children: React.ReactNode }) {
         visualHeight <= 0 ||
         visualHeight > 200000
       ) {
-        const fallbackHeight = innerRef.current.scrollHeight * scale;
-        outerRef.current.style.height = `${Math.min(Math.max(fallbackHeight, 0), 200000)}px`;
+        outerRef.current.style.height = `${Math.min(Math.max(layoutHeight, 0), 200000)}px`;
         return;
       }
 
@@ -48,6 +68,7 @@ export default function PageScale({ children }: { children: React.ReactNode }) {
 
     return () => {
       window.cancelAnimationFrame(rafId);
+      if (refreshTimer) window.clearTimeout(refreshTimer);
       resizeObserver.disconnect();
       window.removeEventListener("resize", update);
       document.documentElement.style.setProperty("--page-scale", "1");

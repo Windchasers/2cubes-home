@@ -1,66 +1,72 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { motion, useMotionValue } from 'framer-motion';
+import gsap from "gsap";
+import { useEffect, useRef, useState } from "react";
 
 export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
-  
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-  
-  // Removed spring animation for instant cursor movement
-  // const springConfig = { damping: 25, stiffness: 700 };
-  // const cursorXSpring = useSpring(cursorX, springConfig);
-  // const cursorYSpring = useSpring(cursorY, springConfig);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const xTo = useRef<gsap.QuickToFunc | null>(null);
+  const yTo = useRef<gsap.QuickToFunc | null>(null);
 
   useEffect(() => {
-    // Check if device supports hover (basically non-touch devices)
-    const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    if (!mediaQuery.matches) return;
+    setIsEnabled(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isEnabled || !cursorRef.current) return;
+
+    const cursor = cursorRef.current;
     const ua = navigator.userAgent;
     const detectedSafari =
       /Safari/i.test(ua) &&
       !/Chrome|Chromium|CriOS|Edg|OPR|Brave|FxiOS|Firefox/i.test(ua);
-    
-    if (!mediaQuery.matches) {
-      setIsEnabled(false);
-      return;
-    }
 
-    setIsEnabled(true);
+    xTo.current = gsap.quickTo(cursor, "x", {
+      duration: 0.42,
+      ease: "power3.out",
+    });
+    yTo.current = gsap.quickTo(cursor, "y", {
+      duration: 0.42,
+      ease: "power3.out",
+    });
 
-    const moveCursor = (e: MouseEvent) => {
+    const moveCursor = (event: MouseEvent) => {
       const viewport = window.visualViewport;
       const offsetX = detectedSafari && viewport ? viewport.offsetLeft : 0;
       const offsetY = detectedSafari && viewport ? viewport.offsetTop : 0;
 
-      // Safari zoom/pan: clientX/clientY are visual-viewport relative.
-      // Add visualViewport offsets so fixed cursor can continue tracking to the right.
-      cursorX.set(e.clientX + offsetX - 15); // Center the cursor (30px width / 2)
-      cursorY.set(e.clientY + offsetY - 15); // Center the cursor (30px height / 2)
-      if (!isVisible) setIsVisible(true);
+      xTo.current?.(event.clientX + offsetX - 15);
+      yTo.current?.(event.clientY + offsetY - 15);
+      setIsVisible(true);
     };
 
-    const handleMouseDown = () => {
-      setIsClicked(true);
-    };
+    const handleMouseDown = () => setIsClicked(true);
+    const handleMouseUp = () => setIsClicked(false);
 
-    const handleMouseUp = () => {
-      setIsClicked(false);
-    };
-
-    window.addEventListener('mousemove', moveCursor);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      window.removeEventListener('mousemove', moveCursor);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener("mousemove", moveCursor);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [cursorX, cursorY, isVisible]);
+  }, [isEnabled]);
+
+  useEffect(() => {
+    if (!cursorRef.current) return;
+    gsap.to(cursorRef.current, {
+      scale: isClicked ? 0.82 : 1,
+      duration: 0.18,
+      ease: "power2.out",
+    });
+  }, [isClicked]);
 
   if (!isEnabled) {
     return null;
@@ -70,24 +76,20 @@ export default function CustomCursor() {
     <>
       <style jsx global>{`
         @media (hover: hover) and (pointer: fine) {
-          body, a, button, input, textarea, select {
+          body,
+          a,
+          button,
+          input,
+          textarea,
+          select {
             cursor: none !important;
           }
         }
       `}</style>
-      <motion.div
-        className="fixed top-0 left-0 w-[30px] h-[30px] bg-transparent border border-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
-        animate={{
-          scale: isClicked ? 0.8 : 1
-        }}
-        transition={{
-          scale: { duration: 0.15, ease: "easeInOut" }
-        }}
-        style={{
-          x: cursorX,
-          y: cursorY,
-          opacity: isVisible ? 1 : 0,
-        }}
+      <div
+        ref={cursorRef}
+        className="pointer-events-none fixed top-0 left-0 z-[9999] h-[30px] w-[30px] rounded-full border border-white bg-transparent mix-blend-difference"
+        style={{ opacity: isVisible ? 1 : 0 }}
       />
     </>
   );

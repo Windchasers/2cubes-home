@@ -18,6 +18,11 @@ export default async function PreviewDetailPage({ params }: Props) {
     return <ClientProjectDetail routeParam="stop-guessing-just-a-novel" />;
   }
 
+  /* ── grammar-of-growth (id 4) → show real project detail ── */
+  if (id === '4') {
+    return <ClientProjectDetail routeParam="the-grammar-of-growth" />;
+  }
+
   /* ── all others → empty state ── */
   return (
     <div className="bg-white text-black min-h-screen flex flex-col">

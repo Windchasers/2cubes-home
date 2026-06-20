@@ -101,7 +101,7 @@ export default function WorksPage() {
                 </div>
 
                 {/* M/L View of Images (Hidden on XS/S) */}
-                <div className="hidden m:block relative w-full aspect-[324/201.5] bg-[#D9D9D9]">
+                <div className="hidden m:block relative w-full aspect-[324/201.5] bg-[#D9D9D9] overflow-hidden" data-motion-parallax>
                   {firstImage && (
                     <Image
                       src={firstImage}
@@ -112,7 +112,7 @@ export default function WorksPage() {
                     />
                   )}
                 </div>
-                <div className="hidden m:block relative w-full aspect-[324/201.5] bg-[#D9D9D9]">
+                <div className="hidden m:block relative w-full aspect-[324/201.5] bg-[#D9D9D9] overflow-hidden" data-motion-parallax>
                   {secondImage ? (
                     <Image
                       src={secondImage}

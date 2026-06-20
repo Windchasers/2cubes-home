@@ -1,7 +1,12 @@
 "use client";
 
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const CONTENT_SELECTOR = [
   "h1",
@@ -13,19 +18,17 @@ const CONTENT_SELECTOR = [
   "p",
   "li",
   "blockquote",
-  "[data-apple-reveal]",
+  "[data-motion-reveal]",
 ].join(", ");
 
 const DIVIDER_SELECTOR = [
   "hr",
-  "[class*='border-t']",
   "[class*='h-px']",
   "[class*='h-[0.5px]']",
-  "[data-apple-divider]",
+  "[data-motion-divider]",
 ].join(", ");
 
 const TITLE_TAGS = new Set(["H1", "H2", "H3", "H4", "H5", "H6"]);
-const BODY_TAGS = new Set(["P", "LI", "BLOCKQUOTE"]);
 const EXCLUDED_TAGS = new Set([
   "IMG",
   "VIDEO",
@@ -35,22 +38,10 @@ const EXCLUDED_TAGS = new Set([
   "FIGURE",
 ]);
 
-const PHASE_ORDER = {
-  title: 0,
-  divider: 0,
-  body: 180,
-} as const;
-
-const PHASE_VALUES = ["title", "divider", "body"] as const;
-const GROUP_DELAY_MS = 70;
-const MAX_GROUP_DELAY_MS = 180;
-const MAX_DELAY_MS = 460;
-const STEP_DELAY_MS = 40;
-
-type RevealPhase = (typeof PHASE_VALUES)[number];
+const MOTION_PREFIX = "site-motion";
 
 function isDividerElement(element: HTMLElement) {
-  if (element.dataset.appleDivider === "true") return true;
+  if (element.dataset.motionDivider === "true") return true;
   if (element.tagName === "HR") return true;
 
   const style = window.getComputedStyle(element);
@@ -76,133 +67,156 @@ function isDividerElement(element: HTMLElement) {
   );
 }
 
-function resolvePhase(element: HTMLElement): RevealPhase {
-  const forcedPhase = element.dataset.appleReveal;
-  if (forcedPhase && PHASE_VALUES.includes(forcedPhase as RevealPhase)) {
-    return forcedPhase as RevealPhase;
-  }
-
-  if (isDividerElement(element)) return "divider";
-  if (TITLE_TAGS.has(element.tagName)) return "title";
-  if (BODY_TAGS.has(element.tagName)) return "body";
-  return "body";
+function isVisibleElement(element: HTMLElement) {
+  const style = window.getComputedStyle(element);
+  return style.display !== "none" && style.visibility !== "hidden";
 }
 
 function resolveGroup(element: HTMLElement, main: Element) {
   return (
-    element.closest<HTMLElement>("section, article, [data-apple-group]") ??
+    element.closest<HTMLElement>("section, article, [data-motion-group]") ??
     element.parentElement ??
     (main as HTMLElement)
   );
 }
 
-const PHASE_CLASS_MAP: Record<RevealPhase, string> = {
-  title: "apple-reveal-title",
-  divider: "apple-reveal-divider",
-  body: "apple-reveal-body",
-};
+function killMotionTriggers() {
+  ScrollTrigger.getAll().forEach((trigger) => {
+    if (trigger.vars.id?.toString().startsWith(MOTION_PREFIX)) {
+      trigger.kill();
+    }
+  });
+}
 
 export default function AppleMotion() {
   const pathname = usePathname();
+  const scopeRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!pathname) return;
-    if (typeof window === "undefined") return;
+  useGSAP(
+    () => {
+      if (!pathname) return;
 
-    const main = document.querySelector("main");
-    if (!main) return;
+      if (pathname === "/") return;
 
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const main = document.querySelector("main");
+      if (!main) return;
 
-    const contentTargets = Array.from(
-      main.querySelectorAll<HTMLElement>(CONTENT_SELECTOR),
-    );
-    const dividerTargets = Array.from(
-      main.querySelectorAll<HTMLElement>(DIVIDER_SELECTOR),
-    );
+      killMotionTriggers();
 
-    const targets = Array.from(
-      new Set([...contentTargets, ...dividerTargets]),
-    ).filter((element) => {
-      if (EXCLUDED_TAGS.has(element.tagName)) return false;
-      if (element.closest("[data-no-motion='true']")) return false;
-      if (element.classList.contains("apple-reveal")) return false;
+      if (prefersReducedMotion) return;
 
-      const style = window.getComputedStyle(element);
-      return style.display !== "none" && style.visibility !== "hidden";
-    });
+      const contentTargets = Array.from(
+        main.querySelectorAll<HTMLElement>(CONTENT_SELECTOR),
+      ).filter((element) => {
+        if (EXCLUDED_TAGS.has(element.tagName)) return false;
+        if (element.closest("[data-no-motion='true']")) return false;
+        if (isDividerElement(element)) return false;
+        return isVisibleElement(element);
+      });
 
-    if (targets.length === 0) return;
+      const dividerTargets = Array.from(
+        main.querySelectorAll<HTMLElement>(DIVIDER_SELECTOR),
+      ).filter((element) => {
+        if (element.closest("[data-no-motion='true']")) return false;
+        return isVisibleElement(element) && isDividerElement(element);
+      });
 
-    const groupMap = new Map<HTMLElement, number>();
-    const groupPhaseCount = new Map<string, number>();
+      const groupMap = new Map<HTMLElement, number>();
+      const groupPhaseCount = new Map<string, number>();
 
-    for (const element of targets) {
-      const phase = resolvePhase(element);
-      const group = resolveGroup(element, main);
-
-      if (!groupMap.has(group)) {
-        groupMap.set(group, groupMap.size);
-      }
-
-      const groupIndex = groupMap.get(group) ?? 0;
-      const phaseCountKey = `${groupIndex}:${phase}`;
-      const indexInPhase = groupPhaseCount.get(phaseCountKey) ?? 0;
-      groupPhaseCount.set(phaseCountKey, indexInPhase + 1);
-
-      const groupDelay = Math.min(
-        groupIndex * GROUP_DELAY_MS,
-        MAX_GROUP_DELAY_MS,
-      );
-      const phaseDelay = PHASE_ORDER[phase];
-      const steppedDelay = indexInPhase * STEP_DELAY_MS;
-      const finalDelay = Math.min(
-        groupDelay + phaseDelay + steppedDelay,
-        MAX_DELAY_MS,
-      );
-
-      element.classList.add("apple-reveal", PHASE_CLASS_MAP[phase]);
-
-      if (prefersReducedMotion) {
-        element.classList.add("apple-reveal-visible");
-        continue;
-      }
-
-      element.style.setProperty("--apple-reveal-delay", `${finalDelay}ms`);
-    }
-
-    if (prefersReducedMotion) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-
-          const target = entry.target as HTMLElement;
-          target.classList.add("apple-reveal-visible");
-          observer.unobserve(target);
+      for (const element of contentTargets) {
+        const group = resolveGroup(element, main);
+        if (!groupMap.has(group)) {
+          groupMap.set(group, groupMap.size);
         }
-      },
-      {
-        rootMargin: "0px 0px -6% 0px",
-        threshold: 0.12,
-      },
-    );
 
-    for (const element of targets) {
-      const rect = element.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      if (rect.top < viewportHeight * 0.88) {
-        element.classList.add("apple-reveal-visible");
-      } else {
-        observer.observe(element);
+        const groupIndex = groupMap.get(group) ?? 0;
+        const phase = TITLE_TAGS.has(element.tagName) ? "title" : "body";
+        const phaseCountKey = `${groupIndex}:${phase}`;
+        const indexInPhase = groupPhaseCount.get(phaseCountKey) ?? 0;
+        groupPhaseCount.set(phaseCountKey, indexInPhase + 1);
+
+        const delay =
+          Math.min(groupIndex * 0.07, 0.18) +
+          (phase === "body" ? 0.12 : 0) +
+          indexInPhase * 0.04;
+
+        gsap.from(element, {
+          y: TITLE_TAGS.has(element.tagName) ? 36 : 48,
+          opacity: 0,
+          duration: 1.05,
+          delay: Math.min(delay, 0.42),
+          ease: "power3.out",
+          scrollTrigger: {
+            id: `${MOTION_PREFIX}-text-${groupIndex}-${indexInPhase}`,
+            trigger: element,
+            start: "top 86%",
+            toggleActions: "play none none reverse",
+          },
+        });
       }
-    }
 
-    return () => observer.disconnect();
-  }, [pathname]);
+      for (const [index, divider] of dividerTargets.entries()) {
+        gsap.from(divider, {
+          scaleX: 0,
+          opacity: 0.4,
+          duration: 0.95,
+          ease: "power3.inOut",
+          transformOrigin: "center center",
+          scrollTrigger: {
+            id: `${MOTION_PREFIX}-divider-${index}`,
+            trigger: divider,
+            start: "top 90%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
 
-  return null;
+      const imageContainers = Array.from(
+        main.querySelectorAll<HTMLElement>("[data-motion-parallax]"),
+      ).filter((element) => {
+        if (element.closest("[data-no-motion='true']")) return false;
+        if (!element.querySelector("img")) return false;
+        return isVisibleElement(element);
+      });
+
+      for (const [index, container] of imageContainers.entries()) {
+        const image = container.querySelector("img");
+        if (!image) continue;
+
+        const rect = container.getBoundingClientRect();
+        if (rect.height < 175) continue;
+
+        gsap.fromTo(
+          image,
+          { yPercent: -8, scale: 1.06 },
+          {
+            yPercent: 8,
+            scale: 1,
+            ease: "none",
+            scrollTrigger: {
+              id: `${MOTION_PREFIX}-parallax-${index}`,
+              trigger: container,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 0.6,
+            },
+          },
+        );
+      }
+
+      const refresh = () => ScrollTrigger.refresh();
+      window.requestAnimationFrame(refresh);
+
+      return () => {
+        killMotionTriggers();
+      };
+    },
+    { dependencies: [pathname], scope: scopeRef },
+  );
+
+  return <div ref={scopeRef} className="hidden" aria-hidden="true" />;
 }

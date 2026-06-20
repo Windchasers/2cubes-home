@@ -11,7 +11,7 @@ const EXIT_DURATION_MS = 800;
 const HOME_REVEAL_DURATION_MS = 800;
 
 export default function SiteEntrance() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState<boolean | null>(null);
   const [isExiting, setIsExiting] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
@@ -23,9 +23,14 @@ export default function SiteEntrance() {
       const hasSeen = window.sessionStorage.getItem(ENTRANCE_SESSION_KEY) === "1";
       if (hasSeen) {
         setIsVisible(false);
+        window.dispatchEvent(new CustomEvent("site-enter-complete"));
+      } else {
+        setIsVisible(true);
+        window.dispatchEvent(new CustomEvent("site-entrance-mounted"));
       }
     } catch {
-      // Keep visible
+      setIsVisible(true);
+      window.dispatchEvent(new CustomEvent("site-entrance-mounted"));
     }
 
     return () => {
@@ -57,6 +62,7 @@ export default function SiteEntrance() {
 
     exitTimerRef.current = window.setTimeout(() => {
       setIsVisible(false);
+      window.dispatchEvent(new CustomEvent("site-enter-complete"));
     }, EXIT_DURATION_MS);
 
     revealTimerRef.current = window.setTimeout(() => {
@@ -64,22 +70,10 @@ export default function SiteEntrance() {
     }, HOME_REVEAL_DURATION_MS + 100);
   };
 
-  if (!isVisible) return null;
+  if (isVisible !== true) return null;
 
   return (
-    <>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            try {
-              if (window.sessionStorage.getItem('${ENTRANCE_SESSION_KEY}') === '1') {
-                document.documentElement.classList.add('hide-entrance-fast');
-              }
-            } catch(e) {}
-          `,
-        }}
-      />
-      <div
+    <div
         id="site-entrance-wrapper"
         data-state={isExiting ? "exiting" : "idle"}
         className={`site-entrance fixed inset-0 z-[300] cursor-pointer bg-white opacity-100 ${isExiting ? "site-entrance--exiting" : ""}`}
@@ -115,6 +109,5 @@ export default function SiteEntrance() {
         Click anywhere to enter
       </div>
     </div>
-    </>
   );
 }
